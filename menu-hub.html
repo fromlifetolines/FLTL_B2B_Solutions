@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生活線條 // 數位菜單與集點入口</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="生活線條 B2B 實體入口。體驗極致工藝之 NFC 感應數位菜單與 LINE 官方好友秒速劫持集點。">
+  <meta name="author" content="生活線條 From Life To Lines">
+  
+  <!-- Google Fonts: Space Grotesk & Noto Sans TC & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Design System & Visual Tokens */
+    :root {
+      --accent-blue: #3F8CFF;
+      --accent-purple: #7F56D9;
+      --accent-gradient: linear-gradient(135deg, #3F8CFF 0%, #7F56D9 100%);
+      --bg-dark: #07090E;
+      --text-primary: #FFFFFF;
+      --text-secondary: #8E9196;
+      --text-disabled: #4A4D54;
+      --card-bg: rgba(13, 17, 28, 0.7);
+      --card-border: rgba(255, 255, 255, 0.06);
+      
+      --font-tech: 'Space Grotesk', sans-serif;
+      --font-title: 'Outfit', sans-serif;
+      --font-tc: 'Noto Sans TC', sans-serif;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        linear-gradient(rgba(63, 140, 255, 0.006) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(63, 140, 255, 0.006) 1px, transparent 1px);
+      background-size: 40px 40px;
+      background-position: center;
+      font-family: var(--font-tc);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    /* Neon background aura */
+    .bg-glow {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(127, 86, 217, 0.04) 0%, rgba(63, 140, 255, 0) 70%);
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 900px;
+      z-index: 10;
+      position: relative;
+    }
+    
+    /* Header section */
+    .menu-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .menu-tech {
+      font-family: var(--font-tech);
+      font-size: 0.8rem;
+      letter-spacing: 0.3em;
+      color: var(--accent-blue);
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(63, 140, 255, 0.3);
+    }
+    
+    .menu-title {
+      font-family: var(--font-title), var(--font-tc);
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      line-height: 1.3;
+      margin-bottom: 18px;
+    }
+    
+    .menu-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    
+    /* Asymmetric Bento Grid */
+    .menu-bento {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 25px;
+      margin-bottom: 50px;
+    }
+    
+    .bento-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    .bento-card:hover {
+      border-color: rgba(63, 140, 255, 0.2);
+      transform: translateY(-4px);
+    }
+    
+    /* Non-symmetric Layout rules */
+    .card-large {
+      grid-column: span 7;
+      grid-row: span 1;
+    }
+    
+    .card-small {
+      grid-column: span 5;
+      grid-row: span 1;
+    }
+    
+    .card-full {
+      grid-column: span 12;
+      grid-row: span 1;
+      text-align: center;
+      align-items: center;
+      background: linear-gradient(180deg, rgba(13, 17, 28, 0.7) 0%, rgba(7, 9, 14, 0.9) 100%);
+    }
+    
+    .card-tag {
+      font-family: var(--font-tech);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--accent-purple);
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+    
+    .item-title {
+      font-family: var(--font-title), var(--font-tc);
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    
+    .item-desc {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+    
+    .item-price {
+      font-family: var(--font-tech);
+      font-size: 1.1rem;
+      color: var(--accent-blue);
+      font-weight: 700;
+      margin-top: auto;
+    }
+    
+    /* LINE Point Hijacker CTA */
+    .hijack-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .hijack-btn {
+      width: 100%;
+      max-width: 550px;
+      background: var(--accent-gradient);
+      color: var(--text-primary);
+      border: none;
+      border-radius: 50px;
+      padding: 22px;
+      font-family: var(--font-tech), var(--font-tc);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 10px 30px rgba(63, 140, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hijack-btn:hover {
+      box-shadow: 0 15px 40px rgba(127, 86, 217, 0.5);
+      transform: translateY(-2px);
+    }
+    
+    .hijack-btn:active {
+      transform: translateY(0);
+    }
+    
+    .hijack-btn::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+      transform: scale(0.5);
+      transition: transform 0.5s ease-out;
+      pointer-events: none;
+    }
+    
+    .hijack-btn:hover::after {
+      transform: scale(1.2);
+    }
+    
+    /* Overlay loader state */
+    .loader-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 9, 14, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      animation: fadeIn 0.4s ease-out;
+      text-align: center;
+      padding: 30px;
+    }
+    
+    .glow-loader {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(63, 140, 255, 0.1);
+      border-radius: 50%;
+      border-top-color: var(--accent-blue);
+      border-bottom-color: var(--accent-purple);
+      animation: spin 1.2s linear infinite;
+      margin-bottom: 25px;
+      box-shadow: 0 0 20px rgba(63, 140, 255, 0.2);
+    }
+    
+    .loader-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    
+    .loader-subtext {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      max-width: 400px;
+      line-height: 1.6;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+    
+    @media (max-width: 768px) {
+      .card-large, .card-small {
+        grid-column: span 12;
+      }
+      .menu-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  
+  <div class="container">
+    
+    <!-- Header -->
+    <header class="menu-header">
+      <div class="menu-tech">NFC DIGITAL SPACE PORTAL //</div>
+      <h1 class="menu-title">生活線條主廚菜單</h1>
+      <p class="menu-subtitle">
+        輕觸桌面 NFC 感應桌牌即可隨時載入型錄。本季主廚特選以台灣在地桂花、黑松露入菜，提供精緻極簡的空間餐飲體驗。
+      </p>
+    </header>
+    
+    <!-- Bento Grid Menu Items -->
+    <div class="menu-bento">
+      <!-- Item 1 -->
+      <div class="bento-card card-large">
+        <div class="card-tag">SIGNATURE DRINK // 主廚特調</div>
+        <h2 class="item-title">煙燻桂花烏龍特調</h2>
+        <p class="item-desc">
+          選用阿里山高山烏龍作為基底，注入在地桂花蜜與淡淡的小麥香氣。杯口覆蓋以蘋果木低溫煙燻的綿密氣泡，層次豐富，清爽回甘。
+        </p>
+        <div class="item-price">NT$ 220</div>
+      </div>
+      
+      <!-- Item 2 -->
+      <div class="bento-card card-small">
+        <div class="card-tag">DESSERT // 隱藏甜點</div>
+        <h2 class="item-title">極黑松露舒芙蕾</h2>
+        <p class="item-desc">
+          當日現做舒芙蕾蓬鬆柔軟，淋上特製濃郁松露奶霜，微苦可可粉與松露香氣完美交織。
+        </p>
+        <div class="item-price">NT$ 280</div>
+      </div>
+      
+      <!-- Item 3 -->
+      <div class="bento-card card-full">
+        <div class="card-tag">CHEF'S SIGNATURE // 主廚主打</div>
+        <h2 class="item-title">低溫烹調熟成牛小排</h2>
+        <p class="item-desc" style="max-width: 600px;">
+          經過 72 小時低溫熟成烹調，搭配香煎時蔬與牛骨精燉紅酒醬汁，牛小排入口即化，肉汁豐腴。
+        </p>
+        <div class="item-price">NT$ 680</div>
+      </div>
+    </div>
+    
+    <!-- LINE Hijack Button -->
+    <div class="hijack-section">
+      <button type="button" class="hijack-btn" id="hijack-btn">
+        TOUCH TO CAPTURE POINTS // 輕觸領取 LINE 集點
+      </button>
+    </div>
+    
+  </div>
+  
+  <!-- Simulated LINE join overlay -->
+  <div class="loader-overlay" id="loader-overlay" style="display: none;">
+    <div class="glow-loader"></div>
+    <div class="loader-text" id="loader-text">正在偵測 LINE 官方帳號連結...</div>
+    <div class="loader-subtext" id="loader-subtext"></div>
+  </div>
+
+  <script>
+    const hijackBtn = document.getElementById('hijack-btn');
+    const loaderOverlay = document.getElementById('loader-overlay');
+    const loaderText = document.getElementById('loader-text');
+    const loaderSubtext = document.getElementById('loader-subtext');
+    
+    hijackBtn.addEventListener('click', () => {
+      // 1. Show simulated LINE hijack window loading
+      loaderOverlay.style.display = 'flex';
+      
+      // Save LINE point trigger status to localStorage
+      localStorage.setItem('fltl_line_joined', 'true');
+      
+      setTimeout(() => {
+        loaderText.textContent = 'LINE 好友綁定成功！';
+        loaderText.style.color = '#3F8CFF';
+        loaderSubtext.textContent = '已成功為您的官方帳號注入 1 點集點！正在導引您至好評解鎖系統，請留下聯絡方式以領取實體「隱藏甜點憑證」...';
+        
+        setTimeout(() => {
+          // Redirect to review gate
+          window.location.href = 'review-gate.html';
+        }, 2000);
+        
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

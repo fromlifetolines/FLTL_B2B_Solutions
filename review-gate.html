@@ -9,31 +9,37 @@
   <meta name="description" content="生活線條 B2B 數據獲取與流量入口 - 5 星好評系統 2.0. 提供奢華利益交換與智慧星級分流，提升商家好評率並阻絕負評。">
   <meta name="author" content="生活線條 From Life To Lines">
   
-  <!-- Google Fonts: Space Grotesk & Noto Sans TC -->
+  <!-- Google Fonts: Space Grotesk, Noto Sans TC, Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
   
   <style>
-    /* Design System & Visual Tokens */
+    /* Design System - P2P Luxury Blue-Purple visual system */
     :root {
-      --accent-color: #CCFF00;
-      --bg-dark: #0D0E10;
+      --accent-blue: #3F8CFF;
+      --accent-purple: #7F56D9;
+      --accent-gradient: linear-gradient(135deg, #3F8CFF 0%, #7F56D9 100%);
+      --accent-glow: 0 0 20px rgba(63, 140, 255, 0.4);
+      --accent-glow-strong: 0 0 30px rgba(127, 86, 217, 0.6);
+      
+      --bg-dark: #07090E;
       --text-primary: #FFFFFF;
       --text-secondary: #8E9196;
       --text-disabled: #4A4D54;
-      --card-bg: rgba(255, 255, 255, 0.02);
-      --card-border: rgba(255, 255, 255, 0.08);
+      --card-bg: rgba(13, 17, 28, 0.7);
+      --card-border: rgba(255, 255, 255, 0.06);
       --input-bg: rgba(255, 255, 255, 0.015);
-      --input-border: rgba(255, 255, 255, 0.1);
+      --input-border: rgba(255, 255, 255, 0.08);
       --error-color: #FF4D4D;
       --success-color: #2EE59D;
+      --google-star-color: #F8B400;
       
       --font-tech: 'Space Grotesk', sans-serif;
+      --font-title: 'Outfit', sans-serif;
       --font-tc: 'Noto Sans TC', sans-serif;
     }
     
-    /* Reset & Base Styles */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -43,8 +49,8 @@
     body {
       background-color: var(--bg-dark);
       background-image: 
-        linear-gradient(rgba(204, 255, 0, 0.012) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(204, 255, 0, 0.012) 1px, transparent 1px);
+        linear-gradient(rgba(63, 140, 255, 0.006) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(63, 140, 255, 0.006) 1px, transparent 1px);
       background-size: 40px 40px;
       background-position: center;
       font-family: var(--font-tc);
@@ -59,12 +65,12 @@
       position: relative;
     }
     
-    /* Subtle neon background aura */
+    /* Neon background aura */
     .bg-glow {
       position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(204, 255, 0, 0.04) 0%, rgba(204, 255, 0, 0) 70%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(127, 86, 217, 0.05) 0%, rgba(63, 140, 255, 0) 70%);
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -80,7 +86,6 @@
       padding-right: 8px;
     }
     
-    /* Custom Scrollbar for NOVA UI */
     .card-content-scroll::-webkit-scrollbar {
       width: 4px;
     }
@@ -91,21 +96,21 @@
     }
     
     .card-content-scroll::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 2px;
       transition: background 0.3s;
     }
     
     .card-content-scroll::-webkit-scrollbar-thumb:hover {
-      background: var(--accent-color);
-      box-shadow: 0 0 8px var(--accent-color);
+      background: var(--accent-blue);
+      box-shadow: 0 0 8px var(--accent-blue);
     }
     
-    /* Layout & 3D Flip Card Container */
+    /* Card Container (3D Flip) */
     .card-container {
       width: 100%;
       max-width: 460px;
-      height: 600px; /* Fixed height to support rotation stability */
+      height: 600px;
       perspective: 1500px;
       z-index: 10;
       position: relative;
@@ -118,7 +123,7 @@
       transform-style: preserve-3d;
       -webkit-transform-style: preserve-3d;
       transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border-radius: 24px;
+      border-radius: 28px;
       animation: cardGlowPulse 6s infinite ease-in-out;
     }
     
@@ -126,11 +131,11 @@
       transform: rotateY(180deg);
     }
     
-    /* Extreme glow for 5-star redirection trigger */
+    /* Glowing card state on 5-star submit */
     .card-3d.power-up {
       animation: none;
-      border-color: var(--accent-color) !important;
-      box-shadow: 0 0 60px rgba(204, 255, 0, 0.45), inset 0 0 20px rgba(204, 255, 0, 0.15) !important;
+      border-color: var(--accent-blue) !important;
+      box-shadow: 0 0 60px rgba(63, 140, 255, 0.45), inset 0 0 20px rgba(127, 86, 217, 0.15) !important;
       transition: all 0.2s ease-out;
     }
     
@@ -141,8 +146,8 @@
       height: 100%;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      border-radius: 24px;
-      background: rgba(13, 14, 16, 0.75);
+      border-radius: 28px;
+      background: var(--card-bg);
       border: 1px solid var(--card-border);
       backdrop-filter: blur(25px);
       -webkit-backdrop-filter: blur(25px);
@@ -173,19 +178,20 @@
       font-family: var(--font-tech);
       font-size: 0.75rem;
       letter-spacing: 0.15em;
-      color: var(--accent-color);
+      color: var(--accent-blue);
       margin-bottom: 8px;
       font-weight: 700;
-      text-shadow: 0 0 10px rgba(204, 255, 0, 0.25);
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(63, 140, 255, 0.25);
     }
     
     .title-main {
-      font-family: var(--font-tc);
-      font-weight: 900;
+      font-family: var(--font-title), var(--font-tc);
+      font-weight: 800;
       font-size: 1.8rem;
       color: var(--text-primary);
       margin-bottom: 12px;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       line-height: 1.3;
     }
     
@@ -217,7 +223,7 @@
       font-family: var(--font-tech);
       background: var(--input-bg);
       border: 1px solid var(--input-border);
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 14px 18px;
       color: var(--text-primary);
       font-size: 0.95rem;
@@ -233,12 +239,12 @@
     }
     
     .input-group input:focus, .input-group textarea:focus {
-      border-color: var(--accent-color);
-      box-shadow: 0 0 15px rgba(204, 255, 0, 0.12);
-      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 15px rgba(63, 140, 255, 0.12);
+      background: rgba(255, 255, 255, 0.03);
     }
     
-    /* Validation & Hints styling */
+    /* Validation styling */
     .error-msg {
       display: none;
       color: var(--error-color);
@@ -258,14 +264,14 @@
     }
     
     input:user-valid {
-      border-color: var(--success-color) !important;
+      border-color: var(--accent-blue) !important;
     }
     
     /* Buttons */
     .submit-btn {
       width: 100%;
-      border-radius: 12px;
-      padding: 16px;
+      border-radius: 50px;
+      padding: 18px;
       font-size: 0.95rem;
       font-weight: 700;
       border: 1px solid var(--input-border);
@@ -273,22 +279,22 @@
       color: var(--text-disabled);
       cursor: not-allowed;
       transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      font-family: var(--font-tech);
+      font-family: var(--font-tech), var(--font-tc);
       margin-top: 10px;
       letter-spacing: 0.05em;
     }
     
     .submit-btn.active {
-      background: var(--accent-color);
-      color: var(--bg-dark);
-      border-color: var(--accent-color);
+      background: var(--accent-gradient);
+      color: var(--text-primary);
+      border: none;
       cursor: pointer;
-      box-shadow: 0 4px 20px rgba(204, 255, 0, 0.25);
-      font-weight: 900;
+      box-shadow: 0 4px 20px rgba(63, 140, 255, 0.3);
+      font-weight: 700;
     }
     
     .submit-btn.active:hover {
-      box-shadow: 0 6px 25px rgba(204, 255, 0, 0.5);
+      box-shadow: 0 6px 25px rgba(127, 86, 217, 0.5);
       transform: translateY(-2px);
     }
     
@@ -296,7 +302,7 @@
       transform: translateY(0);
     }
     
-    /* Step 2: Star Rating UI */
+    /* Star Rating */
     .rating-container {
       margin: 25px 0;
       display: flex;
@@ -327,8 +333,8 @@
     }
     
     .star.highlighted {
-      color: var(--accent-color);
-      text-shadow: 0 0 15px rgba(204, 255, 0, 0.6);
+      color: var(--accent-blue);
+      text-shadow: 0 0 15px rgba(63, 140, 255, 0.6);
     }
     
     .rating-value-display {
@@ -338,7 +344,7 @@
       letter-spacing: 0.05em;
     }
     
-    /* Step 2.1: Intercepted Feedback Form */
+    /* 1-4 Star Feedback Form */
     .feedback-form-container {
       margin-top: 20px;
       border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -348,7 +354,7 @@
     
     .feedback-instruction {
       font-size: 0.85rem;
-      color: var(--accent-color);
+      color: var(--accent-blue);
       line-height: 1.5;
       margin-bottom: 20px;
       font-style: italic;
@@ -363,7 +369,7 @@
       min-height: 90px;
     }
     
-    /* Step 2.2: Redirection Loader */
+    /* Loader */
     .redirect-state-container {
       display: flex;
       flex-direction: column;
@@ -377,21 +383,22 @@
     .glow-loader {
       width: 40px;
       height: 40px;
-      border: 3px solid rgba(204, 255, 0, 0.1);
+      border: 3px solid rgba(63, 140, 255, 0.1);
       border-radius: 50%;
-      border-top-color: var(--accent-color);
+      border-top-color: var(--accent-blue);
+      border-bottom-color: var(--accent-purple);
       animation: spin 1s linear infinite;
       margin-bottom: 20px;
-      box-shadow: 0 0 15px rgba(204, 255, 0, 0.2);
+      box-shadow: 0 0 15px rgba(63, 140, 255, 0.2);
     }
     
     .redirect-text {
       font-size: 0.9rem;
-      color: var(--accent-color);
+      color: var(--accent-blue);
       font-weight: 500;
     }
     
-    /* Step 2.3: Success State */
+    /* Success State */
     .success-state-container {
       display: flex;
       flex-direction: column;
@@ -406,15 +413,15 @@
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background: var(--accent-color);
-      color: var(--bg-dark);
+      background: var(--accent-gradient);
+      color: var(--text-primary);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.8rem;
       font-weight: 700;
       margin-bottom: 25px;
-      box-shadow: 0 0 25px rgba(204, 255, 0, 0.4);
+      box-shadow: 0 0 25px rgba(127, 86, 217, 0.4);
     }
     
     .success-text {
@@ -425,12 +432,12 @@
       font-weight: 300;
     }
     
-    /* Integration Hub Debug Console Container */
+    /* n8n Integration Hub */
     .integration-hub {
       width: 100%;
       max-width: 460px;
       margin-top: 25px;
-      background: rgba(13, 14, 16, 0.85);
+      background: rgba(13, 17, 28, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 16px;
       backdrop-filter: blur(15px);
@@ -461,7 +468,7 @@
     
     .hub-toggle:hover {
       background: rgba(255, 255, 255, 0.03);
-      color: var(--accent-color);
+      color: var(--accent-blue);
     }
     
     .hub-title-container {
@@ -472,11 +479,11 @@
     .pulse-indicator {
       width: 6px;
       height: 6px;
-      background: var(--accent-color);
+      background: var(--accent-blue);
       border-radius: 50%;
       margin-right: 10px;
       display: inline-block;
-      box-shadow: 0 0 8px var(--accent-color);
+      box-shadow: 0 0 8px var(--accent-blue);
       animation: indicatorPulse 2s infinite;
     }
     
@@ -501,7 +508,7 @@
       font-size: 0.7rem;
       color: #8E9196;
       white-space: pre-wrap;
-      background: #090A0C;
+      background: #040508;
       overflow-y: auto;
       max-height: 190px;
       text-align: left;
@@ -509,30 +516,150 @@
       border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
     
-    .console-log::-webkit-scrollbar {
-      width: 4px;
+    /* Mock Google Review Modal */
+    .google-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: fadeIn 0.3s ease-out;
     }
-    .console-log::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 2px;
+    
+    .google-card {
+      background: #FFFFFF;
+      color: #202124;
+      width: 100%;
+      max-width: 440px;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      position: relative;
+      font-family: 'Google Sans', Roboto, var(--font-tc);
+      animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .console-log::-webkit-scrollbar-thumb:hover {
-      background: var(--accent-color);
+    
+    .google-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .shop-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #F1F3F4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--accent-purple);
+      border: 1px solid #DADCE0;
+    }
+    
+    .google-shop-info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    
+    .google-shop-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #202124;
+    }
+    
+    .google-rating-desc {
+      font-size: 0.8rem;
+      color: #5F6368;
+      margin-top: 2px;
+    }
+    
+    .google-stars-display {
+      font-size: 1.8rem;
+      color: var(--google-star-color);
+      margin: 15px 0;
+      text-align: left;
+    }
+    
+    .google-textarea-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+    
+    .google-textarea {
+      width: 100%;
+      border: 1px solid #DADCE0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: #3C4043;
+      resize: vertical;
+      min-height: 80px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    
+    .google-textarea:focus {
+      border-color: #1A73E8;
+    }
+    
+    .google-btn-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+    
+    .google-btn {
+      background: none;
+      border: none;
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .google-btn-cancel {
+      color: #1A73E8;
+    }
+    
+    .google-btn-cancel:hover {
+      background: #F8F9FA;
+    }
+    
+    .google-btn-post {
+      background: #1A73E8;
+      color: #FFFFFF;
+    }
+    
+    .google-btn-post:hover {
+      background: #1557B0;
+      box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
     }
     
     /* Animations */
     @keyframes cardGlowPulse {
       0% {
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 15px rgba(204, 255, 0, 0.02);
-        border-color: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 15px rgba(63, 140, 255, 0.02);
+        border-color: rgba(255, 255, 255, 0.06);
       }
       50% {
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(204, 255, 0, 0.1);
-        border-color: rgba(204, 255, 0, 0.15);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(127, 86, 217, 0.08);
+        border-color: rgba(127, 86, 217, 0.12);
       }
       100% {
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 15px rgba(204, 255, 0, 0.02);
-        border-color: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 15px rgba(63, 140, 255, 0.02);
+        border-color: rgba(255, 255, 255, 0.06);
       }
     }
     
@@ -561,7 +688,7 @@
       to { opacity: 1; transform: scale(1); }
     }
     
-    /* Responsive Breakpoints */
+    /* Responsive */
     @media (max-width: 480px) {
       .card-container {
         height: 570px;
@@ -597,8 +724,7 @@
           
           <div class="input-group">
             <label for="phone">PHONE NUMBER // 手機號碼</label>
-            <!-- Taiwan format pattern or standard global numbers -->
-            <input type="tel" id="phone" name="phone" required placeholder="例如：0912345678" pattern="^(\+?886\-?|0)?9\d{8}$|^(\+?[0-9]{10,15})$" autocomplete="tel">
+            <input type="tel" id="phone" name="phone" required placeholder="例如：0912345678" pattern="^^09\d{8}$|^\+?[0-9]{10,15}$" autocomplete="tel">
             <div class="error-msg" id="phone-error">請輸入有效的手機號碼格式 (例如 0912345678)</div>
           </div>
           
@@ -654,21 +780,42 @@
           <div id="redirect-state" class="redirect-state-container" style="display: none;">
             <div class="glow-loader"></div>
             <p class="redirect-text">
-              正在導向 Google 商家評論頁面，感謝您的 5 星好評！
+              正在準備發布 Google 評論...
             </p>
           </div>
           
           <!-- Step 2.3: Final Success State (Hidden by default) -->
           <div id="success-state" class="success-state-container" style="display: none;">
             <div class="success-icon">✓</div>
-            <h2 class="title-main">回饋已送出</h2>
+            <h2 class="title-main">服務體驗已上傳</h2>
             <p class="success-text">
-              主理人已收到您的反映，我們將會以最快速度進行調整。隱藏禮遇憑證已發送至您的信箱與簡訊，請於結帳時出示！
+              隱藏禮遇憑證已同步發送至您的信箱與簡訊，請於結帳時出示！
             </p>
           </div>
         </div>
       </div>
       
+    </div>
+  </div>
+  
+  <!-- Mock Google Review Popup Modal (Hidden by default) -->
+  <div class="google-modal" id="google-modal" style="display: none;">
+    <div class="google-card">
+      <div class="google-header">
+        <div class="shop-avatar">L</div>
+        <div class="google-shop-info">
+          <span class="google-shop-name">生活線條 From Life To Lines</span>
+          <span class="google-rating-desc">在 Google Maps 上公開發佈評論</span>
+        </div>
+      </div>
+      <div class="google-stars-display">★★★★★</div>
+      <div class="google-textarea-group">
+        <textarea class="google-textarea" id="google-review-text" placeholder="分享您的體驗細節（服務、餐點或氣氛）..."></textarea>
+      </div>
+      <div class="google-btn-row">
+        <button type="button" class="google-btn google-btn-cancel" id="google-cancel-btn">取消</button>
+        <button type="button" class="google-btn google-btn-post" id="google-post-btn">發佈</button>
+      </div>
     </div>
   </div>
   
@@ -696,7 +843,8 @@ Waiting for user submission.</div>
       feedback: '',
       timestamp: '',
       joined_timestamp: '',
-      trigger_retention_day7: ''
+      trigger_retention_day7: '',
+      line_points_loaded: 0
     };
     
     // Elements Selection
@@ -716,6 +864,11 @@ Waiting for user submission.</div>
     const redirectState = document.getElementById('redirect-state');
     const successState = document.getElementById('success-state');
     
+    const googleModal = document.getElementById('google-modal');
+    const googleCancelBtn = document.getElementById('google-cancel-btn');
+    const googlePostBtn = document.getElementById('google-post-btn');
+    const googleReviewText = document.getElementById('google-review-text');
+    
     const hubToggleBtn = document.getElementById('hub-toggle-btn');
     const hubContent = document.getElementById('hub-content');
     const consoleLog = document.getElementById('console-log');
@@ -724,10 +877,10 @@ Waiting for user submission.</div>
     // Debug Hub Logger
     function updateDebugConsole(message, isPayload = false, n8nFlowJson = '') {
       const timestamp = new Date().toLocaleTimeString();
-      let logHtml = `<div style="margin-bottom: 8px;"><span style="color: var(--accent-color);">[${timestamp}]</span> ${message}</div>`;
+      let logHtml = `<div style="margin-bottom: 8px;"><span style="color: var(--accent-blue);">[${timestamp}]</span> ${message}</div>`;
       if (isPayload) {
         logHtml = `<div style="margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; white-space: pre;">` +
-                  `<span style="color: var(--accent-color);">[${timestamp}] CRM LEAD DATA JSON:</span>\n${message}</div>`;
+                  `<span style="color: var(--accent-blue);">[${timestamp}] CRM LEAD DATA JSON:</span>\n${message}</div>`;
                   
         if (n8nFlowJson) {
           logHtml += `<div style="margin-top: 12px; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; white-space: pre;">` +
@@ -750,7 +903,6 @@ Waiting for user submission.</div>
     
     // Step 1: Lead Gen Form Validation & Button Power-up Glow
     function validateFormInputs() {
-      // Use checkValidity to verify HTML5 constraint patterns
       const isPhoneValid = phoneInput.checkValidity();
       const isEmailValid = emailInput.checkValidity();
       
@@ -773,11 +925,9 @@ Waiting for user submission.</div>
     step1Form.addEventListener('submit', (e) => {
       e.preventDefault();
       
-      // Explicit verification
       const isPhoneValid = phoneInput.checkValidity();
       const isEmailValid = emailInput.checkValidity();
       
-      // Update custom validation UI state (forces error-msgs display)
       if (!isPhoneValid) {
         phoneInput.classList.add('user-invalid-fallback');
       } else {
@@ -801,7 +951,6 @@ Waiting for user submission.</div>
       
       updateDebugConsole(`Step 1 Complete: Captured Phone = ${leadData.phone}, Email = ${leadData.email}. Initiating 3D flip...`);
       
-      // Transition class trigger
       cardContainer.classList.add('flipped');
     });
     
@@ -809,18 +958,15 @@ Waiting for user submission.</div>
     let currentSelectedRating = 0;
     
     stars.forEach((star) => {
-      // Highlight stars on hover
       star.addEventListener('mouseover', () => {
         const hoverVal = parseInt(star.getAttribute('data-value'));
         renderStarSelection(hoverVal);
       });
       
-      // Revert highlight on mouse leave
       star.addEventListener('mouseout', () => {
         renderStarSelection(currentSelectedRating);
       });
       
-      // Click selection
       star.addEventListener('click', () => {
         const selectVal = parseInt(star.getAttribute('data-value'));
         currentSelectedRating = selectVal;
@@ -856,42 +1002,19 @@ Waiting for user submission.</div>
     function processDividerLogic(rating) {
       leadData.rating = rating;
       
-      // Reset forms display
       feedbackForm.style.display = 'none';
       redirectState.style.display = 'none';
       successState.style.display = 'none';
       
       if (rating === 5) {
-        // 5-Star: REDIRECT TO GOOGLE (Placeholder)
-        cardContainer.classList.add('power-up');
-        redirectState.style.display = 'block';
-        updateDebugConsole(`Step 2 (5 Stars Select): Glowing Power-up enabled. Preparing to open Google Review URL.`);
-        
-        setTimeout(() => {
-          // Open official placeholder review page
-          window.open('https://g.page/r/fromlifetolines_test_shop/review', '_blank');
-          
-          cardContainer.classList.remove('power-up');
-          redirectState.style.display = 'none';
-          
-          // Complete packaging data
-          leadData.feedback = '[5-Star Review Redirected to Google]';
-          packageAndSendPayload();
-          
-          // Render success state
-          ratingArea.style.display = 'none';
-          backHeader.style.display = 'none';
-          successState.style.display = 'block';
-          successState.querySelector('.title-main').textContent = '感謝您的 5 星好評！';
-          successState.querySelector('.success-text').textContent = '我們已為您在新分頁中開啟 Google 評論頁面。隱藏禮遇憑證已同步發送至您的信箱與手機，請於結帳時出示！';
-        }, 500);
-        
+        // 5-Star: Trigger Google Review Modal Popup
+        updateDebugConsole(`Step 2 (5 Stars Select): Opening Mock Google Review Panel.`);
+        googleModal.style.display = 'flex';
       } else {
-        // 1-4 Stars: PREVENT REDIRECT / INTERCEPT PRIVATE FEEDBACK
+        // 1-4 Stars: Intercept Feedback
         feedbackForm.style.display = 'block';
         updateDebugConsole(`Step 2 (1-4 Stars Intercept): Rating ${rating} detected. Diverting from Google Business Profile to private feedback portal.`);
         
-        // Dynamic scroll behavior trigger
         const scrollContainer = document.querySelector('.card-back .card-content-scroll');
         setTimeout(() => {
           scrollContainer.scrollTo({
@@ -901,6 +1024,45 @@ Waiting for user submission.</div>
         }, 100);
       }
     }
+    
+    // Google review cancel handler
+    googleCancelBtn.addEventListener('click', () => {
+      googleModal.style.display = 'none';
+      currentSelectedRating = 0;
+      renderStarSelection(0);
+      ratingDisplay.textContent = '點擊星星進行評分';
+      updateDebugConsole('Google review cancelled. Resetting rating picker.');
+    });
+    
+    // Google review post handler
+    googlePostBtn.addEventListener('click', () => {
+      googleModal.style.display = 'none';
+      
+      // Calculate inputs
+      cardContainer.classList.add('power-up');
+      redirectState.style.display = 'block';
+      
+      updateDebugConsole(`Google Review posted: "${googleReviewText.value.trim()}". Triggering Google redirection.`);
+      
+      setTimeout(() => {
+        // Open official review tab in background
+        window.open('https://g.page/r/fromlifetolines_test_shop/review', '_blank');
+        
+        cardContainer.classList.remove('power-up');
+        redirectState.style.display = 'none';
+        
+        // Complete packaging data
+        leadData.feedback = googleReviewText.value.trim() || '[5-Star Review Posted on Google]';
+        packageAndSendPayload();
+        
+        // Render success state
+        ratingArea.style.display = 'none';
+        backHeader.style.display = 'none';
+        successState.style.display = 'block';
+        successState.querySelector('.title-main').textContent = '感謝您的 5 星好評！';
+        successState.querySelector('.success-text').textContent = '我們已在新分頁中為您開啟 Google 評論頁面。隱藏禮遇憑證已同步發送至您的信箱與手機，請於結帳時出示！';
+      }, 500);
+    });
     
     // 1-4 Star Feedback Form Submit Handler
     feedbackForm.addEventListener('submit', (e) => {
@@ -919,31 +1081,35 @@ Waiting for user submission.</div>
       
       updateDebugConsole('Feedback captured. Processing package compilation...');
       
-      // Hide feedback panel and rating area
       feedbackForm.style.display = 'none';
       ratingArea.style.display = 'none';
       backHeader.style.display = 'none';
       
-      // Package final JSON
       packageAndSendPayload();
       
-      // Render success message
       successState.style.display = 'block';
       successState.querySelector('.title-main').textContent = '回饋已成功送出';
       successState.querySelector('.success-text').textContent = '主理人已親自收到您的反映，我們將會以最快速度調整服務品質。隱藏禮遇憑證已發送至您的信箱與手機，請於結帳時出示！';
     });
     
-    // Step 3: Package Data in JSON format and report
+    // Step 3: Package Data and telemetry broadcast
     function packageAndSendPayload() {
       const now = new Date();
       leadData.timestamp = now.toISOString();
       leadData.joined_timestamp = now.toISOString();
       
-      // Calculate 7-day retention trigger date
+      // Calculate 7-day retention
       const retentionDate = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
       leadData.trigger_retention_day7 = retentionDate.toISOString();
       
+      // Fetch LINE point injection status from menu-hub.html
+      const linePointLoaded = localStorage.getItem('fltl_line_joined') === 'true' ? 1 : 0;
+      leadData.line_points_loaded = linePointLoaded;
+      
       const packedJSON = JSON.stringify(leadData, null, 2);
+      
+      // Broadcast telemetry for local storage dynamic dashboard listening
+      localStorage.setItem('fltl_latest_telemetry', packedJSON);
       
       // Simulate n8n outbound flow
       const n8nAutomationFlow = {
@@ -953,11 +1119,12 @@ Waiting for user submission.</div>
           email: leadData.email
         },
         execution_time: leadData.trigger_retention_day7,
+        line_points_loaded: leadData.line_points_loaded,
         actions: [
           {
             channel: "LINE_Message_API",
             template: "老客回購券",
-            message: `【生活線條 // 老客專屬二刷回客券】\n親愛的顧客您好，感謝您於 7 天前光臨本店！送您一張隱藏版特調憑證，限時 7 天有效，期待與您再次相遇！\n優惠代碼：RETENTION_7DAY_CCFF00`
+            message: `【生活線條 // 老客專屬二刷回客券】\n親愛的顧客您好，感謝您於 7 天前光臨本店並參與集點！送您一張隱藏版特調憑證，限時 7 天有效，期待與您再次相遇！\n優惠代碼：RETENTION_7DAY_CCFF00`
           },
           {
             channel: "Email_API",
@@ -969,9 +1136,9 @@ Waiting for user submission.</div>
       
       const n8nFlowJSON = JSON.stringify(n8nAutomationFlow, null, 2);
       
-      // Console logging matching requirements
-      console.log("%c[n8n Automation Payload Prepared]", "color: #CCFF00; font-weight: bold; background: #0D0E10; padding: 4px 8px; border-radius: 4px;", leadData);
-      console.log("%c[n8n 7-Day Marketing Automation Flow]", "color: #FFB800; font-weight: bold; background: #0D0E10; padding: 4px 8px; border-radius: 4px;", n8nAutomationFlow);
+      // Console logging
+      console.log("%c[n8n Automation Payload Prepared]", "color: #3F8CFF; font-weight: bold; background: #07090E; padding: 4px 8px; border-radius: 4px;", leadData);
+      console.log("%c[n8n 7-Day Marketing Automation Flow]", "color: #7F56D9; font-weight: bold; background: #07090E; padding: 4px 8px; border-radius: 4px;", n8nAutomationFlow);
       
       // Visual telemetry reporting
       updateDebugConsole(packedJSON, true, n8nFlowJSON);

@@ -6,24 +6,30 @@
   <title>生活線條 // B2B 商業空間解決方案入口</title>
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="生活線條 B2B 商業解決方案原型門戶。快速存取好評系統、商家管理後台與企業方案著陸頁。">
+  <meta name="description" content="生活線條 B2B 商業解決方案原型門戶。快速存取數位菜單、好評系統、商家管理後台與企業方案著陸頁。">
   <meta name="author" content="生活線條 From Life To Lines">
   
-  <!-- Google Fonts: Space Grotesk & Noto Sans TC -->
+  <!-- Google Fonts: Space Grotesk & Noto Sans TC & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
   
   <style>
+    /* Design System - P2P Luxury Blue-Purple visual system */
     :root {
-      --accent-color: #CCFF00;
-      --bg-dark: #0D0E10;
+      --accent-blue: #3F8CFF;
+      --accent-purple: #7F56D9;
+      --accent-gradient: linear-gradient(135deg, #3F8CFF 0%, #7F56D9 100%);
+      
+      --bg-dark: #07090E;
       --text-primary: #FFFFFF;
       --text-secondary: #8E9196;
-      --card-bg: rgba(255, 255, 255, 0.02);
+      --text-disabled: #4A4D54;
+      --card-bg: rgba(13, 17, 28, 0.7);
       --card-border: rgba(255, 255, 255, 0.06);
       
       --font-tech: 'Space Grotesk', sans-serif;
+      --font-title: 'Outfit', sans-serif;
       --font-tc: 'Noto Sans TC', sans-serif;
     }
     
@@ -36,8 +42,8 @@
     body {
       background-color: var(--bg-dark);
       background-image: 
-        linear-gradient(rgba(204, 255, 0, 0.008) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(204, 255, 0, 0.008) 1px, transparent 1px);
+        linear-gradient(rgba(63, 140, 255, 0.006) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(63, 140, 255, 0.006) 1px, transparent 1px);
       background-size: 40px 40px;
       background-position: center;
       font-family: var(--font-tc);
@@ -55,9 +61,9 @@
     /* Neon background aura */
     .bg-glow {
       position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(204, 255, 0, 0.03) 0%, rgba(204, 255, 0, 0) 70%);
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, rgba(127, 86, 217, 0.04) 0%, rgba(63, 140, 255, 0) 70%);
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -67,7 +73,7 @@
     
     .portal-container {
       width: 100%;
-      max-width: 500px;
+      max-width: 520px;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 32px;
@@ -89,16 +95,18 @@
       font-family: var(--font-tech);
       font-size: 0.75rem;
       letter-spacing: 0.25em;
-      color: var(--accent-color);
+      color: var(--accent-blue);
       font-weight: 700;
       margin-bottom: 15px;
-      text-shadow: 0 0 10px rgba(204, 255, 0, 0.2);
+      text-transform: uppercase;
+      text-shadow: 0 0 10px rgba(63, 140, 255, 0.2);
     }
     
     .title-main {
+      font-family: var(--font-title), var(--font-tc);
       font-size: 1.8rem;
-      font-weight: 900;
-      letter-spacing: 1px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
       line-height: 1.3;
       margin-bottom: 15px;
     }
@@ -114,7 +122,7 @@
     .nav-list {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 15px;
       margin-bottom: 25px;
     }
     
@@ -123,20 +131,20 @@
       flex-direction: column;
       align-items: center;
       text-decoration: none;
-      background: rgba(255, 255, 255, 0.015);
+      background: rgba(255, 255, 255, 0.01);
       border: 1px solid var(--card-border);
-      padding: 18px 24px;
-      border-radius: 16px;
+      padding: 16px 20px;
+      border-radius: 18px;
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       position: relative;
       overflow: hidden;
     }
     
     .nav-link:hover {
-      background: rgba(204, 255, 0, 0.03);
-      border-color: var(--accent-color);
+      background: rgba(63, 140, 255, 0.02);
+      border-color: var(--accent-blue);
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(204, 255, 0, 0.05);
+      box-shadow: 0 5px 15px rgba(63, 140, 255, 0.05);
     }
     
     .nav-link:active {
@@ -144,21 +152,43 @@
     }
     
     .link-title {
-      font-size: 1rem;
+      font-family: var(--font-title), var(--font-tc);
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--text-primary);
       margin-bottom: 4px;
       transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     
     .nav-link:hover .link-title {
-      color: var(--accent-color);
+      color: var(--accent-blue);
     }
     
     .link-subtitle {
       font-size: 0.75rem;
       color: var(--text-secondary);
       font-weight: 300;
+    }
+    
+    /* Indicator dot for active flow sequence */
+    .flow-indicator {
+      font-family: var(--font-tech);
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(127, 86, 217, 0.15);
+      color: var(--accent-purple);
+      border: 1px solid rgba(127, 86, 217, 0.25);
+    }
+    
+    .flow-indicator.admin {
+      background: rgba(63, 140, 255, 0.1);
+      color: var(--accent-blue);
+      border-color: rgba(63, 140, 255, 0.2);
     }
     
     /* Footer */
@@ -199,22 +229,40 @@
     </header>
     
     <nav class="nav-list">
+      <!-- menu-hub.html -->
+      <a href="menu-hub.html" class="nav-link">
+        <span class="link-title">
+          數位菜單與集點入口 
+          <span class="flow-indicator">FLOW 01</span>
+        </span>
+        <span class="link-subtitle">menu-hub.html // NFC感應第一入口與LINE集點劫持</span>
+      </a>
+      
       <!-- review-gate.html -->
       <a href="review-gate.html" class="nav-link">
-        <span class="link-title">5 星好評系統 2.0</span>
-        <span class="link-subtitle">Lead Gen Review Gate // 智慧星級分流與名單捕獲</span>
+        <span class="link-title">
+          5 星好評系統 2.0 
+          <span class="flow-indicator">FLOW 02</span>
+        </span>
+        <span class="link-subtitle">review-gate.html // 智慧星級分流與熟客名單捕獲</span>
       </a>
       
       <!-- b2b-admin-staging.html -->
       <a href="b2b-admin-staging.html" class="nav-link">
-        <span class="link-title">B2B 數據可視化後台</span>
-        <span class="link-subtitle">Admin Dashboard // 好友增長與負評防禦觀測</span>
+        <span class="link-title">
+          B2B 數據可視化後台 
+          <span class="flow-indicator admin">ADMIN</span>
+        </span>
+        <span class="link-subtitle">b2b-admin-staging.html // 實時活跳折線圖與防禦觀測</span>
       </a>
       
       <!-- enterprise-landing.html -->
       <a href="enterprise-landing.html" class="nav-link">
-        <span class="link-title">企業方案 Landing Page</span>
-        <span class="link-subtitle">Enterprise Landing Page // 實體感應入口產品介紹</span>
+        <span class="link-title">
+          企業方案 Landing Page 
+          <span class="flow-indicator admin">PORTAL</span>
+        </span>
+        <span class="link-subtitle">enterprise-landing.html // 實體空間感應器商業閉環介紹</span>
       </a>
     </nav>
     
