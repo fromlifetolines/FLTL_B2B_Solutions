@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生活線條 // B2B 管理後台 Staging</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="生活線條 B2B 數據可視化管理後台。即時監控 LINE 好友增長、CRM 名單捕獲庫與負評防禦狀態。">
+  <meta name="author" content="生活線條 From Life To Lines">
+  
+  <!-- Google Fonts: Space Grotesk & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Styling tokens */
+    :root {
+      --accent-color: #CCFF00;
+      --accent-secondary: #FFB800; /* Amber Gold for Shield & Warnings */
+      --bg-dark: #0D0E10;
+      --text-primary: #FFFFFF;
+      --text-secondary: #8E9196;
+      --text-disabled: #4A4D54;
+      --card-bg: rgba(255, 255, 255, 0.02);
+      --card-border: rgba(255, 255, 255, 0.06);
+      --input-bg: rgba(255, 255, 255, 0.015);
+      
+      --font-tech: 'Space Grotesk', sans-serif;
+      --font-tc: 'Noto Sans TC', sans-serif;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        linear-gradient(rgba(204, 255, 0, 0.008) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(204, 255, 0, 0.008) 1px, transparent 1px);
+      background-size: 40px 40px;
+      background-position: center;
+      font-family: var(--font-tc);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 40px;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    /* Subtle neon background aura */
+    .bg-glow-left {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(204, 255, 0, 0.025) 0%, rgba(204, 255, 0, 0) 70%);
+      top: -200px;
+      left: -200px;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .bg-glow-right {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(255, 184, 0, 0.015) 0%, rgba(255, 184, 0, 0) 70%);
+      bottom: -200px;
+      right: -200px;
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    /* Layout Header */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 25px;
+      margin-bottom: 35px;
+      z-index: 10;
+      position: relative;
+    }
+    
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .logo-tech {
+      font-family: var(--font-tech);
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: var(--accent-color);
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-shadow: 0 0 10px rgba(204, 255, 0, 0.2);
+    }
+    
+    .logo-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    
+    .shop-selector {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-family: var(--font-tech);
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-color);
+      animation: pulse 2s infinite;
+    }
+    
+    /* Bento Grid Layout */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 25px;
+      max-width: 1400px;
+      margin: 0 auto;
+      z-index: 10;
+      position: relative;
+    }
+    
+    .bento-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    .bento-card:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+      transform: translateY(-3px);
+    }
+    
+    /* Grid Spans */
+    .card-line-chart {
+      grid-column: span 5;
+      grid-row: span 1;
+    }
+    
+    .card-reviews {
+      grid-column: span 7;
+      grid-row: span 1;
+      border-left: 1px solid var(--card-border);
+    }
+    
+    .card-table {
+      grid-column: span 12;
+      grid-row: span 2;
+    }
+    
+    /* Card Header */
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 25px;
+    }
+    
+    .card-title-group {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card-tag {
+      font-family: var(--font-tech);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    
+    .card-tag.lime {
+      color: var(--accent-color);
+      text-shadow: 0 0 8px rgba(204, 255, 0, 0.15);
+    }
+    
+    .card-tag.amber {
+      color: var(--accent-secondary);
+      text-shadow: 0 0 8px rgba(255, 184, 0, 0.15);
+    }
+    
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    
+    .metric-value {
+      font-family: var(--font-tech);
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    
+    .metric-value.lime {
+      color: var(--accent-color);
+    }
+    
+    .metric-value.amber {
+      color: var(--accent-secondary);
+    }
+    
+    .metric-sub {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    
+    /* LINE Growth SVG Chart */
+    .chart-container {
+      width: 100%;
+      height: 220px;
+      margin-top: 10px;
+      position: relative;
+    }
+    
+    .dashboard-chart-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    
+    /* Intercepted Shield & Complaints Grid */
+    .reviews-content-wrapper {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 30px;
+      flex: 1;
+    }
+    
+    .shield-metric-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 184, 0, 0.015);
+      border: 1px solid rgba(255, 184, 0, 0.08);
+      border-radius: 20px;
+      padding: 20px;
+      position: relative;
+      text-align: center;
+    }
+    
+    .shield-svg {
+      width: 60px;
+      height: 60px;
+      fill: none;
+      stroke: var(--accent-secondary);
+      stroke-width: 2.5;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 0 8px rgba(255, 184, 0, 0.2));
+    }
+    
+    .complaints-scroll-feed {
+      height: 230px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      padding-right: 8px;
+    }
+    
+    /* Custom scrollbar for complaints and tables */
+    .complaints-scroll-feed::-webkit-scrollbar,
+    .table-scroll-container::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    
+    .complaints-scroll-feed::-webkit-scrollbar-track,
+    .table-scroll-container::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.01);
+      border-radius: 2px;
+    }
+    
+    .complaints-scroll-feed::-webkit-scrollbar-thumb,
+    .table-scroll-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 2px;
+    }
+    
+    .complaints-scroll-feed::-webkit-scrollbar-thumb:hover,
+    .table-scroll-container::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-color);
+    }
+    
+    .complaint-item {
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      animation: fadeIn 0.4s ease-out;
+    }
+    
+    .complaint-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 0.75rem;
+    }
+    
+    .complaint-phone {
+      font-family: var(--font-tech);
+      color: var(--text-secondary);
+    }
+    
+    .complaint-rating {
+      color: var(--accent-secondary);
+      font-weight: 700;
+    }
+    
+    .complaint-text {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+    
+    .complaint-badge-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .complaint-time {
+      font-family: var(--font-tech);
+      font-size: 0.7rem;
+      color: var(--text-disabled);
+    }
+    
+    .badge-status {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(255, 184, 0, 0.08);
+      color: var(--accent-secondary);
+      border: 1px solid rgba(255, 184, 0, 0.15);
+      letter-spacing: 0.5px;
+    }
+    
+    /* Table styling */
+    .table-scroll-container {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+    
+    .crm-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    
+    .crm-table th {
+      font-family: var(--font-tech);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    
+    .crm-table td {
+      padding: 18px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      font-weight: 300;
+    }
+    
+    .crm-table tr:hover td {
+      background: rgba(255, 255, 255, 0.01);
+    }
+    
+    .crm-phone, .crm-time {
+      font-family: var(--font-tech);
+    }
+    
+    .crm-rating {
+      color: var(--accent-color);
+      font-weight: 700;
+    }
+    
+    .export-btn {
+      background: var(--accent-color);
+      color: var(--bg-dark);
+      border: none;
+      font-family: var(--font-tech);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 15px rgba(204, 255, 0, 0.2);
+    }
+    
+    .export-btn:hover {
+      box-shadow: 0 4px 25px rgba(204, 255, 0, 0.45);
+      transform: translateY(-1px);
+    }
+    
+    .export-btn:active {
+      transform: translateY(0);
+    }
+    
+    /* Animations */
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.4; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Responsive styling */
+    @media (max-width: 1024px) {
+      .card-line-chart {
+        grid-column: span 12;
+      }
+      .card-reviews {
+        grid-column: span 12;
+      }
+      body {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating background glow aura -->
+  <div class="bg-glow-left"></div>
+  <div class="bg-glow-right"></div>
+  
+  <div class="dashboard-header">
+    <div class="logo-container">
+      <div class="logo-tech">AUTOMATED TELEMETRY PORTAL //</div>
+      <h1 class="logo-title">生活線條 B2B 數據可視化後台</h1>
+    </div>
+    
+    <div class="shop-selector">
+      <span class="status-dot"></span>
+      <span>n8n PIPELINE STATUS: CONNECTED</span>
+      <span style="color: rgba(255,255,255,0.15);">|</span>
+      <span>FROM L.T.L. TEST SHOP</span>
+    </div>
+  </div>
+  
+  <div class="bento-grid">
+    
+    <!-- Widget 1: LINE Friend Growth Chart -->
+    <div class="bento-card card-line-chart">
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="card-tag lime">LINE GROWTH ANALYSIS //</div>
+          <h2 class="card-title">LINE 好友暴利增長卡</h2>
+        </div>
+        <div style="text-align: right;">
+          <div class="metric-value lime">+284%</div>
+          <div class="metric-sub">本月累計增長好友</div>
+        </div>
+      </div>
+      
+      <!-- SVG Trend Line Chart -->
+      <div class="chart-container">
+        <svg viewBox="0 0 500 200" class="dashboard-chart-svg">
+          <!-- Grid lines -->
+          <line x1="20" y1="20" x2="480" y2="20" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+          <line x1="20" y1="70" x2="480" y2="70" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+          <line x1="20" y1="120" x2="480" y2="120" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+          <line x1="20" y1="170" x2="480" y2="170" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+          
+          <!-- X-Axis Labels -->
+          <text x="20" y="190" fill="#4A4D54" font-size="9" font-family="Space Grotesk">WK 1</text>
+          <text x="135" y="190" fill="#4A4D54" font-size="9" font-family="Space Grotesk">WK 2</text>
+          <text x="250" y="190" fill="#4A4D54" font-size="9" font-family="Space Grotesk">WK 3</text>
+          <text x="365" y="190" fill="#4A4D54" font-size="9" font-family="Space Grotesk">WK 4</text>
+          <text x="460" y="190" fill="var(--accent-color)" font-size="9" font-family="Space Grotesk" font-weight="bold">TODAY</text>
+          
+          <!-- Path Glow -->
+          <path d="M 20 160 C 100 150, 150 90, 250 80 C 350 70, 400 35, 480 20" fill="none" stroke="rgba(204, 255, 0, 0.15)" stroke-width="8" filter="url(#glow)" />
+          
+          <!-- Line path -->
+          <path d="M 20 160 C 100 150, 150 90, 250 80 C 350 70, 400 35, 480 20" fill="none" stroke="#CCFF00" stroke-width="3" stroke-linecap="round" />
+          
+          <!-- Interactive Nodes -->
+          <circle cx="20" cy="160" r="4" fill="#CCFF00" />
+          <circle cx="135" cy="120" r="4" fill="#CCFF00" />
+          <circle cx="250" cy="80" r="4" fill="#CCFF00" />
+          <circle cx="365" cy="45" r="4" fill="#CCFF00" />
+          <circle cx="480" cy="20" r="6" fill="#FFFFFF" stroke="#CCFF00" stroke-width="2" />
+          
+          <defs>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+        </svg>
+      </div>
+    </div>
+    
+    <!-- Widget 2: Negative Intercepted Shield -->
+    <div class="bento-card card-reviews">
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="card-tag amber">NEGATIVE RATING GATE //</div>
+          <h2 class="card-title">負評智慧防禦盾</h2>
+        </div>
+        <div style="text-align: right;">
+          <div class="metric-value amber">42</div>
+          <div class="metric-sub">成功防禦阻絕負評</div>
+        </div>
+      </div>
+      
+      <div class="reviews-content-wrapper">
+        <div class="shield-metric-box">
+          <!-- Shield SVG -->
+          <svg class="shield-svg" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          <span style="font-family: var(--font-tech); font-weight: 700; font-size: 1.4rem; color: var(--accent-secondary);">100%</span>
+          <span style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 4px;">公眾負評阻隔率</span>
+        </div>
+        
+        <!-- Live scrolling intercepted complaints -->
+        <div class="complaints-scroll-feed">
+          
+          <div class="complaint-item">
+            <div class="complaint-meta">
+              <span class="complaint-phone">0937***112</span>
+              <span class="complaint-rating">2 顆星 ★★</span>
+            </div>
+            <p class="complaint-text">「特調風味層次是好的，但是甜點稍微偏甜了點，吃多會膩，希望未來有減糖版本...」</p>
+            <div class="complaint-badge-row">
+              <span class="complaint-time">2026-06-08 12:44</span>
+              <span class="badge-status">主理人已閱</span>
+            </div>
+          </div>
+          
+          <div class="complaint-item">
+            <div class="complaint-meta">
+              <span class="complaint-phone">0911***554</span>
+              <span class="complaint-rating">1 顆星 ★</span>
+            </div>
+            <p class="complaint-text">「等餐等太久了，現場空桌還很多，但是出餐速度稍微偏慢，希望可以改善效率...」</p>
+            <div class="complaint-badge-row">
+              <span class="complaint-time">2026-06-08 11:20</span>
+              <span class="badge-status">流程改善中</span>
+            </div>
+          </div>
+          
+          <div class="complaint-item">
+            <div class="complaint-meta">
+              <span class="complaint-phone">0987***003</span>
+              <span class="complaint-rating">3 顆星 ★★★</span>
+            </div>
+            <p class="complaint-text">「空間的裝潢很好、NFC感應很有儀式感。但是音樂聲音稍微大聲了點，講話有點吃力。」</p>
+            <div class="complaint-badge-row">
+              <span class="complaint-time">2026-06-07 19:05</span>
+              <span class="badge-status">顧客已補償</span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <!-- Widget 3: CRM Database Table -->
+    <div class="bento-card card-table">
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="card-tag lime">CRM USER DATABASE //</div>
+          <h2 class="card-title">熟客名單捕獲庫 (CRM Lead Total)</h2>
+        </div>
+        <div>
+          <button type="button" class="export-btn" onclick="downloadCRMLeads()">匯出 CRM 名單 (EXPORT CSV)</button>
+        </div>
+      </div>
+      
+      <div class="table-scroll-container">
+        <table class="crm-table">
+          <thead>
+            <tr>
+              <th>電話號碼 / Phone</th>
+              <th>電子郵件 / Email Address</th>
+              <th>評分 / Rating</th>
+              <th>意見回饋 / Private Feedback</th>
+              <th>加入時間 / Captured Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="crm-phone">0912***567</td>
+              <td>guest***@example.com</td>
+              <td class="crm-rating">5 ★★★★★</td>
+              <td style="color: var(--text-secondary);">[已引導至 Google 商家頁面]</td>
+              <td class="crm-time">2026-06-08 12:44:10</td>
+            </tr>
+            <tr>
+              <td class="crm-phone">0928***156</td>
+              <td>tony***@gmail.com</td>
+              <td class="crm-rating">5 ★★★★★</td>
+              <td style="color: var(--text-secondary);">[已引導至 Google 商家頁面]</td>
+              <td class="crm-time">2026-06-08 11:20:15</td>
+            </tr>
+            <tr>
+              <td class="crm-phone">0988***321</td>
+              <td>lisa***@outlook.com</td>
+              <td class="crm-rating">4 ★★★★</td>
+              <td>調酒風味層次很豐富，出餐稍慢</td>
+              <td class="crm-time">2026-06-07 19:05:40</td>
+            </tr>
+            <tr>
+              <td class="crm-phone">0905***654</td>
+              <td>vale***@icloud.com</td>
+              <td class="crm-rating">5 ★★★★★</td>
+              <td style="color: var(--text-secondary);">[已引導至 Google 商家頁面]</td>
+              <td class="crm-time">2026-06-07 14:12:00</td>
+            </tr>
+            <tr>
+              <td class="crm-phone">0972***111</td>
+              <td>josh***@gmail.com</td>
+              <td class="crm-rating">5 ★★★★★</td>
+              <td style="color: var(--text-secondary);">[已引導至 Google 商家頁面]</td>
+              <td class="crm-time">2026-06-06 20:30:12</td>
+            </tr>
+            <tr>
+              <td class="crm-phone">0915***888</td>
+              <td>b2b_***@fromlifetolines.com</td>
+              <td class="crm-rating">5 ★★★★★</td>
+              <td style="color: var(--text-secondary);">[已引導至 Google 商家頁面]</td>
+              <td class="crm-time">2026-06-06 15:22:45</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+  </div>
+
+  <script>
+    // High-quality CRM leads dataset for CSV export simulation
+    const crmLeadsDataset = [
+      { phone: '0912345678', email: 'guest@example.com', rating: 5, feedback: '非常棒的體驗！環境很有質感', joined: '2026-06-08T12:44:10.000Z' },
+      { phone: '0928123456', email: 'tony_hsu@gmail.com', rating: 5, feedback: '隱藏甜點超好吃，一定會再帶朋友來', joined: '2026-06-08T11:20:15.000Z' },
+      { phone: '0988654321', email: 'lisa_wang@outlook.com', rating: 4, feedback: '調酒風味層次很豐富，就是出餐速度稍慢', joined: '2026-06-07T19:05:40.000Z' },
+      { phone: '0905987654', email: 'valerie_lin@icloud.com', rating: 5, feedback: 'NFC感應很酷炫，不用對焦掃描超方便', joined: '2026-06-07T14:12:00.000Z' },
+      { phone: '0972555111', email: 'josh_chen@gmail.com', rating: 5, feedback: '好評系統非常流暢，1秒領券很棒！', joined: '2026-06-06T20:30:12.000Z' },
+      { phone: '0915999888', email: 'b2b_test@fromlifetolines.com', rating: 5, feedback: 'NOVA科技風格很對我的胃口，好評推薦', joined: '2026-06-06T15:22:45.000Z' }
+    ];
+
+    function downloadCRMLeads() {
+      // Build standard comma-separated format file
+      let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // Include BOM for proper Excel display
+      csvContent += "Phone Number,Email Address,Rating,Feedback,Joined Date\r\n";
+      
+      crmLeadsDataset.forEach((row) => {
+        const line = `"${row.phone}","${row.email}",${row.rating},"${row.feedback}","${row.joined}"`;
+        csvContent += line + "\r\n";
+      });
+      
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "crm_leads_export.csv");
+      document.body.appendChild(link);
+      
+      link.click();
+      document.body.removeChild(link);
+      
+      console.log("[B2B Admin Dashboard] CSV leads exported successfully.");
+    }
+  </script>
+</body>
+</html>

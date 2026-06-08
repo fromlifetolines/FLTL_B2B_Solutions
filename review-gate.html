@@ -694,7 +694,9 @@ Waiting for user submission.</div>
       email: '',
       rating: 0,
       feedback: '',
-      timestamp: ''
+      timestamp: '',
+      joined_timestamp: '',
+      trigger_retention_day7: ''
     };
     
     // Elements Selection
@@ -720,15 +722,24 @@ Waiting for user submission.</div>
     const chevronIcon = document.getElementById('chevron-icon');
     
     // Debug Hub Logger
-    function updateDebugConsole(message, isPayload = false) {
+    function updateDebugConsole(message, isPayload = false, n8nFlowJson = '') {
       const timestamp = new Date().toLocaleTimeString();
       let logHtml = `<div style="margin-bottom: 8px;"><span style="color: var(--accent-color);">[${timestamp}]</span> ${message}</div>`;
       if (isPayload) {
-        logHtml = `<div style="margin-bottom: 8px;"><span style="color: var(--accent-color);">[${timestamp}]</span> ${message}</div>` +
-                  `<div style="color: var(--success-color); margin-top: 8px; font-weight: 700;">🚀 [n8n Webhook Stream] POST https://n8n.fromlifetolines.com/webhook/b2b-leads/active - 200 OK</div>`;
+        logHtml = `<div style="margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; white-space: pre;">` +
+                  `<span style="color: var(--accent-color);">[${timestamp}] CRM LEAD DATA JSON:</span>\n${message}</div>`;
+                  
+        if (n8nFlowJson) {
+          logHtml += `<div style="margin-top: 12px; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; white-space: pre;">` +
+                     `<span style="color: #FFB800;">[n8n 7-Day Marketing Automation Flow]:</span>\n${n8nFlowJson}</div>`;
+        }
+        
+        logHtml += `<div style="color: var(--success-color); margin-top: 8px; font-weight: 700; display: flex; align-items: center;">` +
+                   `<span style="width: 8px; height: 8px; background: var(--success-color); border-radius: 50%; display: inline-block; margin-right: 8px; box-shadow: 0 0 8px var(--success-color);"></span>` +
+                   `🚀 [n8n Webhook Stream] POST https://n8n.fromlifetolines.com/webhook/b2b-leads/active - 200 OK</div>`;
       }
       consoleLog.innerHTML = logHtml;
-      consoleLog.scrollTop = consoleLog.scrollHeight;
+      consoleLog.scrollTop = 0; // Scroll to top to see data start
     }
     
     // Integration Hub Collapsible Toggle
@@ -924,14 +935,46 @@ Waiting for user submission.</div>
     
     // Step 3: Package Data in JSON format and report
     function packageAndSendPayload() {
-      leadData.timestamp = new Date().toISOString();
+      const now = new Date();
+      leadData.timestamp = now.toISOString();
+      leadData.joined_timestamp = now.toISOString();
+      
+      // Calculate 7-day retention trigger date
+      const retentionDate = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+      leadData.trigger_retention_day7 = retentionDate.toISOString();
+      
       const packedJSON = JSON.stringify(leadData, null, 2);
+      
+      // Simulate n8n outbound flow
+      const n8nAutomationFlow = {
+        event: "trigger_retention_day7",
+        recipient: {
+          phone: leadData.phone,
+          email: leadData.email
+        },
+        execution_time: leadData.trigger_retention_day7,
+        actions: [
+          {
+            channel: "LINE_Message_API",
+            template: "老客回購券",
+            message: `【生活線條 // 老客專屬二刷回客券】\n親愛的顧客您好，感謝您於 7 天前光臨本店！送您一張隱藏版特調憑證，限時 7 天有效，期待與您再次相遇！\n優惠代碼：RETENTION_7DAY_CCFF00`
+          },
+          {
+            channel: "Email_API",
+            subject: "生活線條 B2B 自動行銷：解鎖您的二刷回客禮遇",
+            body: `親愛的顧客，感謝您於 7 天前參與好評回饋。本期熟客專屬禮遇已為您準備妥當，請點選以下連結領取二刷優惠券...`
+          }
+        ]
+      };
+      
+      const n8nFlowJSON = JSON.stringify(n8nAutomationFlow, null, 2);
       
       // Console logging matching requirements
       console.log("%c[n8n Automation Payload Prepared]", "color: #CCFF00; font-weight: bold; background: #0D0E10; padding: 4px 8px; border-radius: 4px;", leadData);
+      console.log("%c[n8n 7-Day Marketing Automation Flow]", "color: #FFB800; font-weight: bold; background: #0D0E10; padding: 4px 8px; border-radius: 4px;", n8nAutomationFlow);
       
       // Visual telemetry reporting
-      updateDebugConsole(packedJSON, true);
+      updateDebugConsole(packedJSON, true, n8nFlowJSON);
     }
   </script>
 </body>

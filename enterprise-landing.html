@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生活線條 // B2B 商業空間解決方案</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="生活線條 B2B 商業解決方案。藉由極致工藝 NFC 實體感應入口，實現實體空間數據資產覺醒、LINE 會員快速增長與 5 星好評智慧防禦。">
+  <meta name="author" content="生活線條 From Life To Lines">
+  
+  <!-- Google Fonts: Space Grotesk & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Design System & Styling tokens */
+    :root {
+      --accent-color: #CCFF00;
+      --bg-dark: #0D0E10;
+      --text-primary: #FFFFFF;
+      --text-secondary: #8E9196;
+      --text-disabled: #4A4D54;
+      --card-bg: rgba(255, 255, 255, 0.02);
+      --card-border: rgba(255, 255, 255, 0.06);
+      --input-bg: rgba(255, 255, 255, 0.015);
+      --input-border: rgba(255, 255, 255, 0.1);
+      
+      --font-tech: 'Space Grotesk', sans-serif;
+      --font-tc: 'Noto Sans TC', sans-serif;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        linear-gradient(rgba(204, 255, 0, 0.008) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(204, 255, 0, 0.008) 1px, transparent 1px);
+      background-size: 40px 40px;
+      background-position: center;
+      font-family: var(--font-tc);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    /* Neon background aura */
+    .bg-glow-top {
+      position: absolute;
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(circle, rgba(204, 255, 0, 0.03) 0%, rgba(204, 255, 0, 0) 70%);
+      top: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    .bg-glow-bottom {
+      position: absolute;
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(circle, rgba(204, 255, 0, 0.02) 0%, rgba(204, 255, 0, 0) 70%);
+      bottom: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    /* Layout Elements */
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+      position: relative;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      text-align: center;
+      margin-bottom: 70px;
+      width: 100%;
+    }
+    
+    .hero-tech {
+      font-family: var(--font-tech);
+      font-size: 0.85rem;
+      letter-spacing: 0.3em;
+      color: var(--accent-color);
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(204, 255, 0, 0.3);
+    }
+    
+    .hero-title {
+      font-family: var(--font-tech), var(--font-tc);
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      line-height: 1.25;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    
+    /* Bento Grid (Three strategic modules) */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      width: 100%;
+      margin-bottom: 80px;
+    }
+    
+    .bento-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .bento-card:hover {
+      border-color: rgba(204, 255, 0, 0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 15px rgba(204, 255, 0, 0.05);
+    }
+    
+    .card-num {
+      font-family: var(--font-tech);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--accent-color);
+      font-weight: 700;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .card-num::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(204, 255, 0, 0.15);
+    }
+    
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      line-height: 1.4;
+      letter-spacing: 0.5px;
+    }
+    
+    .card-desc {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      font-weight: 300;
+      flex: 1;
+    }
+    
+    /* Consultation Form Area */
+    .form-container {
+      width: 100%;
+      max-width: 580px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 32px;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      padding: 50px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+    
+    .form-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+    
+    .form-tag {
+      font-family: var(--font-tech);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--accent-color);
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    
+    .form-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+    
+    .form-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 10px;
+      font-weight: 300;
+    }
+    
+    /* Inputs */
+    .input-group {
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    
+    .input-group label {
+      font-family: var(--font-tech), var(--font-tc);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+    
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .input-group input {
+      font-family: var(--font-tc);
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      outline: none;
+    }
+    
+    .input-group input::placeholder {
+      color: rgba(255, 255, 255, 0.15);
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+    
+    .input-group input:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 15px rgba(204, 255, 0, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    
+    /* Custom validation state */
+    .error-msg {
+      display: none;
+      color: var(--error-color);
+      font-size: 0.8rem;
+      margin-top: 8px;
+      font-weight: 400;
+    }
+    
+    input:user-invalid {
+      border-color: var(--error-color) !important;
+      box-shadow: 0 0 10px rgba(255, 77, 77, 0.12);
+    }
+    
+    input:user-invalid + .error-msg {
+      display: block;
+    }
+    
+    /* Submit button */
+    .submit-btn {
+      width: 100%;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: 1px solid var(--input-border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-disabled);
+      cursor: not-allowed;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      font-family: var(--font-tech), var(--font-tc);
+      margin-top: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .submit-btn.active {
+      background: var(--accent-color);
+      color: var(--bg-dark);
+      border-color: var(--accent-color);
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(204, 255, 0, 0.25);
+      font-weight: 900;
+    }
+    
+    .submit-btn.active:hover {
+      box-shadow: 0 6px 25px rgba(204, 255, 0, 0.5);
+      transform: translateY(-2px);
+    }
+    
+    .submit-btn.active:active {
+      transform: translateY(0);
+    }
+    
+    /* Success Overlay Overlay */
+    .success-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(13, 14, 16, 0.95);
+      border-radius: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+      animation: fadeIn 0.4s ease-out;
+      z-index: 100;
+    }
+    
+    .success-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      color: var(--bg-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 25px;
+      box-shadow: 0 0 25px rgba(204, 255, 0, 0.4);
+    }
+    
+    .success-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 15px;
+    }
+    
+    .success-text {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* Responsive styling */
+    @media (max-width: 900px) {
+      .bento-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-title {
+        font-size: 2.2rem;
+      }
+      .form-container {
+        padding: 30px;
+      }
+      .input-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      body {
+        padding: 40px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating background glow aura -->
+  <div class="bg-glow-top"></div>
+  <div class="bg-glow-bottom"></div>
+  
+  <div class="container">
+    
+    <!-- Hero Block -->
+    <header class="hero-section">
+      <div class="hero-tech">PHYSICAL SPACE AUTOMATION SYSTEM //</div>
+      <h1 class="hero-title">實體空間的數據資產覺醒</h1>
+      <p class="hero-subtitle">
+        生活線條藉由極致工藝的 NFC 實體入口，打通實體店面與線上自動化流程。我們不與您的 POS 系統戰爭，而是為您定制高奢的流量與名單獲取入口。
+      </p>
+    </header>
+    
+    <!-- Bento Grid Strategic modules -->
+    <section class="bento-grid">
+      
+      <!-- Module 1 -->
+      <article class="bento-card">
+        <div class="card-num">MODULE 01</div>
+        <h2 class="card-title">數位菜單的迷思 // <br>NFC 奢華實體感應牌</h2>
+        <p class="card-desc">
+          打破傳統醜陋反光 QR Code 的廉價感。以陽極氧化鋁與磨砂壓克力打造極致工藝的感應桌牌，免去相機對焦、反光困擾。顧客輕觸秒開奢華數位選單，為您的空間注入科技儀式感。
+        </p>
+      </article>
+      
+      <!-- Module 2 -->
+      <article class="bento-card">
+        <div class="card-num">MODULE 02</div>
+        <h2 class="card-title">LINE 好友降維打擊 // <br>實體感應增粉加速器</h2>
+        <p class="card-desc">
+          摒棄手動搜尋、繁複綁定步驟。顧客將手機輕觸實體板，免解鎖一秒觸發 LINE 官方帳號追蹤與會員綁定。實測能提高實體空間 3 倍以上的綁定轉換率，將流水客瞬間沈澱為長期資產。
+        </p>
+      </article>
+      
+      <!-- Module 3 -->
+      <article class="bento-card">
+        <div class="card-num">MODULE 03</div>
+        <h2 class="card-title">5 星好評系統 2.0 // <br>智慧星級防禦與名單攔截</h2>
+        <p class="card-desc">
+          在利益交換的名義下，顧客留下手機與 Email 即可領取隱藏特調。系統自動執行智慧星級分流：5 星直接導引 Google 商家增加好評，1-4 星攔截回管理後台，主理人直接處理，防禦品牌公眾名譽。
+        </p>
+      </article>
+      
+    </section>
+    
+    <!-- Enterprise Consultation Form -->
+    <section class="form-container">
+      <div class="form-header">
+        <div class="form-tag">ENTERPRISE CTA PRE-ORDER //</div>
+        <h2 class="form-title">企業合作預購諮詢</h2>
+        <p class="form-subtitle">填寫以下品牌合作名單，我們將由專屬代表為您定制專屬感應板與自動化流程。</p>
+      </div>
+      
+      <form id="enterprise-form" novalidate>
+        
+        <div class="input-row">
+          <div class="input-group">
+            <label for="company">企業/品牌名稱 // Company Name</label>
+            <input type="text" id="company" name="company" required placeholder="例如：生活線條餐飲集團">
+            <div class="error-msg">此欄位為必填</div>
+          </div>
+          
+          <div class="input-group">
+            <label for="contact">聯絡人姓名 // Contact Person</label>
+            <input type="text" id="contact" name="contact" required placeholder="例如：陳主理人">
+            <div class="error-msg">此欄位為必填</div>
+          </div>
+        </div>
+        
+        <div class="input-row">
+          <div class="input-group">
+            <label for="email">電子郵件 // Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="例如：owner@example.com">
+            <div class="error-msg">請輸入有效的電子郵件</div>
+          </div>
+          
+          <div class="input-group">
+            <label for="phone">手機號碼 // Phone Number</label>
+            <input type="tel" id="phone" name="phone" required placeholder="例如：0912345678" pattern="^(\+?886\-?|0)?9\d{8}$|^(\+?[0-9]{10,15})$">
+            <div class="error-msg">請輸入有效的手機號碼</div>
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label for="tag-count">預計置辦桌數/感應板數量 // Table & Tag Count</label>
+          <input type="number" id="tag-count" name="tag_count" required min="1" placeholder="例如：20">
+          <div class="error-msg">請輸入大於 0 的數量</div>
+        </div>
+        
+        <button type="submit" id="submit-btn" class="submit-btn">
+          送出諮詢並取得訂製提案 (SUBMIT & GET PROPOSAL)
+        </button>
+        
+      </form>
+      
+      <!-- Success Modal Overlay (Hidden by default) -->
+      <div id="success-overlay" class="success-overlay" style="display: none;">
+        <div class="success-icon">✓</div>
+        <h3 class="success-title">感謝您的諮詢！</h3>
+        <p class="success-text">
+          生活線條 B2B 商業代表將於 24 小時內親自與您聯繫，為您規劃專屬實體感應桌牌與 n8n 行銷自動化鏈接方案。
+        </p>
+      </div>
+      
+    </section>
+    
+  </div>
+
+  <script>
+    const form = document.getElementById('enterprise-form');
+    const company = document.getElementById('company');
+    const contact = document.getElementById('contact');
+    const email = document.getElementById('email');
+    const phone = document.getElementById('phone');
+    const tagCount = document.getElementById('tag-count');
+    const submitBtn = document.getElementById('submit-btn');
+    const successOverlay = document.getElementById('success-overlay');
+    
+    function checkFormValidity() {
+      const isCompanyValid = company.checkValidity();
+      const isContactValid = contact.checkValidity();
+      const isEmailValid = email.checkValidity();
+      const isPhoneValid = phone.checkValidity();
+      const isTagCountValid = tagCount.checkValidity();
+      
+      if (isCompanyValid && isContactValid && isEmailValid && isPhoneValid && isTagCountValid) {
+        submitBtn.classList.add('active');
+        submitBtn.removeAttribute('disabled');
+      } else {
+        submitBtn.classList.remove('active');
+        submitBtn.setAttribute('disabled', 'true');
+      }
+    }
+    
+    // Add real-time verification inputs
+    [company, contact, email, phone, tagCount].forEach((input) => {
+      input.addEventListener('input', checkFormValidity);
+      input.addEventListener('blur', checkFormValidity);
+    });
+    
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Force trigger validation styling
+      const inputs = [company, contact, email, phone, tagCount];
+      let isAllValid = true;
+      
+      inputs.forEach((input) => {
+        if (!input.checkValidity()) {
+          input.classList.add('user-invalid-fallback');
+          isAllValid = false;
+        } else {
+          input.classList.remove('user-invalid-fallback');
+        }
+      });
+      
+      if (!isAllValid) return;
+      
+      // Success flow
+      successOverlay.style.display = 'flex';
+      
+      // Simulate sending lead data
+      const leadData = {
+        company: company.value.trim(),
+        contact: contact.value.trim(),
+        email: email.value.trim(),
+        phone: phone.value.trim(),
+        tag_count: parseInt(tagCount.value),
+        timestamp: new Date().toISOString()
+      };
+      
+      console.log("%c[Enterprise Lead Captured]", "color: #CCFF00; font-weight: bold; background: #0D0E10; padding: 4px 8px; border-radius: 4px;", leadData);
+    });
+  </script>
+</body>
+</html>
