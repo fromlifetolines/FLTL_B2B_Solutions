@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>生活線條 // 數位菜單與集點入口</title>
+  <title>生活線條 // B2B 實體感應入口</title>
   
   <!-- SEO Meta Tags -->
   <meta name="description" content="生活線條 B2B 實體入口。體驗極致工藝之 NFC 感應數位菜單與 LINE 官方好友秒速劫持集點。">
@@ -15,11 +15,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
   
   <style>
-    /* Design System & Visual Tokens */
+    /* Design System - P2P Luxury Blue-Purple visual system */
     :root {
       --accent-blue: #3F8CFF;
       --accent-purple: #7F56D9;
       --accent-gradient: linear-gradient(135deg, #3F8CFF 0%, #7F56D9 100%);
+      --accent-yellow: #FFB800; /* Warm gold */
+      
       --bg-dark: #07090E;
       --text-primary: #FFFFFF;
       --text-secondary: #8E9196;
@@ -201,14 +203,14 @@
     
     .hijack-btn {
       width: 100%;
-      max-width: 550px;
+      max-width: 580px;
       background: var(--accent-gradient);
       color: var(--text-primary);
       border: none;
       border-radius: 50px;
       padding: 22px;
       font-family: var(--font-tech), var(--font-tc);
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 700;
       letter-spacing: 0.05em;
       cursor: pointer;
@@ -227,28 +229,11 @@
       transform: translateY(0);
     }
     
-    .hijack-btn::after {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
-      transform: scale(0.5);
-      transition: transform 0.5s ease-out;
-      pointer-events: none;
-    }
-    
-    .hijack-btn:hover::after {
-      transform: scale(1.2);
-    }
-    
     /* Overlay loader state */
     .loader-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(7, 9, 14, 0.95);
+      background: rgba(7, 9, 14, 0.96);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -281,7 +266,7 @@
     .loader-subtext {
       font-size: 0.85rem;
       color: var(--text-secondary);
-      max-width: 400px;
+      max-width: 440px;
       line-height: 1.6;
     }
     
@@ -311,10 +296,10 @@
     
     <!-- Header -->
     <header class="menu-header">
-      <div class="menu-tech">NFC DIGITAL SPACE PORTAL //</div>
-      <h1 class="menu-title">生活線條主廚菜單</h1>
-      <p class="menu-subtitle">
-        輕觸桌面 NFC 感應桌牌即可隨時載入型錄。本季主廚特選以台灣在地桂花、黑松露入菜，提供精緻極簡的空間餐飲體驗。
+      <div class="menu-tech" id="portal-tag">NFC DIGITAL SPACE PORTAL //</div>
+      <h1 class="menu-title" id="portal-title">生活線條主廚菜單</h1>
+      <p class="menu-subtitle" id="portal-subtitle">
+        輕觸桌面 NFC 感應桌牌即可隨時載入型錄。選用在地食材，為您的空間注入科技儀式感。
       </p>
     </header>
     
@@ -322,32 +307,32 @@
     <div class="menu-bento">
       <!-- Item 1 -->
       <div class="bento-card card-large">
-        <div class="card-tag">SIGNATURE DRINK // 主廚特調</div>
-        <h2 class="item-title">煙燻桂花烏龍特調</h2>
-        <p class="item-desc">
-          選用阿里山高山烏龍作為基底，注入在地桂花蜜與淡淡的小麥香氣。杯口覆蓋以蘋果木低溫煙燻的綿密氣泡，層次豐富，清爽回甘。
+        <div class="card-tag" id="item1-tag">SIGNATURE DRINK // 主廚特調</div>
+        <h2 class="item-title" id="item1-title">煙燻桂花烏龍特調</h2>
+        <p class="item-desc" id="item1-desc">
+          選用阿里山高山烏龍作為基底，注入在地桂花蜜與蘋果木煙燻氣泡。
         </p>
-        <div class="item-price">NT$ 220</div>
+        <div class="item-price" id="item1-price">NT$ 220</div>
       </div>
       
       <!-- Item 2 -->
       <div class="bento-card card-small">
-        <div class="card-tag">DESSERT // 隱藏甜點</div>
-        <h2 class="item-title">極黑松露舒芙蕾</h2>
-        <p class="item-desc">
+        <div class="card-tag" id="item2-tag">DESSERT // 隱藏甜點</div>
+        <h2 class="item-title" id="item2-title">極黑松露舒芙蕾</h2>
+        <p class="item-desc" id="item2-desc">
           當日現做舒芙蕾蓬鬆柔軟，淋上特製濃郁松露奶霜，微苦可可粉與松露香氣完美交織。
         </p>
-        <div class="item-price">NT$ 280</div>
+        <div class="item-price" id="item2-price">NT$ 280</div>
       </div>
       
       <!-- Item 3 -->
       <div class="bento-card card-full">
-        <div class="card-tag">CHEF'S SIGNATURE // 主廚主打</div>
-        <h2 class="item-title">低溫烹調熟成牛小排</h2>
-        <p class="item-desc" style="max-width: 600px;">
-          經過 72 小時低溫熟成烹調，搭配香煎時蔬與牛骨精燉紅酒醬汁，牛小排入口即化，肉汁豐腴。
+        <div class="card-tag" id="item3-tag">CHEF'S SIGNATURE // 主廚主打</div>
+        <h2 class="item-title" id="item3-title">低溫熟成 M9 和牛堡</h2>
+        <p class="item-desc" id="item3-desc" style="max-width: 600px;">
+          手打多汁 M9 和牛配香煎培根與松露美乃滋，肉汁豐腴。
         </p>
-        <div class="item-price">NT$ 680</div>
+        <div class="item-price" id="item3-price">NT$ 480</div>
       </div>
     </div>
     
@@ -368,27 +353,88 @@
   </div>
 
   <script>
+    // URL scene parameters parser
+    const urlParams = new URLSearchParams(window.location.search);
+    const scene = urlParams.get('scene') || 'bistro';
+    
+    // Scene content mappings
+    const sceneConfigurations = {
+      bistro: {
+        tag: 'BISTRO DIGITAL MENU //',
+        title: '微醺時光・Bistro 301 數位菜單',
+        subtitle: '輕觸桌面 NFC 感應桌牌載入型錄。選用在地桂花、低溫熟成牛小排，提供極致空間餐飲體驗。',
+        btnText: '【領取微醺集點卡 ➡️ 解鎖招待松露薯條】',
+        item1: { tag: 'SIGNATURE COCKTAIL // 特調', title: '威士忌酸酒 (Whisky Sour)', desc: '精品波本威士忌，加入鮮榨檸檬汁、糖蜜與蛋白，口感綿密，酸甜平衡。', price: 'NT$ 350' },
+        item2: { tag: 'DESSERT // 隱藏甜點', title: '極黑松露舒芙蕾', desc: '蓬鬆現烤舒芙蕾搭配特製香濃松露奶霜與法芙娜可可粉。', price: 'NT$ 280' },
+        item3: { tag: 'CHEF\'S TABLE // 主廚推薦', title: '低溫熟成 M9 和牛堡', desc: '手打多汁 M9 和牛配香煎培根、紅切達起司與秘製黑松露美乃滋。', price: 'NT$ 480' },
+        successSub: '已成功為您的官方帳號注入 1 點集點！正在導引您至好評解鎖系統，請留下聯絡方式以領取實體「招待松露薯條券」...'
+      },
+      hotel: {
+        tag: 'HOTEL VIP DIRECTORY //',
+        title: '隱山・奢華溫泉渡假村 VIP 型錄',
+        subtitle: '輕觸客房 NFC 感應面板。為您呈獻溫泉湯屋、頂級 SPA 與主廚客房送餐專屬奢華預約。',
+        btnText: '【輕觸房內感應 ➡️ 立即預約晚間極致 SPA】',
+        item1: { tag: 'VIP SPA // 頂級水療', title: '火山熱石精油深層療程', desc: '選用瑞典進口有機精油與珍稀火山熱石，透過芳療師深層揉壓，徹底釋放身體緊繃壓力。', price: 'NT$ 3,200' },
+        item2: { tag: 'FACILITY // 設施預約', title: '私人黃金湯屋與岩盤浴', desc: '富含天然碳酸氫鈉泉質湯屋，搭配日本進口黑松石岩盤浴，加速排毒。', price: 'NT$ 1,800' },
+        item3: { tag: 'VIP SERVICE // 客房送餐', title: '主廚精選特盛海鮮拼盤', desc: '嚴選現撈波士頓龍蝦、北海道刺身級干貝與頂級鱘魚子醬，直達客房服務。', price: 'NT$ 1,280' },
+        successSub: '已成功連線您的房卡資訊！正在導引您至好評解鎖系統，完成體驗評估退房時即可領取「次回入住 85 折尊榮憑證」...'
+      },
+      expo: {
+        tag: 'EXPO DIGITAL PORTAL //',
+        title: 'NEXT 2026 科技未來展 導覽門戶',
+        subtitle: '輕觸展位感應面板。即刻下載大會科技趨勢白皮書 PDF、展位 3D 電子地圖與創投媒合手冊。',
+        btnText: '【輕觸感應面板 ➡️ 0秒下載完整大會科技白皮書 PDF】',
+        item1: { tag: 'WHITE PAPER // 趨勢白皮書', title: '2026 大會科技未來趨勢白皮書', desc: '彙整全球頂尖分析師團隊報告，深入解析生成式 AI 落地、Web3 與綠能科技布局。', price: 'FREE DOWNLOAD' },
+        item2: { tag: 'EXHIBIT MAP // 互動展位', title: '展館 3D 互動電子地圖', desc: '精準標註大會各大创投展區、演講主舞台、VIP貴賓室與餐飲合作專區。', price: 'FREE DOWNLOAD' },
+        item3: { tag: 'MATCHMAKING // 創投媒合', title: '大會創投與初創媒合手冊', desc: '完整收錄本次大會參展之 50+ 家頂級投資機構方向與商業開發聯絡方式。', price: 'FREE DOWNLOAD' },
+        successSub: '大會資訊連線成功！正在導引您至滿意度調查系統，填寫完畢系統將自動發送大會全套科技白皮書 PDF 至您的信箱...'
+      }
+    };
+    
+    // Apply Scene Configuration
+    const config = sceneConfigurations[scene] || sceneConfigurations.bistro;
+    
+    document.getElementById('portal-tag').textContent = config.tag;
+    document.getElementById('portal-title').textContent = config.title;
+    document.getElementById('portal-subtitle').textContent = config.subtitle;
+    document.getElementById('hijack-btn').textContent = config.btnText;
+    
+    document.getElementById('item1-tag').textContent = config.item1.tag;
+    document.getElementById('item1-title').textContent = config.item1.title;
+    document.getElementById('item1-desc').textContent = config.item1.desc;
+    document.getElementById('item1-price').textContent = config.item1.price;
+    
+    document.getElementById('item2-tag').textContent = config.item2.tag;
+    document.getElementById('item2-title').textContent = config.item2.title;
+    document.getElementById('item2-desc').textContent = config.item2.desc;
+    document.getElementById('item2-price').textContent = config.item2.price;
+    
+    document.getElementById('item3-tag').textContent = config.item3.tag;
+    document.getElementById('item3-title').textContent = config.item3.title;
+    document.getElementById('item3-desc').textContent = config.item3.desc;
+    document.getElementById('item3-price').textContent = config.item3.price;
+    
+    // LINE hijack action
     const hijackBtn = document.getElementById('hijack-btn');
     const loaderOverlay = document.getElementById('loader-overlay');
     const loaderText = document.getElementById('loader-text');
     const loaderSubtext = document.getElementById('loader-subtext');
     
     hijackBtn.addEventListener('click', () => {
-      // 1. Show simulated LINE hijack window loading
       loaderOverlay.style.display = 'flex';
       
-      // Save LINE point trigger status to localStorage
+      // Save point and active scene trigger
       localStorage.setItem('fltl_line_joined', 'true');
       
       setTimeout(() => {
-        loaderText.textContent = 'LINE 好友綁定成功！';
-        loaderText.style.color = '#3F8CFF';
-        loaderSubtext.textContent = '已成功為您的官方帳號注入 1 點集點！正在導引您至好評解鎖系統，請留下聯絡方式以領取實體「隱藏甜點憑證」...';
+        loaderText.textContent = scene === 'expo' ? '大會資訊載入中...' : 'LINE 好友綁定成功！';
+        loaderText.style.color = 'var(--accent-blue)';
+        loaderSubtext.textContent = config.successSub;
         
         setTimeout(() => {
-          // Redirect to review gate
-          window.location.href = 'review-gate.html';
-        }, 2000);
+          // Redirect to review-gate.html passing the scene param!
+          window.location.href = `review-gate.html?scene=${scene}`;
+        }, 2500);
         
       }, 1500);
     });

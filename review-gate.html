@@ -33,7 +33,8 @@
       --input-border: rgba(255, 255, 255, 0.08);
       --error-color: #FF4D4D;
       --success-color: #2EE59D;
-      --google-star-color: #F8B400;
+      
+      --accent-yellow: #FFB800; /* Warm amber gold rating stars */
       
       --font-tech: 'Space Grotesk', sans-serif;
       --font-title: 'Outfit', sans-serif;
@@ -134,8 +135,8 @@
     /* Glowing card state on 5-star submit */
     .card-3d.power-up {
       animation: none;
-      border-color: var(--accent-blue) !important;
-      box-shadow: 0 0 60px rgba(63, 140, 255, 0.45), inset 0 0 20px rgba(127, 86, 217, 0.15) !important;
+      border-color: var(--accent-yellow) !important;
+      box-shadow: 0 0 60px rgba(255, 184, 0, 0.4), inset 0 0 20px rgba(255, 184, 0, 0.15) !important;
       transition: all 0.2s ease-out;
     }
     
@@ -320,21 +321,29 @@
       background: none;
       border: none;
       font-size: 2.5rem;
-      color: #202226;
+      color: rgba(255, 255, 255, 0.15);
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       padding: 0;
       line-height: 1;
       outline: none;
+      text-shadow: none;
     }
     
     .star:hover {
-      transform: scale(1.25);
+      transform: scale(1.35) !important;
+      filter: drop-shadow(0 0 12px rgba(255, 184, 0, 0.9));
+      color: #FFB800 !important;
     }
     
     .star.highlighted {
-      color: var(--accent-blue);
-      text-shadow: 0 0 15px rgba(63, 140, 255, 0.6);
+      color: #FFB800 !important;
+      text-shadow: 
+        0 0 4px #FFB800,
+        0 0 12px #FFB800,
+        0 0 22px rgba(255, 184, 0, 0.8),
+        0 0 38px rgba(255, 184, 0, 0.6);
+      filter: drop-shadow(0 0 6px rgba(255, 184, 0, 0.5));
     }
     
     .rating-value-display {
@@ -553,13 +562,13 @@
       width: 45px;
       height: 45px;
       border-radius: 50%;
-      background: #F1F3F4;
+      background: #E8F0FE;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 1.2rem;
       font-weight: bold;
-      color: var(--accent-purple);
+      color: #1A73E8;
       border: 1px solid #DADCE0;
     }
     
@@ -583,9 +592,10 @@
     
     .google-stars-display {
       font-size: 1.8rem;
-      color: var(--google-star-color);
+      color: var(--accent-yellow);
       margin: 15px 0;
       text-align: left;
+      text-shadow: 0 0 5px rgba(255, 184, 0, 0.2);
     }
     
     .google-textarea-group {
@@ -717,19 +727,19 @@
       <div class="card-face card-front">
         <form id="step-1-form" class="card-content-scroll" novalidate>
           <div class="header">
-            <div class="title-tech">UNLOCK EXCLUSIVE REWARD //</div>
-            <h1 class="title-main">解鎖熟客專屬禮遇</h1>
-            <p class="subtitle">留下您的聯絡方式，即可一秒領取本期「隱藏甜點/特調憑證」，並啟動滿分評價解鎖。</p>
+            <div class="title-tech" id="front-tag">UNLOCK EXCLUSIVE REWARD //</div>
+            <h1 class="title-main" id="front-title">解鎖熟客專屬禮遇</h1>
+            <p class="subtitle" id="front-subtitle">留下您的聯絡方式，即可一秒領取本期「隱藏甜點/特調憑證」，並啟動滿分評價解鎖。</p>
           </div>
           
           <div class="input-group">
-            <label for="phone">PHONE NUMBER // 手機號碼</label>
-            <input type="tel" id="phone" name="phone" required placeholder="例如：0912345678" pattern="^^09\d{8}$|^\+?[0-9]{10,15}$" autocomplete="tel">
+            <label for="phone" id="phone-label">PHONE NUMBER // 手機號碼</label>
+            <input type="tel" id="phone" name="phone" required placeholder="例如：0912345678" pattern="^09\d{8}$|^\+?[0-9]{10,15}$" autocomplete="tel">
             <div class="error-msg" id="phone-error">請輸入有效的手機號碼格式 (例如 0912345678)</div>
           </div>
           
           <div class="input-group">
-            <label for="email">EMAIL ADDRESS // 電子郵件</label>
+            <label for="email" id="email-label">EMAIL ADDRESS // 電子郵件</label>
             <input type="email" id="email" name="email" required placeholder="例如：client@example.com" autocomplete="email">
             <div class="error-msg" id="email-error">請輸入正確的電子郵件格式 (例如 name@domain.com)</div>
           </div>
@@ -746,7 +756,7 @@
           <div class="header" id="back-header">
             <div class="title-tech">RATE YOUR EXPERIENCE //</div>
             <h2 class="title-main">評估您的體驗</h2>
-            <p class="subtitle">您本次的消費體驗如何？您的回饋將協助我們提供更好的服務。</p>
+            <p class="subtitle" id="back-subtitle">您本次的消費體驗如何？您的回饋將協助我們提供更好的服務。</p>
           </div>
           
           <!-- Rating Area -->
@@ -779,7 +789,7 @@
           <!-- Divider Flow 2: 5 Stars Redirect Loader (Hidden by default) -->
           <div id="redirect-state" class="redirect-state-container" style="display: none;">
             <div class="glow-loader"></div>
-            <p class="redirect-text">
+            <p class="redirect-text" id="redirect-text">
               正在準備發布 Google 評論...
             </p>
           </div>
@@ -787,8 +797,8 @@
           <!-- Step 2.3: Final Success State (Hidden by default) -->
           <div id="success-state" class="success-state-container" style="display: none;">
             <div class="success-icon">✓</div>
-            <h2 class="title-main">服務體驗已上傳</h2>
-            <p class="success-text">
+            <h2 class="title-main" id="success-title">服務體驗已上傳</h2>
+            <p class="success-text" id="success-text">
               隱藏禮遇憑證已同步發送至您的信箱與簡訊，請於結帳時出示！
             </p>
           </div>
@@ -802,10 +812,10 @@
   <div class="google-modal" id="google-modal" style="display: none;">
     <div class="google-card">
       <div class="google-header">
-        <div class="shop-avatar">L</div>
+        <div class="shop-avatar" id="google-shop-avatar">B</div>
         <div class="google-shop-info">
-          <span class="google-shop-name">生活線條 From Life To Lines</span>
-          <span class="google-rating-desc">在 Google Maps 上公開發佈評論</span>
+          <span class="google-shop-name" id="google-shop-name">微醺時光・Bistro 301</span>
+          <span class="google-rating-desc" id="google-rating-desc">在 Google Maps 上公開發佈評論</span>
         </div>
       </div>
       <div class="google-stars-display">★★★★★</div>
@@ -835,7 +845,81 @@ Waiting for user submission.</div>
   </div>
 
   <script>
-    // Lead generation structure for Oracle cloud / n8n preparation
+    // URL scene parameter parser
+    const urlParams = new URLSearchParams(window.location.search);
+    const scene = urlParams.get('scene') || 'bistro';
+    
+    // Scene content mappings
+    const sceneConfigurations = {
+      bistro: {
+        frontTag: 'UNLOCK EXCLUSIVE REWARD //',
+        frontTitle: '解鎖熟客專屬禮遇',
+        frontSub: '店長誠摯邀請您：輸入手機號碼以取得『微醺招待券』，並解鎖今晚的餐點評分。',
+        phoneLabel: 'PHONE NUMBER // 手機號碼',
+        emailLabel: 'EMAIL ADDRESS // 電子郵件',
+        googleTitle: '微醺時光・Bistro 301 (Google 商家點評)',
+        googleAvatar: '🍷',
+        successTitle: '招待券已發送',
+        successSub: '「微醺招待券」已同步發送至您的信箱與簡訊。結帳時請向服務人員出示！',
+        feedbackSuccessTitle: '回饋已成功送出',
+        feedbackSuccessSub: '主理人已親自收到您的反映，我們將會以最快速度調整服務品質。「微醺招待券」已同步發送至您的信箱與簡訊，請於結帳時出示！',
+        lineMessage: `【生活線條 // 老客專屬二刷回客券】\n親愛的顧客您好，感謝您於 7 天前光臨本店並參與集點！送您一張隱藏版特調憑證，限時 7 天有效，期待與您再次相遇！\n優惠代碼：RETENTION_7DAY_CCFF00`,
+        emailSubject: "生活線條 B2B 自動行銷：解鎖您的二刷回客禮遇",
+        emailBody: "親愛的顧客，感謝您於 7 天前參與好評回饋。本期熟客專屬禮遇已為您準備妥當，請點選以下連結領取二刷優惠券..."
+      },
+      hotel: {
+        frontTag: 'VIP CHECKOUT LOYALTY //',
+        frontTitle: '隱山尊榮入住回饋',
+        frontSub: '感謝您入住隱山。留下您的聯絡方式，我們將在您退房時為您送上『次回入住尊榮 85 折優惠憑證』。',
+        phoneLabel: 'PHONE NUMBER // 手機號碼',
+        emailLabel: 'EMAIL ADDRESS // 電子郵件',
+        googleTitle: '隱山・奢華溫泉渡假村 (TripAdvisor / Google 聯名認證)',
+        googleAvatar: '🏨',
+        successTitle: '優惠憑證已鎖定',
+        successSub: '「次回入住尊榮 85 折優惠憑證」已發送至您的信箱與簡訊。退房時櫃檯將為您核銷。',
+        feedbackSuccessTitle: '回饋已成功送出',
+        feedbackSuccessSub: '渡假村經理已收到您的寶貴反映，我們將立即提升服務品質。「次回入住尊榮 85 折優惠憑證」已發送至您的信箱與簡訊。退房時櫃檯將為您核銷。',
+        lineMessage: `【隱山渡假村 // VIP 回訪專屬禮遇】\n親愛的旅客您好，感謝您於 7 天前入住隱山渡假村！送您一張次回入住尊榮 8 折優惠券，限時 90 天內有效，期待您的再次蒞臨！\n優惠代碼：HOTEL_VIP_RETENTION_CCFF00`,
+        emailSubject: "隱山渡假村：感謝您的入住，送上您的 VIP 專屬回訪禮遇",
+        emailBody: "親愛的旅客，感謝您於 7 天前入住隱山。我們非常榮幸能為您服務，為您準備了次回入住 8 折尊榮憑證，請點擊連結領取..."
+      },
+      expo: {
+        frontTag: 'WHITE PAPER DOWNLOAD //',
+        frontTitle: 'NEXT 科技白皮書下載',
+        frontSub: '留下您的商業電子郵件，系統將自動將大會簡報發射至您的信箱，並完成本次大會滿意度調研。',
+        phoneLabel: 'MOBILE PHONE // 手機號碼',
+        emailLabel: 'BUSINESS EMAIL // 商業電子郵件',
+        googleTitle: 'NEXT 2026 科技未來大會 (大會官方問卷審查)',
+        googleAvatar: '🌐',
+        successTitle: '白皮書與簡報已發送',
+        successSub: '「NEXT 2026 大會全套科技白皮書與 Keynote 簡報」下載連結已寄送到您的電子郵件信箱。',
+        feedbackSuccessTitle: '問卷回饋已成功送出',
+        feedbackSuccessSub: '大會主辦方已收到您的意見，我們將於下一屆展會中進行優化。「NEXT 2026 大會全套科技白皮書與簡報」下載連結已發送至您的信箱，請查收！',
+        lineMessage: `【NEXT 2026 大會追蹤】\n大會參與者您好，感謝您於 7 天前參與我們的趨勢調研！送您一張隱藏版初創投資人午餐會邀請函。\n邀請代碼：EXPO_VIP_7DAY_CCFF00`,
+        emailSubject: "NEXT 2026 科技大會：感謝您的回饋，下載附贈大會白皮書",
+        emailBody: "親愛的參與者，感謝您於 7 天前參與大會問卷調研。您的大會全套科技白皮書 PDF 與 Keynote 簡報下載連結已為您準備妥當，請點擊連結下載..."
+      }
+    };
+    
+    // Apply Scene Configuration
+    const config = sceneConfigurations[scene] || sceneConfigurations.bistro;
+    
+    document.getElementById('front-tag').textContent = config.frontTag;
+    document.getElementById('front-title').textContent = config.frontTitle;
+    document.getElementById('front-subtitle').textContent = config.frontSub;
+    document.getElementById('phone-label').textContent = config.phoneLabel;
+    document.getElementById('email-label').textContent = config.emailLabel;
+    
+    document.getElementById('google-shop-name').textContent = config.googleTitle;
+    document.getElementById('google-shop-avatar').textContent = config.googleAvatar;
+    
+    if (scene === 'hotel') {
+      document.getElementById('google-rating-desc').textContent = '在 TripAdvisor / Google 上公開發佈評論';
+    } else if (scene === 'expo') {
+      document.getElementById('google-rating-desc').textContent = '在大會問卷系統上提交回饋審查';
+    }
+    
+    // Lead generation structure
     const leadData = {
       phone: '',
       email: '',
@@ -844,7 +928,8 @@ Waiting for user submission.</div>
       timestamp: '',
       joined_timestamp: '',
       trigger_retention_day7: '',
-      line_points_loaded: 0
+      line_points_loaded: 0,
+      scene: scene
     };
     
     // Elements Selection
@@ -892,16 +977,14 @@ Waiting for user submission.</div>
                    `🚀 [n8n Webhook Stream] POST https://n8n.fromlifetolines.com/webhook/b2b-leads/active - 200 OK</div>`;
       }
       consoleLog.innerHTML = logHtml;
-      consoleLog.scrollTop = 0; // Scroll to top to see data start
+      consoleLog.scrollTop = 0;
     }
     
-    // Integration Hub Collapsible Toggle
     hubToggleBtn.addEventListener('click', () => {
       hubContent.classList.toggle('expanded');
       chevronIcon.textContent = hubContent.classList.contains('expanded') ? '▼' : '▲';
     });
     
-    // Step 1: Lead Gen Form Validation & Button Power-up Glow
     function validateFormInputs() {
       const isPhoneValid = phoneInput.checkValidity();
       const isEmailValid = emailInput.checkValidity();
@@ -915,13 +998,11 @@ Waiting for user submission.</div>
       }
     }
     
-    // Validation listeners
     phoneInput.addEventListener('input', validateFormInputs);
     emailInput.addEventListener('input', validateFormInputs);
     phoneInput.addEventListener('blur', validateFormInputs);
     emailInput.addEventListener('blur', validateFormInputs);
     
-    // Step 1 Submit Action: Card Flip
     step1Form.addEventListener('submit', (e) => {
       e.preventDefault();
       
@@ -945,16 +1026,13 @@ Waiting for user submission.</div>
         return;
       }
       
-      // Store lead credentials
       leadData.phone = phoneInput.value.trim();
       leadData.email = emailInput.value.trim();
       
       updateDebugConsole(`Step 1 Complete: Captured Phone = ${leadData.phone}, Email = ${leadData.email}. Initiating 3D flip...`);
-      
       cardContainer.classList.add('flipped');
     });
     
-    // Step 2: Star Rating Picker Setup
     let currentSelectedRating = 0;
     
     stars.forEach((star) => {
@@ -998,7 +1076,6 @@ Waiting for user submission.</div>
       ratingDisplay.textContent = ratingDescriptions[rating] || '點擊星星進行評分';
     }
     
-    // Step 2 Divider Logic
     function processDividerLogic(rating) {
       leadData.rating = rating;
       
@@ -1007,11 +1084,9 @@ Waiting for user submission.</div>
       successState.style.display = 'none';
       
       if (rating === 5) {
-        // 5-Star: Trigger Google Review Modal Popup
         updateDebugConsole(`Step 2 (5 Stars Select): Opening Mock Google Review Panel.`);
         googleModal.style.display = 'flex';
       } else {
-        // 1-4 Stars: Intercept Feedback
         feedbackForm.style.display = 'block';
         updateDebugConsole(`Step 2 (1-4 Stars Intercept): Rating ${rating} detected. Diverting from Google Business Profile to private feedback portal.`);
         
@@ -1025,7 +1100,6 @@ Waiting for user submission.</div>
       }
     }
     
-    // Google review cancel handler
     googleCancelBtn.addEventListener('click', () => {
       googleModal.style.display = 'none';
       currentSelectedRating = 0;
@@ -1034,37 +1108,34 @@ Waiting for user submission.</div>
       updateDebugConsole('Google review cancelled. Resetting rating picker.');
     });
     
-    // Google review post handler
     googlePostBtn.addEventListener('click', () => {
       googleModal.style.display = 'none';
       
-      // Calculate inputs
       cardContainer.classList.add('power-up');
       redirectState.style.display = 'block';
       
       updateDebugConsole(`Google Review posted: "${googleReviewText.value.trim()}". Triggering Google redirection.`);
       
       setTimeout(() => {
-        // Open official review tab in background
+        // Open review page in new tab
         window.open('https://g.page/r/fromlifetolines_test_shop/review', '_blank');
         
         cardContainer.classList.remove('power-up');
         redirectState.style.display = 'none';
         
-        // Complete packaging data
         leadData.feedback = googleReviewText.value.trim() || '[5-Star Review Posted on Google]';
         packageAndSendPayload();
         
-        // Render success state
         ratingArea.style.display = 'none';
         backHeader.style.display = 'none';
+        
+        // Show success state with dynamic scene content
         successState.style.display = 'block';
-        successState.querySelector('.title-main').textContent = '感謝您的 5 星好評！';
-        successState.querySelector('.success-text').textContent = '我們已在新分頁中為您開啟 Google 評論頁面。隱藏禮遇憑證已同步發送至您的信箱與手機，請於結帳時出示！';
+        successState.querySelector('.title-main').textContent = config.successTitle;
+        successState.querySelector('.success-text').textContent = config.successSub;
       }, 500);
     });
     
-    // 1-4 Star Feedback Form Submit Handler
     feedbackForm.addEventListener('submit', (e) => {
       e.preventDefault();
       
@@ -1088,32 +1159,30 @@ Waiting for user submission.</div>
       packageAndSendPayload();
       
       successState.style.display = 'block';
-      successState.querySelector('.title-main').textContent = '回饋已成功送出';
-      successState.querySelector('.success-text').textContent = '主理人已親自收到您的反映，我們將會以最快速度調整服務品質。隱藏禮遇憑證已發送至您的信箱與手機，請於結帳時出示！';
+      successState.querySelector('.title-main').textContent = config.feedbackSuccessTitle || '回饋已成功送出';
+      successState.querySelector('.success-text').textContent = config.feedbackSuccessSub || '主理人已親自收到您的反映，我們將會以最快速度調整服務品質。隱藏禮遇憑證已發送至您的信箱與手機，請於結帳時出示！';
     });
     
-    // Step 3: Package Data and telemetry broadcast
     function packageAndSendPayload() {
       const now = new Date();
       leadData.timestamp = now.toISOString();
       leadData.joined_timestamp = now.toISOString();
       
-      // Calculate 7-day retention
       const retentionDate = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
       leadData.trigger_retention_day7 = retentionDate.toISOString();
       
-      // Fetch LINE point injection status from menu-hub.html
       const linePointLoaded = localStorage.getItem('fltl_line_joined') === 'true' ? 1 : 0;
       leadData.line_points_loaded = linePointLoaded;
       
       const packedJSON = JSON.stringify(leadData, null, 2);
       
-      // Broadcast telemetry for local storage dynamic dashboard listening
+      // Broadcast telemetry for B2B Dashboard storage event listening
       localStorage.setItem('fltl_latest_telemetry', packedJSON);
       
       // Simulate n8n outbound flow
       const n8nAutomationFlow = {
         event: "trigger_retention_day7",
+        scene: leadData.scene,
         recipient: {
           phone: leadData.phone,
           email: leadData.email
@@ -1123,24 +1192,22 @@ Waiting for user submission.</div>
         actions: [
           {
             channel: "LINE_Message_API",
-            template: "老客回購券",
-            message: `【生活線條 // 老客專屬二刷回客券】\n親愛的顧客您好，感謝您於 7 天前光臨本店並參與集點！送您一張隱藏版特調憑證，限時 7 天有效，期待與您再次相遇！\n優惠代碼：RETENTION_7DAY_CCFF00`
+            template: scene === 'expo' ? "大會追蹤邀請" : scene === 'hotel' ? "VIP回訪禮遇" : "老客回購券",
+            message: config.lineMessage
           },
           {
             channel: "Email_API",
-            subject: "生活線條 B2B 自動行銷：解鎖您的二刷回客禮遇",
-            body: `親愛的顧客，感謝您於 7 天前參與好評回饋。本期熟客專屬禮遇已為您準備妥當，請點選以下連結領取二刷優惠券...`
+            subject: config.emailSubject,
+            body: config.emailBody
           }
         ]
       };
       
       const n8nFlowJSON = JSON.stringify(n8nAutomationFlow, null, 2);
       
-      // Console logging
       console.log("%c[n8n Automation Payload Prepared]", "color: #3F8CFF; font-weight: bold; background: #07090E; padding: 4px 8px; border-radius: 4px;", leadData);
       console.log("%c[n8n 7-Day Marketing Automation Flow]", "color: #7F56D9; font-weight: bold; background: #07090E; padding: 4px 8px; border-radius: 4px;", n8nAutomationFlow);
       
-      // Visual telemetry reporting
       updateDebugConsole(packedJSON, true, n8nFlowJSON);
     }
   </script>

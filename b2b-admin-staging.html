@@ -397,8 +397,9 @@
     }
     
     .complaint-rating {
-      color: var(--accent-secondary);
+      color: var(--accent-secondary) !important;
       font-weight: 700;
+      text-shadow: 0 0 10px rgba(255, 184, 0, 0.4);
     }
     
     .complaint-text {
@@ -483,8 +484,15 @@
     }
     
     .crm-rating {
-      color: var(--accent-blue);
       font-weight: 700;
+    }
+    .star-filled {
+      color: #FFB800 !important;
+      text-shadow: 0 0 8px rgba(255, 184, 0, 0.6), 0 0 15px rgba(255, 184, 0, 0.3);
+    }
+    .star-empty {
+      color: rgba(255, 255, 255, 0.15) !important;
+      text-shadow: none;
     }
     
     .export-btn {
@@ -629,6 +637,76 @@
         padding: 20px;
       }
     }
+    /* Demo Switcher Panel Styles */
+    .demo-controller-panel {
+      background: rgba(13, 17, 28, 0.6);
+      border: 1px solid rgba(63, 140, 255, 0.15);
+      border-radius: 20px;
+      padding: 18px 24px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 15px rgba(63, 140, 255, 0.05);
+      z-index: 10;
+      position: relative;
+    }
+    .demo-controller-title {
+      font-family: var(--font-tech);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--accent-blue);
+      text-shadow: 0 0 8px rgba(63, 140, 255, 0.3);
+    }
+    .demo-tabs-container {
+      display: flex;
+      background: rgba(7, 9, 14, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 30px;
+      padding: 4px;
+      position: relative;
+    }
+    .demo-tab {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-tc);
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 8px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .demo-tab:hover {
+      color: var(--text-primary);
+    }
+    .demo-tab.active {
+      background: var(--accent-gradient);
+      color: var(--text-primary);
+      box-shadow: 0 5px 15px rgba(127, 86, 217, 0.3);
+      font-weight: 700;
+    }
+    .tab-icon {
+      font-size: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .demo-controller-panel {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+        text-align: center;
+      }
+      .demo-tabs-container {
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 <body>
@@ -642,7 +720,7 @@
   <div class="dashboard-header">
     <div class="logo-container">
       <div class="logo-tech">AUTOMATED TELEMETRY PORTAL //</div>
-      <h1 class="logo-title">生活線條 B2B 數據可視化後台</h1>
+      <h1 class="logo-title" id="admin-dashboard-title">生活線條 B2B 數據可視化後台</h1>
     </div>
     
     <div class="shop-selector">
@@ -650,6 +728,22 @@
       <span>n8n PIPELINE STATUS: CONNECTED</span>
       <span style="color: rgba(255,255,255,0.15);">|</span>
       <span>FROM L.T.L. TEST SHOP</span>
+    </div>
+  </div>
+
+  <!-- Demo Controller Switcher Panel -->
+  <div class="demo-controller-panel">
+    <div class="demo-controller-title">DEMO CONTROLLER // 產業場景實境切換</div>
+    <div class="demo-tabs-container">
+      <button type="button" class="demo-tab active" data-scene="bistro" onclick="switchScene('bistro')">
+        <span class="tab-icon">🍷</span> 餐廳美食 Bistro
+      </button>
+      <button type="button" class="demo-tab" data-scene="hotel" onclick="switchScene('hotel')">
+        <span class="tab-icon">🏨</span> 尊榮旅宿 Resort
+      </button>
+      <button type="button" class="demo-tab" data-scene="expo" onclick="switchScene('expo')">
+        <span class="tab-icon">🌐</span> 科技展覽 Expo
+      </button>
     </div>
   </div>
   
@@ -736,7 +830,7 @@
           <div class="complaint-item" id="complaint-1">
             <div class="complaint-meta">
               <span class="complaint-phone">0937***112</span>
-              <span class="complaint-rating">2 顆星 ★★</span>
+              <span class="complaint-rating">2 顆星 <span class="star-filled">★★</span><span class="star-empty">★★★</span></span>
             </div>
             <p class="complaint-text">「特調風味層次是好的，但是甜點稍微偏甜了點，吃多會膩，希望未來有減糖版本...」</p>
             <div class="complaint-badge-row">
@@ -748,7 +842,7 @@
           <div class="complaint-item" id="complaint-2">
             <div class="complaint-meta">
               <span class="complaint-phone">0911***554</span>
-              <span class="complaint-rating">1 顆星 ★</span>
+              <span class="complaint-rating">1 顆星 <span class="star-filled">★</span><span class="star-empty">★★★★</span></span>
             </div>
             <p class="complaint-text">「等餐等太久了，現場空桌還很多，但是出餐速度稍微偏慢，希望可以改善效率...」</p>
             <div class="complaint-badge-row">
@@ -760,7 +854,7 @@
           <div class="complaint-item" id="complaint-3">
             <div class="complaint-meta">
               <span class="complaint-phone">0987***003</span>
-              <span class="complaint-rating">3 顆星 ★★★</span>
+              <span class="complaint-rating">3 顆星 <span class="star-filled">★★★</span><span class="star-empty">★★</span></span>
             </div>
             <p class="complaint-text">「空間的裝潢很好、NFC感應很有儀式感。但是音樂聲音稍微大聲了點，講話有點吃力。」</p>
             <div class="complaint-badge-row">
@@ -806,7 +900,7 @@
             <tr>
               <td class="crm-phone">0912***567</td>
               <td>guest***@example.com</td>
-              <td class="crm-rating">5 ★★★★★</td>
+              <td class="crm-rating">5 <span class="star-filled">★★★★★</span></td>
               <td style="color: var(--text-secondary);">[已發布 Google 商家評論] 非常棒的體驗！環境很有質感</td>
               <td style="font-family: var(--font-tech); font-weight: bold; color: var(--accent-blue);">+1 Pt</td>
               <td class="crm-time">2026-06-08 12:44:10</td>
@@ -814,7 +908,7 @@
             <tr>
               <td class="crm-phone">0928***156</td>
               <td>tony***@gmail.com</td>
-              <td class="crm-rating">5 ★★★★★</td>
+              <td class="crm-rating">5 <span class="star-filled">★★★★★</span></td>
               <td style="color: var(--text-secondary);">[已發布 Google 商家評論] 隱藏甜點超好吃，一定會再帶朋友來</td>
               <td style="font-family: var(--font-tech); font-weight: bold; color: var(--accent-blue);">+1 Pt</td>
               <td class="crm-time">2026-06-08 11:20:15</td>
@@ -822,7 +916,7 @@
             <tr>
               <td class="crm-phone">0988***321</td>
               <td>lisa***@outlook.com</td>
-              <td class="crm-rating">4 ★★★★</td>
+              <td class="crm-rating">4 <span class="star-filled">★★★★</span><span class="star-empty">☆</span></td>
               <td>調酒風味層次很豐富，出餐稍慢</td>
               <td style="font-family: var(--font-tech); font-weight: bold; color: var(--accent-blue);">+1 Pt</td>
               <td class="crm-time">2026-06-07 19:05:40</td>
@@ -830,7 +924,7 @@
             <tr>
               <td class="crm-phone">0905***654</td>
               <td>vale***@icloud.com</td>
-              <td class="crm-rating">5 ★★★★★</td>
+              <td class="crm-rating">5 <span class="star-filled">★★★★★</span></td>
               <td style="color: var(--text-secondary);">[已發布 Google 商家評論] NFC感應很酷炫，不用對焦掃描超方便</td>
               <td style="font-family: var(--font-tech); color: var(--text-disabled);">0 Pt</td>
               <td class="crm-time">2026-06-07 14:12:00</td>
@@ -838,7 +932,7 @@
             <tr>
               <td class="crm-phone">0972***111</td>
               <td>josh***@gmail.com</td>
-              <td class="crm-rating">5 ★★★★★</td>
+              <td class="crm-rating">5 <span class="star-filled">★★★★★</span></td>
               <td style="color: var(--text-secondary);">[已發布 Google 商家評論] 好評系統非常流暢，1秒領券很棒！</td>
               <td style="font-family: var(--font-tech); font-weight: bold; color: var(--accent-blue);">+1 Pt</td>
               <td class="crm-time">2026-06-06 20:30:12</td>
@@ -846,7 +940,7 @@
             <tr>
               <td class="crm-phone">0915***888</td>
               <td>b2b_***@fromlifetolines.com</td>
-              <td class="crm-rating">5 ★★★★★</td>
+              <td class="crm-rating">5 <span class="star-filled">★★★★★</span></td>
               <td style="color: var(--text-secondary);">[已發布 Google 商家評論] NOVA科技風格很對我的胃口，好評推薦</td>
               <td style="font-family: var(--font-tech); font-weight: bold; color: var(--accent-blue);">+1 Pt</td>
               <td class="crm-time">2026-06-06 15:22:45</td>
@@ -889,34 +983,73 @@
   </div>
 
   <script>
-    // Initial dataset for CSV download
-    const crmLeadsDataset = [
-      { phone: '0912345678', email: 'guest@example.com', rating: 5, feedback: '非常棒的體驗！環境很有質感', line: '+1 Pt', joined: '2026-06-08T12:44:10.000Z' },
-      { phone: '0928123456', email: 'tony_hsu@gmail.com', rating: 5, feedback: '隱藏甜點超好吃，一定會再帶朋友來', line: '+1 Pt', joined: '2026-06-08T11:20:15.000Z' },
-      { phone: '0988654321', email: 'lisa_wang@outlook.com', rating: 4, feedback: '調酒風味層次很豐富，就是出餐速度稍慢', line: '+1 Pt', joined: '2026-06-07T19:05:40.000Z' },
-      { phone: '0905987654', email: 'valerie_lin@icloud.com', rating: 5, feedback: 'NFC感應很酷炫，不用對焦掃描超方便', line: '0 Pt', joined: '2026-06-07T14:12:00.000Z' },
-      { phone: '0972555111', email: 'josh_chen@gmail.com', rating: 5, feedback: '好評系統非常流暢，1秒領券很棒！', line: '+1 Pt', joined: '2026-06-06T20:30:12.000Z' },
-      { phone: '0915999888', email: 'b2b_test@fromlifetolines.com', rating: 5, feedback: 'NOVA科技風格很對我的胃口，好評推薦', line: '+1 Pt', joined: '2026-06-06T15:22:45.000Z' }
-    ];
+    // Initial datasets for Bistro, Hotel, and Expo
+    const sceneDatasets = {
+      bistro: {
+        title: '【微醺時光・Bistro 301 專屬數據中樞】',
+        chartPath: 'M 20 160 C 100 150, 150 90, 250 80 C 350 70, 400 35, 480 30',
+        chartPathGlow: 'M 20 160 C 100 150, 150 90, 250 80 C 350 70, 400 35, 480 30',
+        chartPulseDotY: '30',
+        lineFriendCounter: 412,
+        shieldDefendCounter: 42,
+        crmLeads: [
+          { phone: '0912***567', email: 'guest***@example.com', rating: 5, feedback: '[已發布 Google 商家評論] 非常棒的體驗！環境很有質感', line: '+1 Pt', joined: '2026-06-08T12:44:10.000Z' },
+          { phone: '0928***156', email: 'tony***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 隱藏甜點超好吃，一定會再帶朋友來', line: '+1 Pt', joined: '2026-06-08T11:20:15.000Z' },
+          { phone: '0988***321', email: 'lisa***@outlook.com', rating: 4, feedback: '調酒風味層次很豐富，出餐稍慢', line: '+1 Pt', joined: '2026-06-07T19:05:40.000Z' },
+          { phone: '0905***654', email: 'vale***@icloud.com', rating: 5, feedback: '[已發布 Google 商家評論] NFC感應很酷炫，不用對焦掃描超方便', line: '0 Pt', joined: '2026-06-07T14:12:00.000Z' },
+          { phone: '0972***111', email: 'josh***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 好評系統非常流暢，1秒領券很棒！', line: '+1 Pt', joined: '2026-06-06T20:30:12.000Z' },
+          { phone: '0915***888', email: 'b2b_***@fromlifetolines.com', rating: 5, feedback: '[已發布 Google 商家評論] NOVA科技風格很對我的胃口，好評推薦', line: '+1 Pt', joined: '2026-06-06T15:22:45.000Z' }
+        ],
+        complaints: [
+          { phone: '0937***112', rating: 2, text: '特調風味層次是好的，但是甜點稍微偏甜了點，吃多會膩，希望未來有減糖版本...', time: '2026-06-08 12:44', status: '主理人已閱' },
+          { phone: '0911***554', rating: 1, text: '等餐等太久了，現場空桌還很多，但是出餐速度稍微偏慢，希望可以改善效率...', time: '2026-06-08 11:20', status: '流程改善中' },
+          { phone: '0987***003', rating: 3, text: '空間的裝潢很好、NFC感應很有儀式感。音樂聲音稍微大聲了點，講話有點吃力。', time: '2026-06-07 19:05', status: '顧客已補償' }
+        ]
+      },
+      hotel: {
+        title: '【隱山・奢華溫泉渡假村 專屬數據中樞】',
+        chartPath: 'M 20 170 C 120 160, 180 120, 240 100 C 320 80, 410 55, 480 50',
+        chartPathGlow: 'M 20 170 C 120 160, 180 120, 240 100 C 320 80, 410 55, 480 50',
+        chartPulseDotY: '50',
+        lineFriendCounter: 284,
+        shieldDefendCounter: 19,
+        crmLeads: [
+          { phone: '0915***992', email: 'room305***@luxury.com', rating: 5, feedback: '[已發布 TripAdvisor 聯名評論] 溫泉半露天湯屋視野極佳，客房送餐速度快！', line: '+1 Pt', joined: '2026-06-08T14:10:02.000Z' },
+          { phone: '0933***818', email: 'chen.spa***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 火山熱石療程非常放鬆，精油香氣高雅', line: '+1 Pt', joined: '2026-06-08T10:05:33.000Z' },
+          { phone: '0966***419', email: 'h.lin***@yahoo.com.tw', rating: 4, feedback: '客房床鋪跟岩盤浴都非常舒適，但晚餐的龍蝦拼盤出餐時間稍晚', line: '+1 Pt', joined: '2026-06-07T21:15:22.000Z' },
+          { phone: '0908***332', email: 'villas***@gmail.com', rating: 5, feedback: '[已發布 TripAdvisor 聯名評論] 感謝林經理在退房時熱心提供次回尊榮85折憑證，服務滿分', line: '0 Pt', joined: '2026-06-07T11:30:00.000Z' },
+          { phone: '0952***771', email: 'sophia***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 客房內 NFC 感應直接就能預約 SPA，太有科技感了', line: '+1 Pt', joined: '2026-06-06T18:45:10.000Z' }
+        ],
+        complaints: [
+          { phone: '0922***618', rating: 2, text: '露天風呂水溫稍微偏低，反映給櫃檯雖然有處理，但當下泡得不是很過癮...', time: '2026-06-08 11:30', status: '主理人已閱' },
+          { phone: '0981***929', rating: 1, text: '本來預約了下午4點的岩盤浴，結果現場登記出了點狀況，多等了20分鐘才進去...', time: '2026-06-07 16:20', status: '流程改善中' },
+          { phone: '0909***837', rating: 3, text: 'SPA的按摩力道稍微偏大，雖然當下有請芳療師調整，但隔天睡醒身體還是有點酸痛。', time: '2026-06-06 20:15', status: '顧客已補償' }
+        ]
+      },
+      expo: {
+        title: '【NEXT 2026 科技未來展 專屬數據中樞】',
+        chartPath: 'M 20 180 C 80 140, 160 110, 260 70 C 340 50, 420 25, 480 20',
+        chartPathGlow: 'M 20 180 C 80 140, 160 110, 260 70 C 340 50, 420 25, 480 20',
+        chartPulseDotY: '20',
+        lineFriendCounter: 1842,
+        shieldDefendCounter: 58,
+        crmLeads: [
+          { phone: '---- (NFC)', email: 'cto.tech***@future.com', rating: 5, feedback: '[已發布 大會問卷] 0秒感應下載白皮書非常流暢，省去排隊掃碼的麻煩', line: '+1 Pt', joined: '2026-06-08T14:32:15.000Z' },
+          { phone: '---- (NFC)', email: 'vc.partner***@capital.co', rating: 5, feedback: '[已發布 大會問卷] 創投媒合手冊內容整理得十分詳盡，這是我參加過最有效率的展會', line: '+1 Pt', joined: '2026-06-08T13:10:45.000Z' },
+          { phone: '---- (NFC)', email: 'director***@innovate.org', rating: 4, feedback: 'Keynote簡報可以直接感應下載，但PDF檔案有點大，展場WiFi頻寬稍微不足', line: '+1 Pt', joined: '2026-06-08T11:02:18.000Z' },
+          { phone: '---- (NFC)', email: 'allen***@startup.io', rating: 5, feedback: '[已發布 大會問卷] 整體展會規劃非常有未來感，NFC科技看展的體驗很棒', line: '0 Pt', joined: '2026-06-07T17:40:00.000Z' },
+          { phone: '---- (NFC)', email: 'emma***@cloudscale.net', rating: 5, feedback: '[已發布 大會問卷] 大會官方問卷審查介面相當好用，留下商業Email後1秒就寄達白皮書', line: '+1 Pt', joined: '2026-06-07T14:05:30.000Z' }
+        ],
+        complaints: [
+          { phone: '---- (NFC)', rating: 2, text: '展館 3D 電子地圖載入速度偏慢，有時候會出現空白，希望白皮書下載的伺服器頻寬能再加大...', time: '2026-06-08 14:15', status: '主理人已閱' },
+          { phone: '---- (NFC)', rating: 1, text: '創投媒合會的配對時間太短，很多預約好的機構因為前一場拖延而取消，時間控管需要加強...', time: '2026-06-08 10:45', status: '流程改善中' },
+          { phone: '---- (NFC)', rating: 3, text: '主舞台的音響在高音部分會出現刺耳的爆音，尤其是今天下午的主題演講，聽得有點不舒服。', time: '2026-06-07 15:30', status: '顧客已補償' }
+        ]
+      }
+    };
 
-    function downloadCRMLeads() {
-      let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
-      csvContent += "Phone Number,Email Address,Rating,Feedback,LINE Points,Joined Date\r\n";
-      
-      crmLeadsDataset.forEach((row) => {
-        const line = `"${row.phone}","${row.email}",${row.rating},"${row.feedback}","${row.line}","${row.joined}"`;
-        csvContent += line + "\r\n";
-      });
-      
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "crm_leads_export.csv");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-    
+    let activeScene = 'bistro';
+
     // Telemetry Sync Pipeline (Listening to review-gate.html localStorage broadcasts)
     let lastProcessedTimestamp = null;
     
@@ -933,10 +1066,111 @@
     
     let currentLineFriends = 412;
     let currentShieldDefends = 42;
+
+    function switchScene(sceneKey, updateUrl = true) {
+      if (!sceneDatasets[sceneKey]) return;
+      activeScene = sceneKey;
+      
+      // Update active tab styling
+      document.querySelectorAll('.demo-tab').forEach(tab => {
+        if (tab.getAttribute('data-scene') === sceneKey) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+      
+      // Update URL search query without reloading
+      if (updateUrl) {
+        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?scene=' + sceneKey;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+      }
+      
+      const config = sceneDatasets[sceneKey];
+      
+      // 1. Update Title
+      document.getElementById('admin-dashboard-title').textContent = config.title;
+      
+      // 2. Update Counters
+      currentLineFriends = config.lineFriendCounter;
+      currentShieldDefends = config.shieldDefendCounter;
+      
+      lineCounterEl.textContent = currentLineFriends;
+      shieldCounterEl.textContent = currentShieldDefends;
+      
+      // 3. Update Chart
+      chartPath.setAttribute('d', config.chartPath);
+      chartPathGlow.setAttribute('d', config.chartPathGlow);
+      chartPulseDot.setAttribute('cy', config.chartPulseDotY);
+      
+      // 4. Update CRM Table
+      crmTableBody.innerHTML = '';
+      config.crmLeads.forEach(lead => {
+        const tr = document.createElement('tr');
+        const is5Star = lead.rating === 5;
+        const starsHtml = `<span class="star-filled">${'★'.repeat(lead.rating)}</span><span class="star-empty">${'☆'.repeat(5 - lead.rating)}</span>`;
+        const lineStyle = lead.line.includes('+1') ? 'color: var(--accent-blue); font-weight: bold;' : 'color: var(--text-disabled);';
+        
+        // Formatted joined time
+        const joinedDate = new Date(lead.joined);
+        const displayTime = isNaN(joinedDate.getTime()) ? lead.joined : joinedDate.toLocaleString('zh-TW', { hour12: false }).replace(/\//g, '-');
+        
+        tr.innerHTML = `
+          <td class="crm-phone">${lead.phone}</td>
+          <td>${lead.email}</td>
+          <td class="crm-rating">${lead.rating} ${starsHtml}</td>
+          <td style="${is5Star ? 'color: var(--text-secondary);' : ''}">${lead.feedback}</td>
+          <td style="${lineStyle}">${lead.line}</td>
+          <td class="crm-time">${displayTime}</td>
+        `;
+        crmTableBody.appendChild(tr);
+      });
+      
+      // 5. Update Complaints Feed
+      complaintsFeed.innerHTML = '';
+      config.complaints.forEach(complaint => {
+        const item = document.createElement('div');
+        item.className = 'complaint-item';
+        const starsHtml = `<span class="star-filled">${'★'.repeat(complaint.rating)}</span><span class="star-empty">${'☆'.repeat(5 - complaint.rating)}</span>`;
+        item.innerHTML = `
+          <div class="complaint-meta">
+            <span class="complaint-phone">${complaint.phone}</span>
+            <span class="complaint-rating">${complaint.rating} 顆星 ${starsHtml}</span>
+          </div>
+          <p class="complaint-text">「${complaint.text}」</p>
+          <div class="complaint-badge-row">
+            <span class="complaint-time">${complaint.time}</span>
+            <span class="badge-status">${complaint.status}</span>
+          </div>
+        `;
+        complaintsFeed.appendChild(item);
+      });
+    }
+
+    function downloadCRMLeads() {
+      let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+      csvContent += "Phone Number,Email Address,Rating,Feedback,LINE Points,Joined Date\r\n";
+      
+      const config = sceneDatasets[activeScene];
+      config.crmLeads.forEach((row) => {
+        const line = `"${row.phone}","${row.email}",${row.rating},"${row.feedback}","${row.line}","${row.joined}"`;
+        csvContent += line + "\r\n";
+      });
+      
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `crm_leads_export_${activeScene}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
     
     function triggerLiveTelemetry(data) {
       if (!data || data.timestamp === lastProcessedTimestamp) return;
       lastProcessedTimestamp = data.timestamp;
+      
+      const sceneKey = data.scene || 'bistro';
       
       // Play Synthesizer sound trigger (Web Audio API)
       playTelemetryTone();
@@ -944,7 +1178,7 @@
       // 1. Trigger toast notification
       const toast = document.createElement('div');
       toast.className = 'toast-alert';
-      toast.innerHTML = `<span class="toast-status-dot"></span><span><b>NFC 實時感應</b>：成功捕獲熟客名單 (${data.phone})！</span>`;
+      toast.innerHTML = `<span class="toast-status-dot"></span><span><b>NFC 實時感應 (${sceneKey})</b>：成功捕獲熟客名單 (${data.phone || 'Expo'})！</span>`;
       toastContainer.appendChild(toast);
       
       setTimeout(() => {
@@ -954,7 +1188,41 @@
         setTimeout(() => toast.remove(), 500);
       }, 4000);
       
-      // Flash the live telemetry indicator in purple
+      // 2. Add row into target scene's in-memory dataset
+      const phoneMask = data.phone.length > 7 ? `${data.phone.substring(0, 4)}***${data.phone.substring(data.phone.length - 3)}` : data.phone;
+      const emailMask = data.email.includes('@') ? `${data.email.split('@')[0].substring(0, 3)}***@${data.email.split('@')[1]}` : data.email;
+      const lineText = data.line_points_loaded > 0 ? '+1 Pt' : '0 Pt';
+      const is5Star = data.rating === 5;
+      const displayFeedback = is5Star ? `[已發布 Google 商家評論] ${data.feedback}` : data.feedback;
+      
+      const newLead = {
+        phone: phoneMask,
+        email: emailMask,
+        rating: data.rating,
+        feedback: displayFeedback,
+        line: lineText,
+        joined: data.timestamp
+      };
+      
+      sceneDatasets[sceneKey].crmLeads.unshift(newLead);
+      sceneDatasets[sceneKey].lineFriendCounter += 1;
+      
+      if (data.rating < 5) {
+        sceneDatasets[sceneKey].shieldDefendCounter += 1;
+        const displayTime = new Date(data.timestamp).toLocaleString('zh-TW', { hour12: false }).replace(/\//g, '-');
+        sceneDatasets[sceneKey].complaints.unshift({
+          phone: phoneMask,
+          rating: data.rating,
+          text: data.feedback,
+          time: displayTime,
+          status: '剛剛攔截'
+        });
+      }
+      
+      // 3. Auto-switch to the scene of the incoming telemetry!
+      switchScene(sceneKey, true);
+      
+      // 4. Flash and animate the UI for visual confirmation
       liveIndicator.classList.add('flash');
       liveIndicator.innerHTML = '● NEW TELEMETRY DETECTED // 寫入中';
       setTimeout(() => {
@@ -962,9 +1230,7 @@
         liveIndicator.innerHTML = '● TELEMETRY STREAM ACTIVE';
       }, 3000);
       
-      // 2. Increment counters
-      currentLineFriends += 1;
-      lineCounterEl.textContent = currentLineFriends;
+      // Visual scale animations on counters
       lineCounterEl.style.transform = 'scale(1.1)';
       lineCounterEl.style.color = '#7F56D9';
       setTimeout(() => {
@@ -972,84 +1238,54 @@
         lineCounterEl.style.color = 'var(--accent-blue)';
       }, 600);
       
-      // 3. Prepend database row to table
-      const tr = document.createElement('tr');
-      tr.className = 'highlight-row';
-      
-      const phoneMask = data.phone.length > 7 ? `${data.phone.substring(0, 4)}***${data.phone.substring(data.phone.length - 3)}` : data.phone;
-      const emailMask = data.email.includes('@') ? `${data.email.split('@')[0].substring(0, 3)}***@${data.email.split('@')[1]}` : data.email;
-      const starsStr = '★'.repeat(data.rating) + '☆'.repeat(5 - data.rating);
-      
-      const is5Star = data.rating === 5;
-      const displayFeedback = is5Star ? `[已發布 Google 商家評論] ${data.feedback}` : data.feedback;
-      const lineText = data.line_points_loaded > 0 ? '+1 Pt' : '0 Pt';
-      const lineStyle = data.line_points_loaded > 0 ? 'color: var(--accent-blue); font-weight: bold;' : 'color: var(--text-disabled);';
-      
-      // Capture Time Formatting
-      const displayTime = new Date(data.timestamp).toLocaleString('zh-TW', { hour12: false }).replace(/\//g, '-');
-      
-      tr.innerHTML = `
-        <td class="crm-phone">${phoneMask}</td>
-        <td>${emailMask}</td>
-        <td class="crm-rating">${data.rating} ${starsStr}</td>
-        <td style="${is5Star ? 'color: var(--text-secondary);' : ''}">${displayFeedback}</td>
-        <td style="${lineStyle}">${lineText}</td>
-        <td class="crm-time">${displayTime}</td>
-      `;
-      
-      crmTableBody.insertBefore(tr, crmTableBody.firstChild);
-      
-      // Add row into internal export dataset
-      crmLeadsDataset.unshift({
-        phone: data.phone,
-        email: data.email,
-        rating: data.rating,
-        feedback: data.feedback,
-        line: lineText,
-        joined: data.timestamp
-      });
-      
-      setTimeout(() => {
-        tr.classList.remove('highlight-row');
-      }, 3000);
-      
-      // 4. Update SVG Line Chart (raise the final peak)
-      // Original final point is at cy=30 (which is today at y=30 on 200px box). Raise it to cy=10 (even higher growth).
-      chartPath.setAttribute('d', 'M 20 160 C 100 150, 150 90, 250 80 C 350 70, 400 35, 480 10');
-      chartPathGlow.setAttribute('d', 'M 20 160 C 100 150, 150 90, 250 80 C 350 70, 400 35, 480 10');
-      chartPulseDot.setAttribute('cy', '10');
-      
-      // 5. If rating is 1-4 stars, trigger negative shield block
       if (data.rating < 5) {
-        currentShieldDefends += 1;
-        shieldCounterEl.textContent = currentShieldDefends;
         shieldCounterEl.style.transform = 'scale(1.1)';
         shieldCounterEl.style.color = '#FFB800';
         setTimeout(() => {
           shieldCounterEl.style.transform = 'scale(1)';
           shieldCounterEl.style.color = 'var(--accent-secondary)';
         }, 600);
-        
-        // Add to complaints feed
-        const complaint = document.createElement('div');
-        complaint.className = 'complaint-item highlight-flash';
-        complaint.innerHTML = `
-          <div class="complaint-meta">
-            <span class="complaint-phone">${phoneMask}</span>
-            <span class="complaint-rating">${data.rating} 顆星 ${'★'.repeat(data.rating)}</span>
-          </div>
-          <p class="complaint-text">「${data.feedback}」</p>
-          <div class="complaint-badge-row">
-            <span class="complaint-time">${displayTime}</span>
-            <span class="badge-status">剛剛攔截</span>
-          </div>
-        `;
-        complaintsFeed.insertBefore(complaint, complaintsFeed.firstChild);
-        
+      }
+      
+      // Update chart to higher peak (specific to active scene)
+      let raisedPath = '';
+      let raisedY = '';
+      
+      if (sceneKey === 'bistro') {
+        raisedPath = 'M 20 160 C 100 150, 150 90, 250 80 C 350 70, 400 35, 480 10';
+        raisedY = '10';
+      } else if (sceneKey === 'hotel') {
+        raisedPath = 'M 20 170 C 120 160, 180 120, 240 100 C 320 80, 410 55, 480 25';
+        raisedY = '25';
+      } else {
+        raisedPath = 'M 20 180 C 80 140, 160 110, 260 70 C 340 50, 420 25, 480 5';
+        raisedY = '5';
+      }
+      
+      chartPath.setAttribute('d', raisedPath);
+      chartPathGlow.setAttribute('d', raisedPath);
+      chartPulseDot.setAttribute('cy', raisedY);
+      
+      // Highlight the first row in the table
+      const firstRow = crmTableBody.firstChild;
+      if (firstRow) {
+        firstRow.classList.add('highlight-row');
         setTimeout(() => {
-          complaint.classList.remove('highlight-flash');
-          complaint.querySelector('.badge-status').textContent = '主理人已閱';
-        }, 4000);
+          firstRow.classList.remove('highlight-row');
+        }, 3000);
+      }
+      
+      // Highlight the first complaint if rating < 5
+      if (data.rating < 5) {
+        const firstComplaint = complaintsFeed.firstChild;
+        if (firstComplaint) {
+          firstComplaint.classList.add('highlight-flash');
+          setTimeout(() => {
+            firstComplaint.classList.remove('highlight-flash');
+            const badge = firstComplaint.querySelector('.badge-status');
+            if (badge) badge.textContent = '主理人已閱';
+          }, 4000);
+        }
       }
     }
     
@@ -1057,8 +1293,6 @@
     function playTelemetryTone() {
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // Primary oscillator (pure tone)
         const osc1 = audioCtx.createOscillator();
         const gainNode = audioCtx.createGain();
         
@@ -1066,11 +1300,11 @@
         gainNode.connect(audioCtx.destination);
         
         osc1.type = 'sine';
-        osc1.frequency.setValueAtTime(600, audioCtx.currentTime); // Pitch
-        osc1.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.3); // Rise sweep
+        osc1.frequency.setValueAtTime(600, audioCtx.currentTime);
+        osc1.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.3);
         
         gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35); // decay
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
         
         osc1.start();
         osc1.stop(audioCtx.currentTime + 0.4);
@@ -1103,6 +1337,11 @@
         } catch (err) {}
       }
     }, 300);
+
+    // Initial scene setup from URL param
+    const urlParamsInit = new URLSearchParams(window.location.search);
+    const initialScene = urlParamsInit.get('scene') || 'bistro';
+    switchScene(initialScene, false);
   </script>
 </body>
 </html>
