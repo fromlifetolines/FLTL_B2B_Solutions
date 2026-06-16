@@ -484,6 +484,19 @@
       color: var(--accent-secondary);
       border: 1px solid rgba(255, 184, 0, 0.15);
       letter-spacing: 0.5px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .badge-status.clickable {
+      cursor: pointer;
+    }
+    
+    .badge-status.clickable:hover {
+      background: rgba(255, 122, 0, 0.2) !important;
+      border-color: var(--accent-blue) !important;
+      color: var(--text-primary) !important;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(255, 122, 0, 0.2);
     }
     
     /* Table styling */
@@ -1094,7 +1107,7 @@
           </div>
           <div class="complaint-badge-row">
             <span class="complaint-time">2026-06-08 12:44</span>
-            <span class="badge-status" style="background: rgba(255, 122, 0, 0.08); color: var(--accent-blue); border-color: rgba(255, 122, 0, 0.15);">等待櫃檯付款</span>
+            <span class="badge-status clickable" style="background: rgba(255, 122, 0, 0.08); color: var(--accent-blue); border-color: rgba(255, 122, 0, 0.15);" title="點擊確認收款並出餐">等待櫃檯付款</span>
           </div>
         </div>
         
@@ -1201,7 +1214,16 @@
     let activeScene = 'bistro';
 
     // Telemetry Sync Pipeline (Listening to review-gate.html localStorage broadcasts)
-    let lastProcessedTimestamp = null;
+    let lastProcessedTimestamp = (() => {
+      const stored = localStorage.getItem('fltl_latest_telemetry');
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          return parsed.timestamp || null;
+        } catch (e) {}
+      }
+      return null;
+    })();
     
     // UI Elements targets
     const crmTableBody = document.getElementById('crm-table-body');
@@ -1394,7 +1416,7 @@
             </div>
             <div class="complaint-badge-row">
               <span class="complaint-time">今日 ${displayTime}</span>
-              <span class="badge-status" style="background: rgba(255, 122, 0, 0.08); color: var(--accent-blue); border-color: rgba(255, 122, 0, 0.15);">等待櫃檯付款</span>
+              <span class="badge-status clickable" style="background: rgba(255, 122, 0, 0.08); color: var(--accent-blue); border-color: rgba(255, 122, 0, 0.15);" title="點擊確認收款並出餐">等待櫃檯付款</span>
             </div>
           `;
           
@@ -1563,6 +1585,69 @@
           }
         } else if (pass !== null) {
           alert('❌ 金鑰錯誤，請輸入正確的認證金鑰。');
+        }
+      });
+    }
+
+    // Play sound on confirming payment / cooking start
+    function playPaymentChime() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        
+        osc1.connect(gainNode);
+        osc2.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+        osc1.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+        osc1.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
+        
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(1046.50, audioCtx.currentTime + 0.2); // C6
+        
+        gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+        
+        osc1.start();
+        osc2.start();
+        osc1.stop(audioCtx.currentTime + 0.5);
+        osc2.stop(audioCtx.currentTime + 0.5);
+      } catch (e) {
+        console.warn("Web Audio API not supported or user gesture needed.", e);
+      }
+    }
+
+    // Register click delegate on order feed to change status from "等待櫃檯付款" to "已完成付款 / 出餐中"
+    const liveOrdersFeed = document.getElementById('live-orders-feed');
+    if (liveOrdersFeed) {
+      liveOrdersFeed.addEventListener('click', (e) => {
+        const badge = e.target.closest('.badge-status');
+        if (badge && badge.textContent.trim() === '等待櫃檯付款') {
+          playPaymentChime();
+          badge.textContent = '已完成付款 / 出餐中';
+          badge.style.background = 'rgba(46, 229, 157, 0.08)';
+          badge.style.color = '#2EE59D';
+          badge.style.borderColor = 'rgba(46, 229, 157, 0.15)';
+          badge.classList.remove('clickable');
+          badge.removeAttribute('title');
+          
+          // Show payment confirmation toast
+          const toast = document.createElement('div');
+          toast.className = 'toast-alert';
+          toast.style.borderColor = '#2EE59D';
+          toast.innerHTML = `<span class="toast-status-dot" style="background:#2EE59D; box-shadow:0 0 10px #2EE59D; animation: none;"></span><span><b>收款完成</b>：已確認款項，傳送出餐指令至廚房！</span>`;
+          toastContainer.appendChild(toast);
+          
+          setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(50px)';
+            toast.style.transition = 'all 0.5s';
+            setTimeout(() => toast.remove(), 500);
+          }, 3000);
         }
       });
     }
