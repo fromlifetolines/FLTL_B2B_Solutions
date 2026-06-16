@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>生活線條 // B2B 商業空間解決方案入口</title>
+  <title>生活線條 // B2B 實體感應空間體驗中心</title>
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="生活線條 B2B 商業解決方案實境體驗門戶。沉浸式體驗餐飲、旅宿、展覽之 NFC 數位空間感應、LINE 好友綁定與 5 星好評系統。">
+  <meta name="description" content="生活線條 B2B 實體空間感應解決方案。親自體驗如何利用實體 NFC 感應板秒加 LINE、建立數據金庫、防禦 Google 負評。">
   <meta name="author" content="生活線條 From Life To Lines">
   
-  <!-- Google Fonts: Space Grotesk & Noto Sans TC & Outfit -->
+  <!-- Google Fonts: Space Grotesk, Noto Sans TC, Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
   
   <style>
-    /* Design System - Warm Luxury Amber-Peach dining visual system */
+    /* GLEE Styled Warm Stone & Orange-Peach Luxury Dining Theme */
     :root {
       --accent-orange: #FF7A00;
       --accent-peach: #FF4B5C;
-      --accent-yellow: #FFB800; /* Warm Amber Gold */
+      --accent-yellow: #FFB800; /* Warm Gold */
       --accent-gradient: linear-gradient(135deg, #FF7A00 0%, #FF4B5C 100%);
       
       --bg-dark: #0C0A09; /* Warm stone charcoal background */
@@ -53,30 +53,20 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 80px 24px;
+      padding: 100px 24px;
       overflow-x: hidden;
       position: relative;
     }
     
-    /* Neon background aura */
+    /* Elegant glowing auras */
     .bg-glow-top {
       position: absolute;
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, rgba(255, 122, 0, 0.05) 0%, rgba(255, 75, 92, 0) 70%);
-      top: -200px;
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(circle, rgba(255, 122, 0, 0.06) 0%, rgba(255, 75, 92, 0) 70%);
+      top: -300px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 0;
-      pointer-events: none;
-    }
-    .bg-glow-bottom {
-      position: absolute;
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(255, 75, 92, 0.03) 0%, rgba(255, 122, 0, 0) 70%);
-      bottom: -100px;
-      left: 10%;
       z-index: 0;
       pointer-events: none;
     }
@@ -86,12 +76,16 @@
       max-width: 1200px;
       z-index: 10;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     
     /* Header section */
     .portal-header {
       text-align: center;
-      margin-bottom: 70px;
+      margin-bottom: 80px;
+      width: 100%;
     }
     
     .portal-tag {
@@ -100,50 +94,118 @@
       letter-spacing: 0.25em;
       color: var(--accent-orange);
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       text-transform: uppercase;
       text-shadow: 0 0 10px rgba(255, 122, 0, 0.3);
     }
     
     .portal-title {
       font-family: var(--font-title), var(--font-tc);
-      font-size: 2.8rem;
+      font-size: 3.2rem;
       font-weight: 800;
-      letter-spacing: 1px;
-      line-height: 1.3;
-      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+      line-height: 1.25;
+      margin-bottom: 30px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #E6E4E2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     
-    .portal-subtitle {
-      font-size: 1.05rem;
-      color: var(--text-secondary);
+    .slogan-banner {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--accent-orange);
+      margin-bottom: 40px;
+      text-shadow: 0 0 20px rgba(255, 122, 0, 0.15);
+      background: linear-gradient(90deg, #FF9F43, #FF4B5C);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.5px;
+    }
+    
+    .feature-list {
       max-width: 800px;
+      margin: 0 auto 50px;
+      background: rgba(28, 25, 23, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 24px;
+      padding: 35px 45px;
+      text-align: left;
+      line-height: 1.9;
+    }
+    
+    .feature-item {
+      margin-bottom: 20px;
+      font-size: 1.08rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    
+    .feature-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .feature-num {
+      background: var(--accent-gradient);
+      color: #FFF;
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: 0.95rem;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 4px;
+      box-shadow: 0 4px 10px rgba(255, 122, 0, 0.25);
+    }
+    
+    .feature-text strong {
+      color: var(--accent-yellow);
+      font-weight: 700;
+    }
+    
+    .feature-text p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      font-weight: 300;
+      margin-top: 4px;
+    }
+    
+    .portal-instruction {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      max-width: 650px;
       margin: 0 auto;
       line-height: 1.8;
       font-weight: 300;
     }
     
-    /* 3-Column Scenario Layout */
+    /* Asymmetric & Spacious Bento Cards Layout */
     .scenario-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 35px;
-      margin-bottom: 60px;
+      margin-bottom: 80px;
+      width: 100%;
     }
     
     .scenario-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 28px;
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      padding: 45px 35px;
+      border-radius: 32px;
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      padding: 50px 40px;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
       transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       position: relative;
-      overflow: hidden;
     }
     
     .scenario-card::before {
@@ -151,64 +213,62 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
+      right: 0;
       height: 4px;
+      border-radius: 32px 32px 0 0;
       background: transparent;
       transition: background 0.3s;
     }
     
     .scenario-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.65), 0 0 20px rgba(255, 122, 0, 0.05);
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 122, 0, 0.08);
+      border-color: rgba(255, 122, 0, 0.2);
     }
     
-    /* Color tags for cards */
-    .bistro-card:hover { border-color: rgba(255, 122, 0, 0.25); }
     .bistro-card:hover::before { background: var(--accent-orange); }
-    .hotel-card:hover { border-color: rgba(255, 75, 92, 0.25); }
     .hotel-card:hover::before { background: var(--accent-peach); }
-    .expo-card:hover { border-color: rgba(255, 184, 0, 0.25); }
     .expo-card:hover::before { background: var(--accent-yellow); }
     
     .card-icon-wrapper {
-      font-size: 3.2rem;
-      margin-bottom: 30px;
+      font-size: 3.5rem;
+      margin-bottom: 25px;
       display: inline-block;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
     }
     
     .card-scene-title {
       font-family: var(--font-title), var(--font-tc);
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      font-size: 1.55rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
     }
     
     .card-scene-subtitle {
       font-family: var(--font-tech);
       font-size: 0.75rem;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.15em;
       color: var(--text-disabled);
-      margin-bottom: 18px;
+      margin-bottom: 25px;
       text-transform: uppercase;
+      font-weight: 700;
     }
     
     .card-desc {
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       line-height: 1.8;
       color: var(--text-secondary);
       font-weight: 300;
-      margin-bottom: 40px;
+      margin-bottom: 45px;
       flex-grow: 1;
     }
     
-    /* CTA buttons layout */
+    /* Buttons Layout styling */
     .cta-group {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 15px;
       margin-top: auto;
     }
     
@@ -218,12 +278,12 @@
       color: var(--text-primary);
       border: none;
       border-radius: 50px;
-      padding: 18px;
-      font-family: var(--font-tech), var(--font-tc);
+      padding: 18px 24px;
+      font-family: var(--font-tc);
       font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       box-shadow: 0 6px 20px rgba(255, 122, 0, 0.25);
       display: flex;
       align-items: center;
@@ -232,74 +292,80 @@
     }
     
     .btn-primary-launch:hover {
-      box-shadow: 0 10px 30px rgba(255, 75, 92, 0.4);
+      box-shadow: 0 10px 30px rgba(255, 75, 92, 0.45);
       transform: translateY(-2px);
     }
     
     .btn-secondary-link {
       width: 100%;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--card-border);
-      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
       border-radius: 50px;
-      padding: 14px;
+      padding: 14px 20px;
       font-family: var(--font-tc);
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 500;
-      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
       transition: all 0.3s;
-      text-decoration: none    .btn-secondary-link:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
     
-    /* Bottom Enterprise Portal link */
+    .btn-secondary-link:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+      color: var(--text-primary);
+    }
+    
+    /* Enterprise Link Section */
     .enterprise-portal-section {
+      margin-top: 40px;
       width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-top: 30px;
+      max-width: 600px;
+      text-align: center;
     }
     
     .enterprise-btn {
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      gap: 12px;
       background: rgba(255, 255, 255, 0.01);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      padding: 16px 36px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      padding: 18px 30px;
       border-radius: 50px;
       color: var(--text-secondary);
-      text-decoration: none;
       font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
       transition: all 0.3s;
-      backdrop-filter: blur(10px);
     }
     
     .enterprise-btn:hover {
       border-color: var(--accent-orange);
       color: var(--text-primary);
-      box-shadow: 0 0 20px rgba(255, 122, 0, 0.15);
-      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(255, 122, 0, 0.1);
     }
     
     .enterprise-btn .arrow {
-      color: var(--accent-orange);
       transition: transform 0.3s;
     }
     
     .enterprise-btn:hover .arrow {
-      transform: translateX(4px);
+      transform: translateX(5px);
     }
     
-    /* Footer */
+    /* Footer styling */
     .footer {
-      text-align: center;
-      margin-top: 70px;
+      margin-top: 100px;
       font-family: var(--font-tech);
       font-size: 0.8rem;
       color: var(--text-disabled);
-      letter-spacing: 0.1em;
+      letter-spacing: 0.15em;
     }
     
     @media (max-width: 992px) {
@@ -308,35 +374,52 @@
         gap: 30px;
       }
       .portal-title {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Floating background glow auras -->
+  <!-- Floating background aura -->
   <div class="bg-glow-top"></div>
-  <div class="bg-glow-bottom"></div>
   
   <div class="container">
     <!-- Portal Header -->
     <header class="portal-header">
-      <div class="portal-tag">FLTL B2B SOLUTIONS // 實體空間體驗與數據中樞</div>
-      <h1 class="portal-title">生活線條 B2B 商業空間體驗中心</h1>
+      <div class="portal-tag">FLTL B2B SUITE // 實體感應商業體驗中樞</div>
+      <h1 class="portal-title">生活線條 B2B 門市演示中心</h1>
       
-      <p class="portal-subtitle" style="font-size: 1.35rem; font-weight: 800; color: var(--accent-orange); margin-bottom: 20px; text-shadow: 0 0 15px rgba(255, 122, 0, 0.2);">
-        📢 「讓你的 LINE 官方帳號會員綁定率暴增 3 倍的實體感應神器」
+      <p class="slogan-banner">
+        讓你的 LINE 官方帳號會員綁定率暴增 3 倍的實體感應神器
       </p>
       
-      <p class="portal-subtitle" style="font-size: 1.05rem; max-width: 850px; color: var(--text-primary); font-weight: 400; margin-bottom: 25px; line-height: 1.8;">
-        我們以極致工藝的實體 NFC 感應板為核心，協助線下品牌實現：<br>
-        <span style="color: var(--accent-yellow); font-weight: 600;">1. 桌面預點餐與櫃檯付款導引</span> ── 顧客碰一下秒看奢華電子菜單。<br>
-        <span style="color: var(--accent-yellow); font-weight: 600;">2. 流量與集點秒速綁定</span> ── 無感加好友，獲取精準 CRM 名單。<br>
-        <span style="color: var(--accent-yellow); font-weight: 600;">3. 智慧口碑防禦</span> ── 5星好評引流 Google，1-3星客訴內部截流！
-      </p>
+      <!-- Crucial Features Panel -->
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-num">1</div>
+          <div class="feature-text">
+            <strong>碰一下桌子就秒加 LINE 官方帳號</strong>
+            <p>無感應綁定，顧客在入座或櫃檯感應 NFC 板後即可一鍵載入菜單或加入官方帳號。</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-num">2</div>
+          <div class="feature-text">
+            <strong>用送小菜與顧客交換電話，建立高價值數據金庫</strong>
+            <p>點餐時以滿意度禮券或贈品獲取顧客的基本聯絡方式，安全合規留存 CRM 數據。</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-num">3</div>
+          <div class="feature-text">
+            <strong>智慧攔截不滿意評價，防止負評流向 Google Map</strong>
+            <p>5 星好評直接導流至 Google 商家，1 至 4 星客訴即時截流回傳至主理人後台私密處理。</p>
+          </div>
+        </div>
+      </div>
       
-      <p class="portal-subtitle" style="font-size: 0.9rem; color: var(--text-disabled);">
-        請選擇下方線下門店場景，即可一鍵開啟「前台顧客點餐 ＆ 後台數據監控」雙視窗聯動體驗，親身感受無阻力數位化成效。
+      <p class="portal-instruction">
+        請點擊下方場景的<strong>「開啟雙視窗聯動體驗」</strong>，系統將同時打開<strong>前台顧客預點菜單</strong>與<strong>主理人後台監控面板</strong>，您可親身體驗實時的感應數據流動。
       </p>
     </header>
     
@@ -349,17 +432,17 @@
         <div class="card-scene-subtitle">BEEF NOODLE RESTAURANT //</div>
         <h2 class="card-scene-title">傳統小吃 ── 老張牛肉麵</h2>
         <p class="card-desc">
-          體驗牛肉麵店如何透過桌邊 NFC 貼紙，讓客人碰一下桌面秒速載入奢華電子菜單預點餐，同時綁定 LINE 集點。提交點單時以「免費招待小菜」誘引顧客留下資料，並分流好評、攔截客訴！
+          體驗牛肉麵店如何透過桌邊 NFC 貼紙，讓客人碰一下桌面秒速載入奢華電子菜單預點餐，同時綁定 LINE 集點。提交點單時以「免費招待小菜」獲取顧客留下資料，並分流好評、攔截客訴！
         </p>
         <div class="cta-group">
           <button type="button" class="btn-primary-launch" onclick="launchDemo('bistro')">
-            【開啟顧客預點餐與老張數據後台】 ⚡
+            開啟雙視窗聯動體驗 ⚡
           </button>
           <a href="menu-hub.html?scene=bistro" class="btn-secondary-link" target="_blank">
             單獨體驗：顧客桌邊感應與預點單 (前台) 📱
           </a>
           <a href="b2b-admin-staging.html?scene=bistro" class="btn-secondary-link" target="_blank">
-            單獨體驗：老張數據監控面板 (後台) 📊
+            單獨體驗：主理人數據監控面板 (後台) 📊
           </a>
         </div>
       </div>
@@ -374,13 +457,13 @@
         </p>
         <div class="cta-group">
           <button type="button" class="btn-primary-launch" onclick="launchDemo('hotel')">
-            【開啟櫃檯感應與茶飲數據後台】 ⚡
+            開啟雙視窗聯動體驗 ⚡
           </button>
           <a href="menu-hub.html?scene=hotel" class="btn-secondary-link" target="_blank">
             單獨體驗：顧客櫃檯感應與預點單 (前台) 📱
           </a>
           <a href="b2b-admin-staging.html?scene=hotel" class="btn-secondary-link" target="_blank">
-            單獨體驗：鮮果茶飲數據監控面板 (後台) 📊
+            單獨體驗：主理人數據監控面板 (後台) 📊
           </a>
         </div>
       </div>
@@ -395,13 +478,13 @@
         </p>
         <div class="cta-group">
           <button type="button" class="btn-primary-launch" onclick="launchDemo('expo')">
-            【開啟桌邊感應與早餐數據後台】 ⚡
+            開啟雙視窗聯動體驗 ⚡
           </button>
           <a href="menu-hub.html?scene=expo" class="btn-secondary-link" target="_blank">
             單獨體驗：顧客桌邊感應與預點單 (前台) 📱
           </a>
           <a href="b2b-admin-staging.html?scene=expo" class="btn-secondary-link" target="_blank">
-            單獨體驗：阿寶早餐數據監控面板 (後台) 📊
+            單獨體驗：主理人數據監控面板 (後台) 📊
           </a>
         </div>
       </div>     
@@ -411,7 +494,7 @@
     <!-- Enterprise Landing Portal link -->
     <div class="enterprise-portal-section">
       <a href="enterprise-landing.html" class="enterprise-btn">
-        <span>探索 FLTL NFC 實體空間感應器商業閉環介紹 (Enterprise Landing)</span>
+        <span>探索 B2B 實體空間感應器商業閉環介紹 (Enterprise Landing)</span>
         <span class="arrow">→</span>
       </a>
     </div>
@@ -425,55 +508,7 @@
 
   <script>
     function launchDemo(scene) {
-      // Open the Admin Dashboard in a new window
       window.open(`b2b-admin-staging.html?scene=${scene}`, '_blank');
-      
-      // Delay opening client portal slightly to give user time to position or allow popups
-      setTimeout(() => {
-        window.open(`menu-hub.html?scene=${scene}`, '_blank');
-      }, 300);
-    }
-  </script>
-</body>
-</html>��粉曲線！
-        </p>
-        <div class="cta-group">
-          <button type="button" class="btn-primary-launch" onclick="launchDemo('expo')">
-            【進入點火測試：阿寶活力早餐店（早餐店劇本）】 ⚡
-          </button>
-          <a href="menu-hub.html?scene=expo" class="btn-secondary-link" target="_blank">
-            單獨進入：顧客感應菜單 (前台) 📱
-          </a>
-          <a href="b2b-admin-staging.html?scene=expo" class="btn-secondary-link" target="_blank">
-            單獨進入：阿寶早餐後台 (後台) 📊
-          </a>
-        </div>
-      </div>     
-
-      
-    </div>
-    
-    <!-- Enterprise Landing Portal link -->
-    <div class="enterprise-portal-section">
-      <a href="enterprise-landing.html" class="enterprise-btn">
-        <span>探索 FLTL NFC 實體空間感應器商業閉環介紹 (Enterprise Landing)</span>
-        <span class="arrow">→</span>
-      </a>
-    </div>
-    
-    <!-- Footer -->
-    <footer class="footer">
-      FROM LIFE TO LINES © 2026 // ALL RIGHTS RESERVED
-    </footer>
-    
-  </div>
-
-  <script>
-    function launchDemo(scene) {
-      // Open the Admin Dashboard in a new window
-      window.open(`b2b-admin-staging.html?scene=${scene}`, '_blank');
-      
-      // Delay opening client portal slightly to give user time to position or allow popups
       setTimeout(() => {
         window.open(`menu-hub.html?scene=${scene}`, '_blank');
       }, 300);
