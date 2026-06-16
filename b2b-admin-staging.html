@@ -1116,15 +1116,15 @@
     </div>
     
     <!-- Widget 5: Locked Premium Bento Box (7-day automation dispatcher) -->
-    <div class="bento-card card-locked">
-      <div class="locked-overlay">
+    <div class="bento-card card-locked" id="locked-bento-card">
+      <div class="locked-overlay" id="locked-card-overlay">
         <span class="lock-icon">🔒</span>
         <h3 class="lock-title">7日自動化行銷發射器 (n8n Retention Dispatcher)</h3>
         <p class="lock-desc">一鍵與 LINE 官方帳號 Push API 整合，系統自動於捕獲名單 7 日後推送二次回客優惠券，拉高熟客回訪率。</p>
-        <button type="button" class="lock-btn">升級企業旗艦版解鎖 (UPGRADE TO UNLOCK)</button>
+        <button type="button" class="lock-btn" id="unlock-trigger-btn">升級企業旗艦版解鎖 (UPGRADE TO UNLOCK)</button>
       </div>
       <!-- Blurred content preview -->
-      <div style="filter: blur(8px); opacity: 0.15; user-select: none;">
+      <div id="locked-card-content" style="filter: blur(8px); opacity: 0.15; user-select: none; transition: all 0.5s;">
         <div style="font-size: 1.8rem; font-weight: bold; color: var(--accent-blue); margin-bottom: 15px;">ACTIVE QUEUE: 1,482 LEADS</div>
         <p>Next dispatch: 2026-06-15T05:32:00Z to guest@example.com</p>
       </div>
@@ -1525,6 +1525,57 @@
         } catch (err) {}
       }
     }, 300);
+    
+    // Unlock Premium Bento Box event listener
+    const unlockBtn = document.getElementById('unlock-trigger-btn');
+    if (unlockBtn) {
+      unlockBtn.addEventListener('click', () => {
+        const pass = prompt('請輸入解鎖認證金鑰 (認證碼為 fltl2026)：');
+        if (pass === 'fltl2026') {
+          alert('🔑 認證成功！企業旗艦版 7日自動化行銷模組已解鎖！');
+          const overlay = document.getElementById('locked-card-overlay');
+          const content = document.getElementById('locked-card-content');
+          if (overlay) overlay.style.display = 'none';
+          if (content) {
+            content.style.filter = 'none';
+            content.style.opacity = '1';
+            content.style.userSelect = 'auto';
+            
+            // Show premium active queue stats
+            content.innerHTML = `
+              <div style="font-size: 1.2rem; font-weight: bold; color: var(--accent-orange); margin-bottom: 15px; text-shadow: 0 0 10px rgba(255,122,0,0.2);">
+                ● 7日回客行銷發射器已啟動 // ACTIVE
+              </div>
+              <div style="margin-top: 10px; border: 1px solid rgba(255,255,255,0.05); border-radius:12px; padding:10px; background:rgba(0,0,0,0.2);">
+                <table style="width:100%; font-size:0.75rem; border-collapse:collapse; color:var(--text-secondary);">
+                  <thead>
+                    <tr style="border-bottom:1px solid rgba(255,255,255,0.08); text-align:left;">
+                      <th style="padding:6px 2px; color:var(--text-primary);">管道</th>
+                      <th style="padding:6px 2px; color:var(--text-primary);">排程觸發</th>
+                      <th style="padding:6px 2px; color:var(--text-primary);">預計推送內容</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom:1px solid rgba(255,255,255,0.03);">
+                      <td style="padding:6px 2px; color:var(--accent-orange); font-weight:bold;">LINE Push</td>
+                      <td style="padding:6px 2px;">D+7 09:00</td>
+                      <td style="padding:6px 2px;">回購招待老滷拼盤券</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:6px 2px; color:var(--accent-peach); font-weight:bold;">Email API</td>
+                      <td style="padding:6px 2px;">D+7 09:05</td>
+                      <td style="padding:6px 2px;">消費促動與滿意度感謝信</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            `;
+          }
+        } else if (pass !== null) {
+          alert('❌ 金鑰錯誤，請輸入正確的認證金鑰。');
+        }
+      });
+    }
 
     // Initial scene setup from URL param
     const urlParamsInit = new URLSearchParams(window.location.search);

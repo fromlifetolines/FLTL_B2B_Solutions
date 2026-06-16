@@ -1427,6 +1427,31 @@ Waiting for user submission.</div>
       
       updateDebugConsole(packedJSON, true, n8nFlowJSON);
     }
+    
+    // Intercept Direct Checkout option to bypass marketing lead-gen completely
+    const isDirectCheckout = localStorage.getItem('fltl_direct_checkout') === 'true';
+    if (isDirectCheckout) {
+      localStorage.removeItem('fltl_direct_checkout');
+      
+      // Auto-populate placeholder credentials for checkout submission telemetry
+      leadData.phone = '直接點單顧客 (無集點)';
+      leadData.email = '無';
+      leadData.rating = 5;
+      leadData.feedback = '[顧客選擇直接點單 - 免留資料]';
+      
+      // Auto-transition to Step 2 but display checkout page directly
+      cardContainer.classList.add('flipped');
+      ratingArea.style.display = 'none';
+      backHeader.style.display = 'none';
+      
+      // Show receipt success state
+      successState.style.display = 'block';
+      successState.querySelector('.title-main').textContent = '預點單已成功送出';
+      successState.querySelector('.success-text').textContent = '餐點預點單已成功傳送！請出示本畫面至結帳櫃檯付款，我們將立即為您出餐。';
+      
+      // Packaging payload to trigger Live order feed on admin dashboard
+      packageAndSendPayload();
+    }
   </script>
 </body>
 </html>

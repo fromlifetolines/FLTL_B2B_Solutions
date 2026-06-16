@@ -332,6 +332,28 @@
       transform: translateY(-1px);
     }
     
+    .cart-submit-btn-secondary {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+      border-radius: 50px;
+      padding: 12px 24px;
+      font-family: var(--font-tc);
+      font-weight: 500;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .cart-submit-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.15);
+      color: var(--text-primary);
+    }
+    
     /* LINE Point Hijacker CTA (Hidden or secondary since we have Cart Bar) */
     .hijack-section {
       width: 100%;
@@ -511,9 +533,14 @@
       <span class="cart-qty-label" id="cart-count-label">已選擇 0 份餐點</span>
       <span class="cart-total-price" id="cart-total-price">NT$ 0</span>
     </div>
-    <button class="cart-submit-btn" type="button" id="cart-submit-btn">
-      送出預點單並領取好評優惠 ➔
-    </button>
+    <div class="cart-actions" style="display: flex; gap: 12px; align-items: center;">
+      <button class="cart-submit-btn-secondary" type="button" id="cart-direct-submit-btn">
+        直接送出 (免填資料)
+      </button>
+      <button class="cart-submit-btn" type="button" id="cart-submit-btn">
+        領取優惠點餐 ➔
+      </button>
+    </div>
   </div>
   
   <!-- Simulated LINE join overlay -->
@@ -711,7 +738,15 @@
     });
     
     cartSubmitBtn.addEventListener('click', () => {
-      // Order submission
+      // Order submission with marketing rewards
+      localStorage.removeItem('fltl_direct_checkout');
+      triggerOrderSubmission(true);
+    });
+    
+    const cartDirectSubmitBtn = document.getElementById('cart-direct-submit-btn');
+    cartDirectSubmitBtn.addEventListener('click', () => {
+      // Direct order without rewards (bypasses marketing inputs)
+      localStorage.setItem('fltl_direct_checkout', 'true');
       triggerOrderSubmission(true);
     });
   </script>
