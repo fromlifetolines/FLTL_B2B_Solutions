@@ -1432,6 +1432,19 @@ Waiting for user submission.</div>
       console.log("%c[n8n Automation Payload Prepared]", "color: #FF7A00; font-weight: bold; background: #0C0A09; padding: 4px 8px; border-radius: 4px;", leadData);
       console.log("%c[n8n 7-Day Marketing Automation Flow]", "color: #FF4B5C; font-weight: bold; background: #0C0A09; padding: 4px 8px; border-radius: 4px;", n8nAutomationFlow);
       
+      // Real outbound webhook dispatch to n8n workflow
+      fetch('https://n8n.fromlifetolines.com/webhook/b2b-leads/active', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: packedJSON
+      }).then(res => {
+        console.log('Outbound n8n Webhook Status:', res.status);
+      }).catch(err => {
+        console.warn('Outbound n8n Webhook offline or blocked by CORS:', err);
+      });
+      
       updateDebugConsole(packedJSON, true, n8nFlowJSON);
     }
     

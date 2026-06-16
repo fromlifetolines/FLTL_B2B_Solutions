@@ -1530,7 +1530,7 @@
     const unlockBtn = document.getElementById('unlock-trigger-btn');
     if (unlockBtn) {
       unlockBtn.addEventListener('click', () => {
-        const pass = prompt('請輸入解鎖認證金鑰 (認證碼為 fltl2026)：');
+        const pass = prompt('請輸入解鎖認證金鑰：');
         if (pass === 'fltl2026') {
           alert('🔑 認證成功！企業旗艦版 7日自動化行銷模組已解鎖！');
           const overlay = document.getElementById('locked-card-overlay');
@@ -1541,33 +1541,23 @@
             content.style.opacity = '1';
             content.style.userSelect = 'auto';
             
-            // Show premium active queue stats
+            // Show premium active queue stats & n8n integration guide
             content.innerHTML = `
-              <div style="font-size: 1.2rem; font-weight: bold; color: var(--accent-orange); margin-bottom: 15px; text-shadow: 0 0 10px rgba(255,122,0,0.2);">
+              <div style="font-size: 1.15rem; font-weight: bold; color: var(--accent-orange); margin-bottom: 12px; text-shadow: 0 0 10px rgba(255,122,0,0.2);">
                 ● 7日回客行銷發射器已啟動 // ACTIVE
               </div>
-              <div style="margin-top: 10px; border: 1px solid rgba(255,255,255,0.05); border-radius:12px; padding:10px; background:rgba(0,0,0,0.2);">
-                <table style="width:100%; font-size:0.75rem; border-collapse:collapse; color:var(--text-secondary);">
-                  <thead>
-                    <tr style="border-bottom:1px solid rgba(255,255,255,0.08); text-align:left;">
-                      <th style="padding:6px 2px; color:var(--text-primary);">管道</th>
-                      <th style="padding:6px 2px; color:var(--text-primary);">排程觸發</th>
-                      <th style="padding:6px 2px; color:var(--text-primary);">預計推送內容</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr style="border-bottom:1px solid rgba(255,255,255,0.03);">
-                      <td style="padding:6px 2px; color:var(--accent-orange); font-weight:bold;">LINE Push</td>
-                      <td style="padding:6px 2px;">D+7 09:00</td>
-                      <td style="padding:6px 2px;">回購招待老滷拼盤券</td>
-                    </tr>
-                    <tr>
-                      <td style="padding:6px 2px; color:var(--accent-peach); font-weight:bold;">Email API</td>
-                      <td style="padding:6px 2px;">D+7 09:05</td>
-                      <td style="padding:6px 2px;">消費促動與滿意度感謝信</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <p style="font-size:0.8rem; color:var(--text-secondary); margin-bottom:12px; line-height:1.6;">
+                本模組已完成 n8n 自動化流程的端點對接。數據捕獲後將自動推送至 Webhook 觸發以下生產鏈：
+              </p>
+              <div style="border: 1px solid rgba(255,255,255,0.06); border-radius:12px; padding:12px; background:rgba(0,0,0,0.3); font-size:0.75rem; line-height:1.7; margin-bottom:12px;">
+                <span style="color:var(--accent-yellow); font-weight:bold; display:block; margin-bottom:6px;">🔌 n8n 生產鏈配置說明：</span>
+                1. <b>Webhook 接收節點</b>: 監聽來自前台發送的 JSON 數據。<br>
+                2. <b>LINE Messaging API 節點</b>: 使用 LINE Channel Access Token，當顧客加好友後以顧客 <code>userId</code> 推送客製化 D+7 折價券訊息。<br>
+                3. <b>SMTP / SendGrid 節點</b>: 驗證信箱格式，發送 <code>emailSubject</code> 與憑證 PDF。<br>
+                4. <b>Google Sheets 節點</b>: 實時追加熟客名單與消費金額至店家數據庫。
+              </div>
+              <div style="font-size:0.75rem; color:var(--text-disabled); font-family:var(--font-tech);">
+                [n8n Webhook Endpoint]: <span style="color:var(--accent-blue); word-break:break-all;">https://n8n.fromlifetolines.com/webhook/b2b-leads/active</span>
               </div>
             `;
           }
