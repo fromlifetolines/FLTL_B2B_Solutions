@@ -1378,15 +1378,15 @@
         if (ordersFeed) {
           const orderCard = document.createElement('div');
           orderCard.className = 'order-item-card highlight-flash';
-          
-          const randTableNum = Math.floor(Math.random() * 8) + 1;
+          const tableVal = data.table || (Math.floor(Math.random() * 8) + 1);
+          const formattedTableVal = tableVal.toString().padStart(2, '0');
           const displayTime = new Date(data.timestamp).toLocaleTimeString('zh-TW', { hour12: false }).substring(0, 5);
           
           const itemsMarkup = data.order.items.map(item => `• ${item.name} x ${item.qty}`).join('<br>');
           
           orderCard.innerHTML = `
             <div class="order-item-card-header">
-              <span class="order-item-table-num">桌號 #0${randTableNum} 桌邊預點單</span>
+              <span class="order-item-table-num">桌號 #${formattedTableVal} 桌邊預點單</span>
               <span class="order-item-price-sum">NT$ ${data.order.total}</span>
             </div>
             <div class="order-item-details-list">

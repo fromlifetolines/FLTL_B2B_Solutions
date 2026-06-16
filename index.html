@@ -438,10 +438,10 @@
           <button type="button" class="btn-primary-launch" onclick="launchDemo('bistro')">
             開啟雙視窗聯動體驗 ⚡
           </button>
-          <a href="menu-hub.html?scene=bistro" class="btn-secondary-link" target="_blank">
+          <a href="menu-hub.html?scene=bistro&table=5" class="btn-secondary-link" target="_blank">
             單獨體驗：顧客桌邊感應與預點單 (前台) 📱
           </a>
-          <a href="b2b-admin-staging.html?scene=bistro" class="btn-secondary-link" target="_blank">
+          <a href="b2b-admin-staging.html?scene=bistro&table=5" class="btn-secondary-link" target="_blank">
             單獨體驗：主理人數據監控面板 (後台) 📊
           </a>
         </div>
@@ -459,10 +459,10 @@
           <button type="button" class="btn-primary-launch" onclick="launchDemo('hotel')">
             開啟雙視窗聯動體驗 ⚡
           </button>
-          <a href="menu-hub.html?scene=hotel" class="btn-secondary-link" target="_blank">
+          <a href="menu-hub.html?scene=hotel&table=8" class="btn-secondary-link" target="_blank">
             單獨體驗：顧客櫃檯感應與預點單 (前台) 📱
           </a>
-          <a href="b2b-admin-staging.html?scene=hotel" class="btn-secondary-link" target="_blank">
+          <a href="b2b-admin-staging.html?scene=hotel&table=8" class="btn-secondary-link" target="_blank">
             單獨體驗：主理人數據監控面板 (後台) 📊
           </a>
         </div>
@@ -480,10 +480,10 @@
           <button type="button" class="btn-primary-launch" onclick="launchDemo('expo')">
             開啟雙視窗聯動體驗 ⚡
           </button>
-          <a href="menu-hub.html?scene=expo" class="btn-secondary-link" target="_blank">
+          <a href="menu-hub.html?scene=expo&table=2" class="btn-secondary-link" target="_blank">
             單獨體驗：顧客桌邊感應與預點單 (前台) 📱
           </a>
-          <a href="b2b-admin-staging.html?scene=expo" class="btn-secondary-link" target="_blank">
+          <a href="b2b-admin-staging.html?scene=expo&table=2" class="btn-secondary-link" target="_blank">
             單獨體驗：主理人數據監控面板 (後台) 📊
           </a>
         </div>
@@ -508,9 +508,11 @@
 
   <script>
     function launchDemo(scene) {
-      window.open(`b2b-admin-staging.html?scene=${scene}`, '_blank');
+      const tableMap = { bistro: '5', hotel: '8', expo: '2' };
+      const table = tableMap[scene] || '3';
+      window.open(`b2b-admin-staging.html?scene=${scene}&table=${table}`, '_blank');
       setTimeout(() => {
-        window.open(`menu-hub.html?scene=${scene}`, '_blank');
+        window.open(`menu-hub.html?scene=${scene}&table=${table}`, '_blank');
       }, 300);
     }
   </script>

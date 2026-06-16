@@ -989,6 +989,7 @@ Waiting for user submission.</div>
     // URL scene parameter parser
     const urlParams = new URLSearchParams(window.location.search);
     const scene = urlParams.get('scene') || 'bistro';
+    const tableNum = urlParams.get('table') || '3';
     
     // Scene content mappings
     const sceneConfigurations = {
@@ -1083,7 +1084,8 @@ Waiting for user submission.</div>
       joined_timestamp: '',
       trigger_retention_day7: '',
       line_points_loaded: 0,
-      scene: scene
+      scene: scene,
+      table: tableNum
     };
     
     // Elements Selection
@@ -1379,7 +1381,12 @@ Waiting for user submission.</div>
             listEl.appendChild(li);
           });
           
-          // Update total price display
+          // Update total price display and table number title
+          const formattedTableNum = tableNum.toString().padStart(2, '0');
+          const receiptTitle = document.querySelector('.order-receipt-card h3');
+          if (receiptTitle) {
+            receiptTitle.textContent = `桌邊預點單明細 (桌號 #${formattedTableNum})`;
+          }
           document.getElementById('receipt-total-price').textContent = `NT$ ${cartObj.total}`;
           document.getElementById('order-summary-receipt').style.display = 'block';
           

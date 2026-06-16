@@ -507,6 +507,10 @@
     <!-- Header -->
     <header class="menu-header">
       <div class="menu-tech" id="portal-tag">NFC DIGITAL SPACE PORTAL //</div>
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 122, 0, 0.08); border: 1px solid rgba(255, 122, 0, 0.2); padding: 8px 16px; border-radius: 50px; margin-bottom: 22px;">
+        <span style="width: 8px; height: 8px; background: #FF7A00; border-radius: 50%; display: inline-block; box-shadow: 0 0 10px #FF7A00;"></span>
+        <span id="table-number-badge" style="font-family: var(--font-tech); font-size: 0.82rem; font-weight: 700; color: var(--accent-orange); letter-spacing: 0.5px; text-transform: uppercase;">TABLE #03</span>
+      </div>
       <h1 class="menu-title" id="portal-title">生活線條主廚菜單</h1>
       <p class="menu-subtitle" id="portal-subtitle">
         輕觸桌面 NFC 感應桌牌即可隨時載入型錄。選用在地食材，為您的空間注入科技儀式感。
@@ -561,6 +565,11 @@
     // URL scene parameters parser
     const urlParams = new URLSearchParams(window.location.search);
     const scene = urlParams.get('scene') || 'bistro';
+    const tableNum = urlParams.get('table') || '3';
+    
+    // Set table number badge display
+    const formattedTable = tableNum.toString().padStart(2, '0');
+    document.getElementById('table-number-badge').textContent = `TABLE #` + formattedTable;
     
     // Scene content mappings (5 items with food photos for each scene)
     const sceneConfigurations = {
@@ -726,7 +735,7 @@
         loaderSubtext.textContent = hasOrder ? '已成功彙整預點單！正在導引至滿意度回饋與禮遇領取畫面...' : config.successSub;
         
         setTimeout(() => {
-          window.location.href = `review-gate.html?scene=${scene}`;
+          window.location.href = `review-gate.html?scene=${scene}&table=${tableNum}`;
         }, 2500);
       }, 1200);
     }
