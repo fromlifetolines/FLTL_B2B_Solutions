@@ -114,13 +114,28 @@
     .slogan-banner {
       font-size: 1.45rem;
       font-weight: 800;
-      color: var(--accent-orange);
       margin-bottom: 40px;
-      text-shadow: 0 0 20px rgba(255, 122, 0, 0.15);
-      background: linear-gradient(90deg, #FF9F43, #FF4B5C);
+      text-shadow: 0 0 25px rgba(255, 122, 0, 0.2);
+      background: linear-gradient(
+        to right,
+        #FF7A00 0%,
+        #FFB800 25%,
+        #FFFFFF 50%,
+        #FFB800 75%,
+        #FF4B5C 100%
+      );
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: metallicShine 3s linear infinite;
       letter-spacing: 0.5px;
+    }
+    
+    @keyframes metallicShine {
+      to {
+        background-position: 200% center;
+      }
     }
     
     .feature-list {
