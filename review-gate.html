@@ -713,6 +713,61 @@
         padding: 10px;
       }
     }
+    
+    /* Floating Guide Card */
+    .demo-guide-card {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      max-width: 340px;
+      background: rgba(13, 17, 28, 0.95);
+      border: 1px solid var(--accent-yellow);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 184, 0, 0.25);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      z-index: 9999;
+      animation: slideUpFade 0.4s ease-out;
+      text-align: left;
+    }
+    .demo-guide-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .demo-guide-close:hover {
+      color: var(--accent-yellow);
+    }
+    .demo-guide-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--accent-yellow);
+      margin-bottom: 8px;
+      font-family: var(--font-tech), var(--font-tc);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .demo-guide-text {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--text-primary);
+      font-weight: 300;
+    }
+    @media (max-width: 768px) {
+      .demo-guide-card {
+        position: static;
+        margin: 25px auto 0;
+        max-width: 460px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -844,6 +899,13 @@ Waiting for user submission.</div>
     </div>
   </div>
 
+  <!-- Floating B2B Demo Guide Card -->
+  <div class="demo-guide-card" id="demo-guide">
+    <button type="button" class="demo-guide-close" onclick="document.getElementById('demo-guide').style.display='none'">×</button>
+    <div class="demo-guide-title">💡 傳統店家商業邏輯導覽 (主理人專屬)</div>
+    <div class="demo-guide-text" id="demo-guide-text"></div>
+  </div>
+
   <script>
     // URL scene parameter parser
     const urlParams = new URLSearchParams(window.location.search);
@@ -852,52 +914,64 @@ Waiting for user submission.</div>
     // Scene content mappings
     const sceneConfigurations = {
       bistro: {
-        frontTag: 'UNLOCK EXCLUSIVE REWARD //',
-        frontTitle: '解鎖熟客專屬禮遇',
-        frontSub: '店長誠摯邀請您：輸入手機號碼以取得『微醺招待券』，並解鎖今晚的餐點評分。',
+        frontTag: 'OLD ZHANG BEEF NOODLES //',
+        frontTitle: '解鎖老張熟客禮遇',
+        frontSub: '老張牛肉麵誠摯邀請：輸入手機號碼即可一秒獲取『小菜招待券』，並解鎖今晚的餐點滿意度調研。',
         phoneLabel: 'PHONE NUMBER // 手機號碼',
         emailLabel: 'EMAIL ADDRESS // 電子郵件',
-        googleTitle: '微醺時光・Bistro 301 (Google 商家點評)',
-        googleAvatar: '🍷',
-        successTitle: '招待券已發送',
-        successSub: '「微醺招待券」已同步發送至您的信箱與簡訊。結帳時請向服務人員出示！',
+        googleTitle: '老張牛肉麵・暖心小館 (Google 商家點評中樞)',
+        googleAvatar: '🍜',
+        successTitle: '小菜招待券已發送',
+        successSub: '「小菜招待券」已同步發送至您的信箱與簡訊。結帳時請向服務人員出示！',
         feedbackSuccessTitle: '回饋已成功送出',
-        feedbackSuccessSub: '主理人已親自收到您的反映，我們將會以最快速度調整服務品質。「微醺招待券」已同步發送至您的信箱與簡訊，請於結帳時出示！',
-        lineMessage: `【生活線條 // 老客專屬二刷回客券】\n親愛的顧客您好，感謝您於 7 天前光臨本店並參與集點！送您一張隱藏版特調憑證，限時 7 天有效，期待與您再次相遇！\n優惠代碼：RETENTION_7DAY_CCFF00`,
-        emailSubject: "生活線條 B2B 自動行銷：解鎖您的二刷回客禮遇",
-        emailBody: "親愛的顧客，感謝您於 7 天前參與好評回饋。本期熟客專屬禮遇已為您準備妥當，請點選以下連結領取二刷優惠券..."
+        feedbackSuccessSub: '老闆已親自收到您的改進建議，我們將以最快速度調整滷汁比例與服務速度。小菜招待券已同步寄出，期待下次為您服務！',
+        lineMessage: `【老張牛肉麵 // 熟客二刷折價券】\n老客您好，感謝您於 7 天前光臨老張牛肉麵！送您一張隱藏版老滷拼盤兌換券，限時 7 天有效，期待再次為您下麵！\n優惠代碼：ZHANG_BEEF_7DAY_CCFF`,
+        emailSubject: "老張牛肉麵：感謝您的回饋，送上您的老客專屬禮遇",
+        emailBody: "親愛的顧客，感謝您於 7 天前參與老張牛肉麵的好評回饋。您的專屬二刷老滷拼盤兌換券已寄達，憑此信可兌換...",
+        guideText1: '💡 數據獲取閉環：利用「免費贈送小菜招待」做為誘餌，吸引顧客主動留下手機與 Email，直接為您的牛肉麵小館建立精準的熟客 CRM 資料庫！',
+        guideText2: '💡 智慧星級分流：當顧客進入評估時，若選 5 星好評將導向 Google 商家；若選 1-3 星將分流至私密客訴箱，死守店面品牌形象！',
+        guideTextLowStar: '💡 老闆請看！客人的抱怨被悄悄攔截在您的私密箱，絕對不會流向 Google 商家，成功死守店面形象！',
+        guideText5Star: '💡 好評引流中：顧客給予 5 星好評，系統引導至 Google 商家公開發佈，幫您狂洗好評！'
       },
       hotel: {
-        frontTag: 'VIP CHECKOUT LOYALTY //',
-        frontTitle: '隱山尊榮入住回饋',
-        frontSub: '感謝您入住隱山。留下您的聯絡方式，我們將在您退房時為您送上『次回入住尊榮 85 折優惠憑證』。',
+        frontTag: 'FRESH FRUIT TEA //',
+        frontTitle: '鮮果茶飲官方會員連線',
+        frontSub: '輸入您的手機號碼，即可一秒將集點與折價券寫入您的官方 LINE，下次消費自動扣抵！',
         phoneLabel: 'PHONE NUMBER // 手機號碼',
         emailLabel: 'EMAIL ADDRESS // 電子郵件',
-        googleTitle: '隱山・奢華溫泉渡假村 (TripAdvisor / Google 聯名認證)',
-        googleAvatar: '🏨',
-        successTitle: '優惠憑證已鎖定',
-        successSub: '「次回入住尊榮 85 折優惠憑證」已發送至您的信箱與簡訊。退房時櫃檯將為您核銷。',
-        feedbackSuccessTitle: '回饋已成功送出',
-        feedbackSuccessSub: '渡假村經理已收到您的寶貴反映，我們將立即提升服務品質。「次回入住尊榮 85 折優惠憑證」已發送至您的信箱與簡訊。退房時櫃檯將為您核銷。',
-        lineMessage: `【隱山渡假村 // VIP 回訪專屬禮遇】\n親愛的旅客您好，感謝您於 7 天前入住隱山渡假村！送您一張次回入住尊榮 8 折優惠券，限時 90 天內有效，期待您的再次蒞臨！\n優惠代碼：HOTEL_VIP_RETENTION_CCFF00`,
-        emailSubject: "隱山渡假村：感謝您的入住，送上您的 VIP 專屬回訪禮遇",
-        emailBody: "親愛的旅客，感謝您於 7 天前入住隱山。我們非常榮幸能為您服務，為您準備了次回入住 8 折尊榮憑證，請點擊連結領取..."
+        googleTitle: '鮮果茶飲・加盟連鎖 (Google 商家好評解鎖)',
+        googleAvatar: '🥤',
+        successTitle: 'LINE 折價券已綁定',
+        successSub: '「會員專屬次回消費折價券」已發送至您的官方 LINE。下次點餐時手機出示條碼即可扣抵！',
+        feedbackSuccessTitle: '回饋已送至店長信箱',
+        feedbackSuccessSub: '鮮果茶飲店長已收到您的反饋，我們將會加強夥伴的調茶速度與比例掌控。會員次回折價券已發送至您的 LINE！',
+        lineMessage: `【鮮果茶飲 // 連鎖回購折價券】\n親愛的會員您好，感謝您 7 天前購買我們的當季水果茶！送您一張 10 元現折券，限時 7 天，歡迎今天再來一杯！\n折抵代碼：TEA_10OFF_7DAY_CCFF`,
+        emailSubject: "鮮果茶飲連鎖：感謝您的支持，送上次回現折 10 元優惠",
+        emailBody: "親愛的會員，感謝您 7 天前光臨我們分店。為您準備了專屬回購折價券，請點擊連結領取條碼...",
+        guideText1: '💡 點單即時綁定：排隊客人感應碰一下折 5 元，顧客點頭留下手機，即時將精準 CRM 資料寫入您的 LINE 會員庫，輕鬆建立顧客名冊！',
+        guideText2: '💡 連鎖好評分流：加盟飲料店極度依賴 Google 商家星級。5 星好評導引引流 Google，1-3 星顧客抱怨在內部消化並由店長即時補償，完美維護分店形象。',
+        guideTextLowStar: '💡 老闆請看！客人的抱怨被悄悄攔截在您的私密箱，絕對不會流向 Google 商家，成功死守店面形象！',
+        guideText5Star: '💡 好評引流中：顧客給予 5 星好評，系統引導至 Google 商家公開發佈，幫您狂洗好評！'
       },
       expo: {
-        frontTag: 'WHITE PAPER DOWNLOAD //',
-        frontTitle: 'NEXT 科技白皮書下載',
-        frontSub: '留下您的商業電子郵件，系統將自動將大會簡報發射至您的信箱，並完成本次大會滿意度調研。',
+        frontTag: 'ABAO BREAKFAST //',
+        frontTitle: '阿寶早餐滿意度調研',
+        frontSub: '留下您的聯絡方式（手機與 Email），阿寶阿姨馬上將「大冰奶升級券」寄給您，並完成滿意度調研。',
         phoneLabel: 'MOBILE PHONE // 手機號碼',
-        emailLabel: 'BUSINESS EMAIL // 商業電子郵件',
-        googleTitle: 'NEXT 2026 科技未來大會 (大會官方問卷審查)',
-        googleAvatar: '🌐',
-        successTitle: '白皮書與簡報已發送',
-        successSub: '「NEXT 2026 大會全套科技白皮書與 Keynote 簡報」下載連結已寄送到您的電子郵件信箱。',
-        feedbackSuccessTitle: '問卷回饋已成功送出',
-        feedbackSuccessSub: '大會主辦方已收到您的意見，我們將於下一屆展會中進行優化。「NEXT 2026 大會全套科技白皮書與簡報」下載連結已發送至您的信箱，請查收！',
-        lineMessage: `【NEXT 2026 大會追蹤】\n大會參與者您好，感謝您於 7 天前參與我們的趨勢調研！送您一張隱藏版初創投資人午餐會邀請函。\n邀請代碼：EXPO_VIP_7DAY_CCFF00`,
-        emailSubject: "NEXT 2026 科技大會：感謝您的回饋，下載附贈大會白皮書",
-        emailBody: "親愛的參與者，感謝您於 7 天前參與大會問卷調研。您的大會全套科技白皮書 PDF 與 Keynote 簡報下載連結已為您準備妥當，請點擊連結下載..."
+        emailLabel: 'EMAIL ADDRESS // 電子郵件',
+        googleTitle: '阿寶活力早餐店 (大會官方問卷/Google好評)',
+        googleAvatar: '🍞',
+        successTitle: '升級券已發送到 LINE',
+        successSub: '「中冰奶免費升級大冰奶券」已寄送到您的 LINE 與簡訊，明天吃早餐時記得跟阿姨換喔！',
+        feedbackSuccessTitle: '阿寶阿姨收到意見了',
+        feedbackSuccessSub: '阿寶阿姨知道今天煎台太忙讓您久等了，明天一定會改進！升級券已經寄送至您的 LINE，明天再來喝大冰奶！',
+        lineMessage: `【阿寶活力早餐 // 早餐鐵粉券】\n早安！感謝您 7 天前光臨阿寶早餐！送您一張『卡啦雞腿堡現折 10 元券』，明天早起跟阿姨說，幫您做特製！\n優惠代碼：ABAO_VIP_7DAY_CC`,
+        emailSubject: "阿寶活力早餐店：感謝您的意見，送您卡啦雞腿堡折價券",
+        emailBody: "親愛的鐵粉顧客，阿寶阿姨謝謝您 7 天前給我們的評估。為您準備了卡啦雞腿堡 10 元現折憑證，請點擊連結領取...",
+        guideText1: '💡 早餐高頻熟客：利用「免費升級大冰奶」作為回饋，讓在地常客在感應菜單時綁定手機，將一次性客人轉為可隨時自動行銷的終身熟客！',
+        guideText2: '💡 早餐商譽防護：早上尖峰出餐太忙難免有疏漏。系統在內部截流 1-3 星低評分客訴，避免奧客一怒之下一星灌爆 Google 商家。',
+        guideTextLowStar: '💡 老闆請看！客人的抱怨被悄悄攔截在您的私密箱，絕對不會流向 Google 商家，成功死守店面形象！',
+        guideText5Star: '💡 好評引流中：顧客給予 5 星好評，系統引導至 Google 商家公開發佈，幫您狂洗好評！'
       }
     };
     
@@ -912,9 +986,10 @@ Waiting for user submission.</div>
     
     document.getElementById('google-shop-name').textContent = config.googleTitle;
     document.getElementById('google-shop-avatar').textContent = config.googleAvatar;
+    document.getElementById('demo-guide-text').innerHTML = config.guideText1;
     
     if (scene === 'hotel') {
-      document.getElementById('google-rating-desc').textContent = '在 TripAdvisor / Google 上公開發佈評論';
+      document.getElementById('google-rating-desc').textContent = '在 Google / LINE 畫面上公開發佈評論';
     } else if (scene === 'expo') {
       document.getElementById('google-rating-desc').textContent = '在大會問卷系統上提交回饋審查';
     }
@@ -1031,6 +1106,7 @@ Waiting for user submission.</div>
       
       updateDebugConsole(`Step 1 Complete: Captured Phone = ${leadData.phone}, Email = ${leadData.email}. Initiating 3D flip...`);
       cardContainer.classList.add('flipped');
+      document.getElementById('demo-guide-text').innerHTML = config.guideText2;
     });
     
     let currentSelectedRating = 0;
@@ -1086,9 +1162,16 @@ Waiting for user submission.</div>
       if (rating === 5) {
         updateDebugConsole(`Step 2 (5 Stars Select): Opening Mock Google Review Panel.`);
         googleModal.style.display = 'flex';
+        document.getElementById('demo-guide-text').innerHTML = config.guideText5Star;
       } else {
         feedbackForm.style.display = 'block';
         updateDebugConsole(`Step 2 (1-4 Stars Intercept): Rating ${rating} detected. Diverting from Google Business Profile to private feedback portal.`);
+        
+        if (rating <= 3) {
+          document.getElementById('demo-guide-text').innerHTML = config.guideTextLowStar;
+        } else {
+          document.getElementById('demo-guide-text').innerHTML = config.guideText2;
+        }
         
         const scrollContainer = document.querySelector('.card-back .card-content-scroll');
         setTimeout(() => {

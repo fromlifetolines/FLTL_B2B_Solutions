@@ -707,6 +707,65 @@
         justify-content: center;
       }
     }
+    
+    /* Floating Guide Card */
+    .demo-guide-card {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      max-width: 340px;
+      background: rgba(13, 17, 28, 0.95);
+      border: 1px solid var(--accent-yellow);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 184, 0, 0.25);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      z-index: 9999;
+      animation: slideUpFade 0.4s ease-out;
+      text-align: left;
+    }
+    .demo-guide-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .demo-guide-close:hover {
+      color: var(--accent-yellow);
+    }
+    .demo-guide-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--accent-yellow);
+      margin-bottom: 8px;
+      font-family: var(--font-tech), var(--font-tc);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .demo-guide-text {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--text-primary);
+      font-weight: 300;
+    }
+    @keyframes slideUpFade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 1200px) {
+      .demo-guide-card {
+        position: static;
+        margin: 25px auto 0;
+        max-width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -721,6 +780,9 @@
     <div class="logo-container">
       <div class="logo-tech">AUTOMATED TELEMETRY PORTAL //</div>
       <h1 class="logo-title" id="admin-dashboard-title">生活線條 B2B 數據可視化後台</h1>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; font-weight: 500; letter-spacing: 0.5px;">
+        讓你的 LINE 官方帳號會員綁定率暴增 3 倍的實體感應神器
+      </p>
     </div>
     
     <div class="shop-selector">
@@ -733,16 +795,16 @@
 
   <!-- Demo Controller Switcher Panel -->
   <div class="demo-controller-panel">
-    <div class="demo-controller-title">DEMO CONTROLLER // 產業場景實境切換</div>
+    <div class="demo-controller-title">DEMO CONTROLLER // 店家實境切換控制台</div>
     <div class="demo-tabs-container">
       <button type="button" class="demo-tab active" data-scene="bistro" onclick="switchScene('bistro')">
-        <span class="tab-icon">🍷</span> 餐廳美食 Bistro
+        <span class="tab-icon">🍜</span> 老張牛肉麵
       </button>
       <button type="button" class="demo-tab" data-scene="hotel" onclick="switchScene('hotel')">
-        <span class="tab-icon">🏨</span> 尊榮旅宿 Resort
+        <span class="tab-icon">🥤</span> 鮮果茶飲店
       </button>
       <button type="button" class="demo-tab" data-scene="expo" onclick="switchScene('expo')">
-        <span class="tab-icon">🌐</span> 科技展覽 Expo
+        <span class="tab-icon">🍞</span> 阿寶早餐店
       </button>
     </div>
   </div>
@@ -753,8 +815,8 @@
     <div class="bento-card card-line-chart">
       <div class="card-header">
         <div class="card-title-group">
-          <div class="card-tag blue">LINE GROWTH ANALYSIS //</div>
-          <h2 class="card-title">LINE 好友暴利增長卡</h2>
+          <div class="card-tag blue">LINE GROWTH ANALYSIS // LINE 增量分析</div>
+          <h2 class="card-title" style="font-size: 1.15rem;">官方 LINE 粉絲暴利增長追踪（實體 NFC 增粉技術成效：本月已為您多賺 <span id="line-friend-earned" style="color: var(--accent-blue);">412</span> 名熟客回頭率）</h2>
         </div>
         <div style="text-align: right;">
           <div class="metric-value blue" id="line-friend-counter">412</div>
@@ -805,8 +867,8 @@
     <div class="bento-card card-reviews">
       <div class="card-header">
         <div class="card-title-group">
-          <div class="card-tag amber">NEGATIVE RATING GATE //</div>
-          <h2 class="card-title">負評智慧防禦盾</h2>
+          <div class="card-tag amber">NEGATIVE RATING GATE // 負評分流智慧防護</div>
+          <h2 class="card-title" style="font-size: 1.15rem;">負評智慧攔截盾（已成功為您的店面擋下 <span id="shield-defend-earned" style="color: var(--accent-secondary);">42</span> 則惡意公眾一星負評，全面保護品牌形象）</h2>
         </div>
         <div style="text-align: right;">
           <div class="metric-value amber" id="shield-defend-counter">42</div>
@@ -871,9 +933,9 @@
     <div class="bento-card card-table">
       <div class="card-header">
         <div class="card-title-group">
-          <div class="card-tag purple">CRM USER DATABASE //</div>
-          <h2 class="card-title">
-            熟客名單捕獲庫 (CRM Lead Total) 
+          <div class="card-tag purple">CRM USER DATABASE // CRM 熟客資料庫</div>
+          <h2 class="card-title" style="font-size: 1.15rem;">
+            已成功捕獲的精準熟客 CRM 資料庫（客人的手機已鎖定，下週系統將自動幫您發射老客二刷券！）
             <span class="table-live-indicator" id="live-indicator">
               ● TELEMETRY STREAM ACTIVE
             </span>
@@ -952,7 +1014,7 @@
     
     <!-- Widget 4: Locked Premium Bento Box (AI analysis) -->
     <div class="bento-card card-locked">
-      <div class="locked-overlay">
+          <div class="locked-overlay">
         <span class="lock-icon">🔒</span>
         <h3 class="lock-title">AI 客戶語意情緒報告 (AI Sentiment Analysis)</h3>
         <p class="lock-desc">升級企業旗艦版即可解鎖 OpenAI 大模型即時分析顧客負評語意，提煉關鍵字並自動擬寫主廚補償回覆信。</p>
@@ -986,64 +1048,64 @@
     // Initial datasets for Bistro, Hotel, and Expo
     const sceneDatasets = {
       bistro: {
-        title: '【微醺時光・Bistro 301 專屬數據中樞】',
+        title: '【老張牛肉麵・暖心小館 專屬數據中樞】',
         chartPath: 'M 20 160 C 100 150, 150 90, 250 80 C 350 70, 400 35, 480 30',
         chartPathGlow: 'M 20 160 C 100 150, 150 90, 250 80 C 350 70, 400 35, 480 30',
         chartPulseDotY: '30',
         lineFriendCounter: 412,
         shieldDefendCounter: 42,
         crmLeads: [
-          { phone: '0912***567', email: 'guest***@example.com', rating: 5, feedback: '[已發布 Google 商家評論] 非常棒的體驗！環境很有質感', line: '+1 Pt', joined: '2026-06-08T12:44:10.000Z' },
-          { phone: '0928***156', email: 'tony***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 隱藏甜點超好吃，一定會再帶朋友來', line: '+1 Pt', joined: '2026-06-08T11:20:15.000Z' },
-          { phone: '0988***321', email: 'lisa***@outlook.com', rating: 4, feedback: '調酒風味層次很豐富，出餐稍慢', line: '+1 Pt', joined: '2026-06-07T19:05:40.000Z' },
-          { phone: '0905***654', email: 'vale***@icloud.com', rating: 5, feedback: '[已發布 Google 商家評論] NFC感應很酷炫，不用對焦掃描超方便', line: '0 Pt', joined: '2026-06-07T14:12:00.000Z' },
-          { phone: '0972***111', email: 'josh***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 好評系統非常流暢，1秒領券很棒！', line: '+1 Pt', joined: '2026-06-06T20:30:12.000Z' },
-          { phone: '0915***888', email: 'b2b_***@fromlifetolines.com', rating: 5, feedback: '[已發布 Google 商家評論] NOVA科技風格很對我的胃口，好評推薦', line: '+1 Pt', joined: '2026-06-06T15:22:45.000Z' }
+          { phone: '0912***567', email: 'guest***@example.com', rating: 5, feedback: '[已發布 Google 商家評論] 牛肉大塊湯頭好，招待的小菜小魚豆乾很入味！', line: '+1 Pt', joined: '2026-06-08T12:44:10.000Z' },
+          { phone: '0928***156', email: 'tony***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 三寶麵口感很棒，麵條非常有勁道，酸梅湯解膩', line: '+1 Pt', joined: '2026-06-08T11:20:15.000Z' },
+          { phone: '0988***321', email: 'lisa***@outlook.com', rating: 4, feedback: '麵條好吃、牛肉香嫩，但尖峰時間排隊等稍微久了點', line: '+1 Pt', joined: '2026-06-07T19:05:40.000Z' },
+          { phone: '0905***654', email: 'vale***@icloud.com', rating: 5, feedback: '[已發布 Google 商家評論] 碰一下桌面感應就能看菜單集點，好新穎的體驗！', line: '0 Pt', joined: '2026-06-07T14:12:00.000Z' },
+          { phone: '0972***111', email: 'josh***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 帶小朋友來吃，店員服務很親切，小菜分量很足', line: '+1 Pt', joined: '2026-06-06T20:30:12.000Z' },
+          { phone: '0915***888', email: 'oldzhang_fan***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 每次來必點酸梅湯，經典紅燒牛肉麵吃不膩', line: '+1 Pt', joined: '2026-06-06T15:22:45.000Z' }
         ],
         complaints: [
-          { phone: '0937***112', rating: 2, text: '特調風味層次是好的，但是甜點稍微偏甜了點，吃多會膩，希望未來有減糖版本...', time: '2026-06-08 12:44', status: '主理人已閱' },
-          { phone: '0911***554', rating: 1, text: '等餐等太久了，現場空桌還很多，但是出餐速度稍微偏慢，希望可以改善效率...', time: '2026-06-08 11:20', status: '流程改善中' },
-          { phone: '0987***003', rating: 3, text: '空間的裝潢很好、NFC感應很有儀式感。音樂聲音稍微大聲了點，講話有點吃力。', time: '2026-06-07 19:05', status: '顧客已補償' }
+          { phone: '0937***112', rating: 2, text: '今天點的三寶麵牛筋有點硬，希望下次能燉爛一點...', time: '2026-06-08 12:44', status: '主理人已閱' },
+          { phone: '0911***554', rating: 1, text: '門口滷味排隊動線很不清楚，等了快半小時才拿到，很不高興...', time: '2026-06-08 11:20', status: '流程改善中' },
+          { phone: '0987***003', rating: 3, text: '酸梅湯喝起來有點太甜了，希望能提供無糖或微糖的選項。', time: '2026-06-07 19:05', status: '顧客已補償' }
         ]
       },
       hotel: {
-        title: '【隱山・奢華溫泉渡假村 專屬數據中樞】',
+        title: '【鮮果茶飲・加盟連鎖 專屬數據中樞】',
         chartPath: 'M 20 170 C 120 160, 180 120, 240 100 C 320 80, 410 55, 480 50',
         chartPathGlow: 'M 20 170 C 120 160, 180 120, 240 100 C 320 80, 410 55, 480 50',
         chartPulseDotY: '50',
         lineFriendCounter: 284,
         shieldDefendCounter: 19,
         crmLeads: [
-          { phone: '0915***992', email: 'room305***@luxury.com', rating: 5, feedback: '[已發布 TripAdvisor 聯名評論] 溫泉半露天湯屋視野極佳，客房送餐速度快！', line: '+1 Pt', joined: '2026-06-08T14:10:02.000Z' },
-          { phone: '0933***818', email: 'chen.spa***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 火山熱石療程非常放鬆，精油香氣高雅', line: '+1 Pt', joined: '2026-06-08T10:05:33.000Z' },
-          { phone: '0966***419', email: 'h.lin***@yahoo.com.tw', rating: 4, feedback: '客房床鋪跟岩盤浴都非常舒適，但晚餐的龍蝦拼盤出餐時間稍晚', line: '+1 Pt', joined: '2026-06-07T21:15:22.000Z' },
-          { phone: '0908***332', email: 'villas***@gmail.com', rating: 5, feedback: '[已發布 TripAdvisor 聯名評論] 感謝林經理在退房時熱心提供次回尊榮85折憑證，服務滿分', line: '0 Pt', joined: '2026-06-07T11:30:00.000Z' },
-          { phone: '0952***771', email: 'sophia***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 客房內 NFC 感應直接就能預約 SPA，太有科技感了', line: '+1 Pt', joined: '2026-06-06T18:45:10.000Z' }
+          { phone: '0915***992', email: 'tea.lover***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 翡翠金桔檸檬超好喝，酸甜剛好消暑，碰一下折5元', line: '+1 Pt', joined: '2026-06-08T14:10:02.000Z' },
+          { phone: '0933***818', email: 'chen.bobas***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 黑糖珍珠鮮奶的黑糖香氣濃郁，珍珠口感非常Ｑ彈', line: '+1 Pt', joined: '2026-06-08T10:05:33.000Z' },
+          { phone: '0966***419', email: 'h.lin***@yahoo.com.tw', rating: 4, feedback: '水果茶料很多很新鮮，但是少冰還是偏甜，建議點微糖', line: '+1 Pt', joined: '2026-06-07T21:15:22.000Z' },
+          { phone: '0908***332', email: 'chafan***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 會員集點速度超快，櫃檯感應一下就完成了，折抵很方便', line: '0 Pt', joined: '2026-06-07T11:30:00.000Z' },
+          { phone: '0952***771', email: 'sophia.tea***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 最推四季春茶底的水果茶，夏天喝超解渴！', line: '+1 Pt', joined: '2026-06-06T18:45:10.000Z' }
         ],
         complaints: [
-          { phone: '0922***618', rating: 2, text: '露天風呂水溫稍微偏低，反映給櫃檯雖然有處理，但當下泡得不是很過癮...', time: '2026-06-08 11:30', status: '主理人已閱' },
-          { phone: '0981***929', rating: 1, text: '本來預約了下午4點的岩盤浴，結果現場登記出了點狀況，多等了20分鐘才進去...', time: '2026-06-07 16:20', status: '流程改善中' },
-          { phone: '0909***837', rating: 3, text: 'SPA的按摩力道稍微偏大，雖然當下有請芳療師調整，但隔天睡醒身體還是有點酸痛。', time: '2026-06-06 20:15', status: '顧客已補償' }
+          { phone: '0922***618', rating: 2, text: '珍珠賣完了沒有先告知，排隊排到才說要等20分鐘，白等了...', time: '2026-06-08 11:30', status: '主理人已閱' },
+          { phone: '0981***929', rating: 1, text: '點去冰半糖結果拿到多冰全糖，整杯根本甜到喝不下去，品質控管要加強...', time: '2026-06-07 16:20', status: '流程改善中' },
+          { phone: '0909***837', rating: 3, text: '茶味稍微偏淡了點，被鮮奶的味道完全蓋過去了，希望可以調整比例。', time: '2026-06-06 20:15', status: '顧客已補償' }
         ]
       },
       expo: {
-        title: '【NEXT 2026 科技未來展 專屬數據中樞】',
+        title: '【阿寶活力早餐店 專屬數據中樞】',
         chartPath: 'M 20 180 C 80 140, 160 110, 260 70 C 340 50, 420 25, 480 20',
         chartPathGlow: 'M 20 180 C 80 140, 160 110, 260 70 C 340 50, 420 25, 480 20',
         chartPulseDotY: '20',
         lineFriendCounter: 1842,
         shieldDefendCounter: 58,
         crmLeads: [
-          { phone: '---- (NFC)', email: 'cto.tech***@future.com', rating: 5, feedback: '[已發布 大會問卷] 0秒感應下載白皮書非常流暢，省去排隊掃碼的麻煩', line: '+1 Pt', joined: '2026-06-08T14:32:15.000Z' },
-          { phone: '---- (NFC)', email: 'vc.partner***@capital.co', rating: 5, feedback: '[已發布 大會問卷] 創投媒合手冊內容整理得十分詳盡，這是我參加過最有效率的展會', line: '+1 Pt', joined: '2026-06-08T13:10:45.000Z' },
-          { phone: '---- (NFC)', email: 'director***@innovate.org', rating: 4, feedback: 'Keynote簡報可以直接感應下載，但PDF檔案有點大，展場WiFi頻寬稍微不足', line: '+1 Pt', joined: '2026-06-08T11:02:18.000Z' },
-          { phone: '---- (NFC)', email: 'allen***@startup.io', rating: 5, feedback: '[已發布 大會問卷] 整體展會規劃非常有未來感，NFC科技看展的體驗很棒', line: '0 Pt', joined: '2026-06-07T17:40:00.000Z' },
-          { phone: '---- (NFC)', email: 'emma***@cloudscale.net', rating: 5, feedback: '[已發布 大會問卷] 大會官方問卷審查介面相當好用，留下商業Email後1秒就寄達白皮書', line: '+1 Pt', joined: '2026-06-07T14:05:30.000Z' }
+          { phone: '---- (NFC)', email: 'abao.fans***@gmail.com', rating: 5, feedback: '[已發布 大會問卷] 爆漿起司蛋餅名不虛傳，起司牽絲超邪惡，中冰奶好喝！', line: '+1 Pt', joined: '2026-06-08T14:32:15.000Z' },
+          { phone: '---- (NFC)', email: 'burger.love***@outlook.com', rating: 5, feedback: '[已發布 Google 商家評論] 卡啦雞腿堡酥脆多汁，大冰奶升級券碰一下就拿到，超劃算', line: '+1 Pt', joined: '2026-06-08T13:10:45.000Z' },
+          { phone: '---- (NFC)', email: 'morning***@gmail.com', rating: 4, feedback: '蛋餅皮非常酥脆，就是假日早上客人太多，煎台阿姨忙不過來', line: '+1 Pt', joined: '2026-06-08T11:02:18.000Z' },
+          { phone: '---- (NFC)', email: 'breakfast***@gmail.com', rating: 5, feedback: '[已發布 大會問卷] 感應升級大冰奶超酷，阿寶阿姨人超熱情，出餐很快', line: '0 Pt', joined: '2026-06-07T17:40:00.000Z' },
+          { phone: '---- (NFC)', email: 'lin.early***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 大推辣味卡啦雞腿排堡，搭配中冰奶是完美的早餐標配！', line: '+1 Pt', joined: '2026-06-07T14:05:30.000Z' }
         ],
         complaints: [
-          { phone: '---- (NFC)', rating: 2, text: '展館 3D 電子地圖載入速度偏慢，有時候會出現空白，希望白皮書下載的伺服器頻寬能再加大...', time: '2026-06-08 14:15', status: '主理人已閱' },
-          { phone: '---- (NFC)', rating: 1, text: '創投媒合會的配對時間太短，很多預約好的機構因為前一場拖延而取消，時間控管需要加強...', time: '2026-06-08 10:45', status: '流程改善中' },
-          { phone: '---- (NFC)', rating: 3, text: '主舞台的音響在高音部分會出現刺耳的爆音，尤其是今天下午的主題演講，聽得有點不舒服。', time: '2026-06-07 15:30', status: '顧客已補償' }
+          { phone: '0922***111', rating: 2, text: '卡啦雞腿堡的雞排好像有點炸過頭，吃起來稍微有點乾柴...', time: '2026-06-08 14:15', status: '主理人已閱' },
+          { phone: '0981***222', rating: 1, text: '點了招牌爆漿蛋餅結果裡面竟然忘記放起司，拿到普通蛋餅，令人失望...', time: '2026-06-08 10:45', status: '流程改善中' },
+          { phone: '0909***333', rating: 3, text: '大杯中冰奶的冰塊太多了，喝到後面味道變得很淡，希望能提供去冰選項。', time: '2026-06-07 15:30', status: '顧客已補償' }
         ]
       }
     };
@@ -1097,6 +1159,9 @@
       
       lineCounterEl.textContent = currentLineFriends;
       shieldCounterEl.textContent = currentShieldDefends;
+      
+      document.getElementById('line-friend-earned').textContent = currentLineFriends;
+      document.getElementById('shield-defend-earned').textContent = currentShieldDefends;
       
       // 3. Update Chart
       chartPath.setAttribute('d', config.chartPath);
@@ -1343,5 +1408,14 @@
     const initialScene = urlParamsInit.get('scene') || 'bistro';
     switchScene(initialScene, false);
   </script>
+  
+  <!-- Floating B2B Demo Guide Card -->
+  <div class="demo-guide-card" id="demo-guide">
+    <button type="button" class="demo-guide-close" onclick="document.getElementById('demo-guide').style.display='none'">×</button>
+    <div class="demo-guide-title">💡 實體空間商業邏輯導覽 (主理人專屬)</div>
+    <div class="demo-guide-text" id="demo-guide-text">
+      成效實時邀功：後台與前台完全同步！一旦前台有顧客感應集點或提交好評，後台會立刻更新 LINE 增長圖表與 CRM 數據，防禦盾也會即時擋下低星評分，實境展示核心系統實力。
+    </div>
+  </div>
 </body>
 </html>

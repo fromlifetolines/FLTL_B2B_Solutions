@@ -287,6 +287,65 @@
         font-size: 2rem;
       }
     }
+    
+    /* Floating Guide Card */
+    .demo-guide-card {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      max-width: 340px;
+      background: rgba(13, 17, 28, 0.95);
+      border: 1px solid var(--accent-yellow);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 184, 0, 0.25);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      z-index: 9999;
+      animation: slideUpFade 0.4s ease-out;
+      text-align: left;
+    }
+    .demo-guide-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 1.2rem;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .demo-guide-close:hover {
+      color: var(--accent-yellow);
+    }
+    .demo-guide-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--accent-yellow);
+      margin-bottom: 8px;
+      font-family: var(--font-tech), var(--font-tc);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .demo-guide-text {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--text-primary);
+      font-weight: 300;
+    }
+    @keyframes slideUpFade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 768px) {
+      .demo-guide-card {
+        position: static;
+        margin: 25px auto 0;
+        max-width: 580px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -352,6 +411,13 @@
     <div class="loader-subtext" id="loader-subtext"></div>
   </div>
 
+  <!-- Floating B2B Demo Guide Card -->
+  <div class="demo-guide-card" id="demo-guide">
+    <button type="button" class="demo-guide-close" onclick="document.getElementById('demo-guide').style.display='none'">×</button>
+    <div class="demo-guide-title">💡 實體空間商業邏輯導覽 (主理人專屬)</div>
+    <div class="demo-guide-text" id="demo-guide-text"></div>
+  </div>
+
   <script>
     // URL scene parameters parser
     const urlParams = new URLSearchParams(window.location.search);
@@ -360,34 +426,37 @@
     // Scene content mappings
     const sceneConfigurations = {
       bistro: {
-        tag: 'BISTRO DIGITAL MENU //',
-        title: '微醺時光・Bistro 301 數位菜單',
-        subtitle: '輕觸桌面 NFC 感應桌牌載入型錄。選用在地桂花、低溫熟成牛小排，提供極致空間餐飲體驗。',
-        btnText: '【領取微醺集點卡 ➡️ 解鎖招待松露薯條】',
-        item1: { tag: 'SIGNATURE COCKTAIL // 特調', title: '威士忌酸酒 (Whisky Sour)', desc: '精品波本威士忌，加入鮮榨檸檬汁、糖蜜與蛋白，口感綿密，酸甜平衡。', price: 'NT$ 350' },
-        item2: { tag: 'DESSERT // 隱藏甜點', title: '極黑松露舒芙蕾', desc: '蓬鬆現烤舒芙蕾搭配特製香濃松露奶霜與法芙娜可可粉。', price: 'NT$ 280' },
-        item3: { tag: 'CHEF\'S TABLE // 主廚推薦', title: '低溫熟成 M9 和牛堡', desc: '手打多汁 M9 和牛配香煎培根、紅切達起司與秘製黑松露美乃滋。', price: 'NT$ 480' },
-        successSub: '已成功為您的官方帳號注入 1 點集點！正在導引您至好評解鎖系統，請留下聯絡方式以領取實體「招待松露薯條券」...'
+        tag: 'BEEF NOODLE RESTAURANT SCENARIO //',
+        title: '老張牛肉麵・暖心小館 數位桌牌',
+        subtitle: '輕觸桌面 NFC 感應桌牌載入型錄。品嚐經典牛三寶麵、慢火精滷滷味，為您獻上台式暖心滋味。',
+        btnText: '【輕觸桌牌領取集點卡 ➡️ 解鎖免費招待滷蛋/小菜】',
+        item1: { tag: 'SIGNATURE NOODLES // 招牌雙寶', title: '招牌三寶牛肉麵', desc: '嚴選熟成牛腱、特選牛筋與牛肚，加入老張秘製川味紅燒湯底慢火熬燉，麵Q肉厚。', price: 'NT$ 220' },
+        item2: { tag: 'SIDE DISH // 精緻滷味', title: '現切精緻滷味拼盤', desc: '經典老滷汁慢火滷製，包含豆乾、海帶、特製滷蛋與五花牛肉，香氣撲鼻。', price: 'NT$ 120' },
+        item3: { tag: 'TRADITIONAL DRINK // 懷舊古早味', title: '手作特調古法酸梅湯', desc: '遵循古法以烏梅、山楂、甘草與桂花慢火熬製，生津止渴，去油解膩。', price: 'NT$ 60' },
+        successSub: '已成功連線您的 LINE 集點帳戶！正在導引至好評解鎖系統，填寫即可領取「免費招待小菜券」...',
+        guideText: '實體桌牌感應：顧客只需手機觸碰桌面感應貼紙/桌牌，免排隊、免掃碼即可瞬間載入精美型錄，並在後台為您自動注入 LINE 好友集點追蹤，第一時間搶佔顧客流量！'
       },
       hotel: {
-        tag: 'HOTEL VIP DIRECTORY //',
-        title: '隱山・奢華溫泉渡假村 VIP 型錄',
-        subtitle: '輕觸客房 NFC 感應面板。為您呈獻溫泉湯屋、頂級 SPA 與主廚客房送餐專屬奢華預約。',
-        btnText: '【輕觸房內感應 ➡️ 立即預約晚間極致 SPA】',
-        item1: { tag: 'VIP SPA // 頂級水療', title: '火山熱石精油深層療程', desc: '選用瑞典進口有機精油與珍稀火山熱石，透過芳療師深層揉壓，徹底釋放身體緊繃壓力。', price: 'NT$ 3,200' },
-        item2: { tag: 'FACILITY // 設施預約', title: '私人黃金湯屋與岩盤浴', desc: '富含天然碳酸氫鈉泉質湯屋，搭配日本進口黑松石岩盤浴，加速排毒。', price: 'NT$ 1,800' },
-        item3: { tag: 'VIP SERVICE // 客房送餐', title: '主廚精選特盛海鮮拼盤', desc: '嚴選現撈波士頓龍蝦、北海道刺身級干貝與頂級鱘魚子醬，直達客房服務。', price: 'NT$ 1,280' },
-        successSub: '已成功連線您的房卡資訊！正在導引您至好評解鎖系統，完成體驗評估退房時即可領取「次回入住 85 折尊榮憑證」...'
+        tag: 'BUBBLE TEA CHAIN SCENARIO //',
+        title: '鮮果茶飲・加盟連鎖 數位型錄',
+        subtitle: '櫃檯感應 NFC 碰一下，立即載入當季限定鮮果茶目錄。新鮮水果產地直送，點數直接加。',
+        btnText: '【櫃檯感應碰一下 ➡️ LINE 點數秒加 1 點兼現折 5 元】',
+        item1: { tag: 'FRESH TEA // 當季主打', title: '滿杯水果茶 (L)', desc: '精選南投四季春茶底，加入新鮮百香果、金桔、柳橙與蘋果切片，清甜爽口。', price: 'NT$ 75' },
+        item2: { tag: 'SIGNATURE MILK TEA // 經典招牌', title: '黑糖珍珠鮮奶 (M)', desc: '慢火熬煮手作波霸珍珠，融入濃意手工炒黑糖與小農鮮乳，香濃滑順。', price: 'NT$ 65' },
+        item3: { tag: 'SUMMER SPECIAL // 季節限定', title: '翡翠金桔檸檬 (L)', desc: '屏東產地直送鮮榨檸檬與金桔，黃金比例調和翡翠綠茶，酸甜消暑。', price: 'NT$ 60' },
+        successSub: '連線成功！已折抵 5 元並存入 1 點 LINE 點數。正在導引您至好評系統解鎖次回折價券...',
+        guideText: '櫃檯碰一下感應：在櫃檯放置實體 NFC 感應板，排隊點餐的客人碰一下手機瞬間寫入 LINE 集點並現折 5 元！無感獲取顧客手機號碼，為加盟總部拉高熟客終身價值（LTV）。'
       },
       expo: {
-        tag: 'EXPO DIGITAL PORTAL //',
-        title: 'NEXT 2026 科技未來展 導覽門戶',
-        subtitle: '輕觸展位感應面板。即刻下載大會科技趨勢白皮書 PDF、展位 3D 電子地圖與創投媒合手冊。',
-        btnText: '【輕觸感應面板 ➡️ 0秒下載完整大會科技白皮書 PDF】',
-        item1: { tag: 'WHITE PAPER // 趨勢白皮書', title: '2026 大會科技未來趨勢白皮書', desc: '彙整全球頂尖分析師團隊報告，深入解析生成式 AI 落地、Web3 與綠能科技布局。', price: 'FREE DOWNLOAD' },
-        item2: { tag: 'EXHIBIT MAP // 互動展位', title: '展館 3D 互動電子地圖', desc: '精準標註大會各大创投展區、演講主舞台、VIP貴賓室與餐飲合作專區。', price: 'FREE DOWNLOAD' },
-        item3: { tag: 'MATCHMAKING // 創投媒合', title: '大會創投與初創媒合手冊', desc: '完整收錄本次大會參展之 50+ 家頂級投資機構方向與商業開發聯絡方式。', price: 'FREE DOWNLOAD' },
-        successSub: '大會資訊連線成功！正在導引您至滿意度調查系統，填寫完畢系統將自動發送大會全套科技白皮書 PDF 至您的信箱...'
+        tag: 'BREAKFAST SHOP SCENARIO //',
+        title: '阿寶活力早餐店 數位點餐',
+        subtitle: '碰一下 NFC 感應晶片卡，招牌早餐免排隊秒看型錄。卡啦雞、爆漿蛋餅、中冰奶直達餐桌。',
+        btnText: '【阿寶阿姨請你吃大餅 ➡️ 碰一下拿中冰奶免費升級大冰奶券】',
+        item1: { tag: 'SIGNATURE GRILLED // 經典必點', title: '招牌爆漿起司蛋餅', desc: '手工特製Ｑ彈蛋餅皮，加入特選紅土起司與雙倍起司片，煎至酥脆，起司濃郁牽絲。', price: 'NT$ 55' },
+        item2: { tag: 'HOT SELLER // 活力推薦', title: '卡啦雞腿堡 (辣味)', desc: '酥炸金黃香辣卡啦雞腿排，搭配爽脆生菜與秘製沙拉醬，大口咬下超滿足。', price: 'NT$ 70' },
+        item3: { tag: 'LEGENDARY DRINK // 早餐靈魂', title: '阿寶大杯中冰奶', desc: '網民熱議傳奇奶茶，茶香濃郁，口感滑順，早餐不可或缺的黃金拍檔。', price: 'NT$ 30' },
+        successSub: '阿寶阿姨已為您處理！正在引導至滿意度調查，完成即可領取「中冰奶免費升級大杯券」！',
+        guideText: '早餐店高頻感應：在地早餐店用極簡桌邊 NFC 感應卡，客人感應即拿大冰奶升級券。早餐店高頻回購特性搭配簡訊/LINE自動化行銷，讓客人每天早上自動回頭，後台實時追蹤增粉曲線！'
       }
     };
     
@@ -398,6 +467,7 @@
     document.getElementById('portal-title').textContent = config.title;
     document.getElementById('portal-subtitle').textContent = config.subtitle;
     document.getElementById('hijack-btn').textContent = config.btnText;
+    document.getElementById('demo-guide-text').textContent = config.guideText;
     
     document.getElementById('item1-tag').textContent = config.item1.tag;
     document.getElementById('item1-title').textContent = config.item1.title;
