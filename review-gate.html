@@ -1052,6 +1052,26 @@ Waiting for user submission.</div>
         guideText2: '💡 早餐商譽防護：早上尖峰出餐太忙難免有疏漏。系統在內部截流 1-3 星低評分客訴，避免奧客一怒之下一星灌爆 Google 商家。',
         guideTextLowStar: '💡 老闆請看！客人的抱怨被悄悄攔截在您的私密箱，絕對不會流向 Google 商家，成功死守店面形象！',
         guideText5Star: '💡 好評引流中：顧客給予 5 星好評，系統引導至 Google 商家公開發佈，幫您狂洗好評！'
+      },
+      salon: {
+        frontTag: 'MIRROR FLOWER SALON //',
+        frontTitle: '解鎖鏡花水月熟客禮遇',
+        frontSub: '輸入您的手機號碼與 Email，即可解鎖「頂級精油護髮升級券」，並完成今日的造型設計服務滿意度調研。',
+        phoneLabel: 'PHONE NUMBER // 手機號碼',
+        emailLabel: 'EMAIL ADDRESS // 電子郵件',
+        googleTitle: '鏡花水月 Salon (Google 商家評分與設計師預約監控)',
+        googleAvatar: '💇',
+        successTitle: '精油升級券已綁定 LINE',
+        successSub: '「頂級精油護髮升級券」已發送至您的 LINE 帳戶！下次預約造型時向設計師出示條碼即可享有升級護理！',
+        feedbackSuccessTitle: '造型反饋已送達後台',
+        feedbackSuccessSub: '設計師與主理人已收到您的寶貴反映，我們將對服務流暢度與助理洗髮水溫做即時優化。次回精油護髮升級券已綁定至您的 LINE！',
+        lineMessage: `【鏡花水月 Salon // VIP造型回訪憑證】\n您好！感謝您 7 天前光臨鏡花水月 Salon！特別送您一張『設計師造型現折 200 元券』，限時 7 天內預約有效，歡迎再次光臨！\n預約代碼：SALON_VIP_7DAY_BB`,
+        emailSubject: "鏡花水月 Salon：感謝您的反饋，送上您的 VIP 造型現折禮遇",
+        emailBody: "親愛的貴賓，感謝您 7 天前給予我們設計師的評價。已為您準備了次回預約造型現折 200 元的電子憑證，請點擊連結查看詳情...",
+        guideText1: '💡 服務業數據金庫：美髮沙龍利用「免費精油護理升級」做為誘餌，吸引高價值顧客在鏡前感應點單時輸入資料，將散客完美轉化為 LINE 會員與 CRM 檔案！',
+        guideText2: '💡 客訴截流安全防護：如果客人不滿意造型設計，其 1-3 星客訴會被內部系統即時攔截，絕對不會流向 Google 商家，方便您在後台即時處理與補償！',
+        guideTextLowStar: '💡 老闆請看！客人的抱怨被悄悄攔截在您的私密箱，絕對不會流向 Google 商家，成功死守店面形象！',
+        guideText5Star: '💡 好評引流中：顧客給予 5 星好評，系統引導至 Google 商家公開發佈，幫您狂洗好評！'
       }
     };
     
@@ -1072,6 +1092,8 @@ Waiting for user submission.</div>
       document.getElementById('google-rating-desc').textContent = '在 Google / LINE 畫面上公開發佈評論';
     } else if (scene === 'expo') {
       document.getElementById('google-rating-desc').textContent = '在大會問卷系統上提交回饋審查';
+    } else if (scene === 'salon') {
+      document.getElementById('google-rating-desc').textContent = '在 Google Maps 上公開發佈評論與設計師評估';
     }
     
     // Lead generation structure

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google 地圖 // 商家評論體驗中心</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --google-blue: #1A73E8;
+      --google-gray: #5F6368;
+      --google-light-gray: #F1F3F4;
+      --star-color: #F4B400;
+      --text-dark: #202124;
+      --border-color: #DADCE0;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Roboto', 'Noto Sans TC', sans-serif;
+      background-color: #F8F9FA;
+      color: var(--text-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .phone-frame {
+      width: 100%;
+      max-width: 410px;
+      height: 780px;
+      background: #FFFFFF;
+      border-radius: 40px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15), 0 0 0 12px #202124;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    
+    /* Google Search Bar Mock */
+    .search-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+      background: #FFF;
+      z-index: 10;
+    }
+    
+    .search-box {
+      background: var(--google-light-gray);
+      border-radius: 24px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: var(--google-gray);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    }
+    
+    .back-arrow {
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    /* Main Content */
+    .content-scroll {
+      flex: 1;
+      overflow-y: auto;
+    }
+    
+    /* Header Photo */
+    .business-hero {
+      width: 100%;
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    
+    .business-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%);
+    }
+    
+    /* Details */
+    .biz-details {
+      padding: 20px;
+      background: #FFF;
+      border-bottom: 1px solid var(--border-color);
+      text-align: left;
+    }
+    
+    .biz-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+    
+    .rating-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--google-gray);
+      margin-bottom: 12px;
+    }
+    
+    .stars {
+      color: var(--star-color);
+      font-size: 1.1rem;
+    }
+    
+    .biz-score {
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    
+    .action-buttons-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 15px;
+      overflow-x: auto;
+      padding-bottom: 5px;
+    }
+    
+    .action-badge {
+      background: #FFF;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--google-blue);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    
+    .action-badge.primary {
+      background: var(--google-blue);
+      color: #FFF;
+      border: none;
+    }
+    
+    /* Success Toast Inside Map */
+    .success-alert-banner {
+      background: #E6F4EA;
+      border-left: 4px solid #34A853;
+      padding: 14px 20px;
+      margin: 15px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #137333;
+      text-align: left;
+      animation: slideDown 0.4s ease-out;
+    }
+    
+    /* Reviews List Section */
+    .reviews-section {
+      padding: 20px;
+      background: #FFF;
+      text-align: left;
+    }
+    
+    .reviews-section-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--google-light-gray);
+      padding-bottom: 10px;
+    }
+    
+    .review-card {
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--google-light-gray);
+      padding-bottom: 16px;
+    }
+    
+    .review-card:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    
+    .user-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    
+    .user-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #E8F0FE;
+      color: var(--google-blue);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    
+    .user-avatar.user-self {
+      background: #34A853;
+      color: #FFF;
+    }
+    
+    .user-name-col {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .user-name {
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+    
+    .review-meta {
+      font-size: 0.75rem;
+      color: var(--google-gray);
+      margin-top: 2px;
+    }
+    
+    .review-rating-row {
+      margin-bottom: 8px;
+    }
+    
+    .review-text {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #3C4043;
+    }
+    
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone-frame">
+    <!-- Header -->
+    <div class="search-header">
+      <div class="search-box">
+        <span class="back-arrow" onclick="window.close()">←</span>
+        <span id="search-query">搜尋「老張牛肉麵」評論</span>
+      </div>
+    </div>
+    
+    <!-- Content scroll -->
+    <div class="content-scroll">
+      <!-- Hero photo banner -->
+      <div class="business-hero" id="biz-hero-banner"></div>
+      
+      <!-- Details -->
+      <div class="biz-details">
+        <h1 class="biz-name" id="biz-title-name">老張牛肉麵・暖心小館</h1>
+        <div class="rating-row">
+          <span class="biz-score">4.8</span>
+          <span class="stars">★★★★★</span>
+          <span>(1,482 則評論)</span>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--google-gray);">牛肉麵店 · 台北市</p>
+        
+        <div class="action-buttons-row">
+          <div class="action-badge primary">📍 規劃路線</div>
+          <div class="action-badge">📞 撥打電話</div>
+          <div class="action-badge">🏷️ 儲存</div>
+          <div class="action-badge">🌐 網站</div>
+        </div>
+      </div>
+      
+      <!-- Success Toast Banner -->
+      <div class="success-alert-banner">
+        🎉 <b>發佈成功！</b> 感謝您在 Google 地圖上分享您的真實消費體驗。您的 5 星評論已實時寫入商家的評分系統！
+      </div>
+      
+      <!-- Reviews List -->
+      <div class="reviews-section">
+        <h2 class="reviews-section-title">熱門評論 (Most Relevant)</h2>
+        
+        <!-- Live review goes here -->
+        <div class="review-card" id="user-live-review-card">
+          <div class="user-row">
+            <div class="user-avatar user-self" id="user-avatar-initial">您</div>
+            <div class="user-name-col">
+              <span class="user-name">您的公開評論</span>
+              <span class="review-meta">在地嚮導 · 剛剛</span>
+            </div>
+          </div>
+          <div class="review-rating-row">
+            <span class="stars">★★★★★</span>
+          </div>
+          <p class="review-text" id="user-live-review-text">非常棒的體驗！環境很有質感，極力推薦！</p>
+        </div>
+        
+        <!-- Static placeholder reviews -->
+        <div class="review-card">
+          <div class="user-row">
+            <div class="user-avatar">張</div>
+            <div class="user-name-col">
+              <span class="user-name">張哲豪 (Tony Chang)</span>
+              <span class="review-meta">在地嚮導 · 1 週前</span>
+            </div>
+          </div>
+          <div class="review-rating-row">
+            <span class="stars">★★★★★</span>
+          </div>
+          <p class="review-text" id="static-review-1">NFC感應很有儀式感，不需要像以前一樣對焦對半天。服務人員非常親切，一定會再來！</p>
+        </div>
+        
+        <div class="review-card">
+          <div class="user-row">
+            <div class="user-avatar">L</div>
+            <div class="user-name-col">
+              <span class="user-name">Lisa Wu</span>
+              <span class="review-meta">2 週前</span>
+            </div>
+          </div>
+          <div class="review-rating-row">
+            <span class="stars">★★★★★</span>
+          </div>
+          <p class="review-text" id="static-review-2">餐點精緻美味，環境非常舒適乾淨，體驗過最好用的數位點單系統，十分流暢！</p>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const scene = urlParams.get('scene') || 'bistro';
+    const review = urlParams.get('review') || '非常棒的體驗！環境很有質感，極力推薦！';
+    
+    // Set customer review text
+    document.getElementById('user-live-review-text').textContent = decodeURIComponent(review);
+    
+    // Configure content per scene
+    const sceneConfigs = {
+      bistro: {
+        title: '老張牛肉麵・暖心小館',
+        query: '搜尋「老張牛肉麵」評論',
+        hero: 'assets/beef_noodles.png',
+        avatar: '🍜',
+        static1: '牛肉非常厚實入味，麵條很有彈性，感應送的川味小魚豆乾真的超好吃，非常推薦！',
+        static2: '碰一下桌面就能秒速載入菜單還能順便集點，真的很酷的點餐體驗，推薦紅燒三寶麵。'
+      },
+      hotel: {
+        title: '鮮果茶飲・加盟連鎖',
+        query: '搜尋「鮮果茶飲」評論',
+        hero: 'assets/fruit_tea.png',
+        avatar: '🥤',
+        static1: '水果茶裡面的料超滿！每一口都喝得到新鮮水果，碰一下手機還能打折，很方便！',
+        static2: '最推芝芝草莓鮮奶，鹹甜奶蓋跟草莓冰沙比例剛剛好，集點操作簡單又快速。'
+      },
+      expo: {
+        title: '阿寶活力早餐店',
+        query: '搜尋「阿寶活力早餐」評論',
+        hero: 'assets/cheese_omelet.png',
+        avatar: '🍞',
+        static1: '爆漿起司蛋餅名不虛傳，起司牽絲真的超誇張，大冰奶升級券超划算！',
+        static2: '卡啦雞腿堡炸得金黃酥脆，座位上感應點餐省去了排隊時間，阿姨做餐又快。'
+      },
+      salon: {
+        title: '鏡花水月 Salon',
+        query: '搜尋「鏡花水月 Salon」評論',
+        hero: 'assets/salon_cut.png',
+        avatar: '💇',
+        static1: 'Alan設計師剪髮超級細心，頭皮護理過程非常舒服，鏡子上的NFC感應看目錄極度時尚。',
+        static2: '結構式護髮效果非常驚艷，原本分岔毛躁的髮尾瞬間變超順滑，店內裝潢很有質感。'
+      }
+    };
+    
+    const config = sceneConfigs[scene] || sceneConfigs.bistro;
+    
+    document.getElementById('search-query').textContent = config.query;
+    document.getElementById('biz-title-name').textContent = config.title;
+    document.getElementById('biz-hero-banner').style.backgroundImage = `url('${config.hero}')`;
+    document.getElementById('static-review-1').textContent = config.static1;
+    document.getElementById('static-review-2').textContent = config.static2;
+  </script>
+</body>
+</html>

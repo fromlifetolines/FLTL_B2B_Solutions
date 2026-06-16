@@ -1170,6 +1170,10 @@
           { phone: '0937***112', rating: 2, text: '今天點的三寶麵牛筋有點硬，希望下次能燉爛一點...', time: '2026-06-08 12:44', status: '主理人已閱' },
           { phone: '0911***554', rating: 1, text: '門口滷味排隊動線很不清楚，等了快半小時才拿到，很不高興...', time: '2026-06-08 11:20', status: '流程改善中' },
           { phone: '0987***003', rating: 3, text: '酸梅湯喝起來有點太甜了，希望能提供無糖或微糖的選項。', time: '2026-06-07 19:05', status: '顧客已補償' }
+        ],
+        orders: [
+          { tableNum: '桌號 #03 桌邊預點單', total: 560, details: '• 招牌三寶牛肉麵 x 2<br>• 手作特調古法酸梅湯 x 2', status: '等待櫃檯付款', time: '2026-06-08 12:44' },
+          { tableNum: '桌號 #05 桌邊預點單', total: 260, details: '• 川味紅油抄手 x 2<br>• 涼拌爽脆小黃瓜 x 1<br>• 手作特調古法酸梅湯 x 1', status: '已完成付款 / 出餐中', time: '2026-06-08 11:20' }
         ]
       },
       hotel: {
@@ -1190,6 +1194,10 @@
           { phone: '0922***618', rating: 2, text: '珍珠賣完了沒有先告知，排隊排到才說要等20分鐘，白等了...', time: '2026-06-08 11:30', status: '主理人已閱' },
           { phone: '0981***929', rating: 1, text: '點去冰半糖結果拿到多冰全糖，整杯根本甜到喝不下去，品質控管要加強...', time: '2026-06-07 16:20', status: '流程改善中' },
           { phone: '0909***837', rating: 3, text: '茶味稍微偏淡了點，被鮮奶的味道完全蓋過去了，希望可以調整比例。', time: '2026-06-06 20:15', status: '顧客已補償' }
+        ],
+        orders: [
+          { tableNum: '櫃檯感應 #08 預點單', total: 235, details: '• 滿杯水果茶 (L) x 1<br>• 芝芝草莓鮮奶 (L) x 1<br>• 經典奶蓋紅茶 (L) x 1', status: '等待櫃檯付款', time: '2026-06-08 12:44' },
+          { tableNum: '櫃檯感應 #05 點單', total: 130, details: '• 黑糖珍珠鮮奶 (M) x 2', status: '已完成付款 / 出餐中', time: '2026-06-08 11:20' }
         ]
       },
       expo: {
@@ -1210,6 +1218,10 @@
           { phone: '0922***111', rating: 2, text: '卡啦雞腿堡的雞排好像有點炸過頭，吃起來稍微有點乾柴...', time: '2026-06-08 14:15', status: '主理人已閱' },
           { phone: '0981***222', rating: 1, text: '點了招牌爆漿蛋餅結果裡面竟然忘記放起司，拿到普通蛋餅，令人失望...', time: '2026-06-08 10:45', status: '流程改善中' },
           { phone: '0909***333', rating: 3, text: '大杯中冰奶的冰塊太多了，喝到後面味道變得很淡，希望能提供去冰選項。', time: '2026-06-07 15:30', status: '顧客已補償' }
+        ],
+        orders: [
+          { tableNum: '桌號 #02 桌邊預點單', total: 180, details: '• 招牌爆漿起司蛋餅 x 2<br>• 卡啦雞腿堡 (辣味) x 1', status: '等待櫃檯付款', time: '2026-06-08 12:44' },
+          { tableNum: '桌號 #04 桌邊預點單', total: 95, details: '• 經典黑胡椒鐵板麵 x 1<br>• 阿寶大杯中冰奶 x 1', status: '已完成付款 / 出餐中', time: '2026-06-08 11:20' }
         ]
       },
       salon: {
@@ -1230,6 +1242,10 @@
           { phone: '0928***322', rating: 2, text: '預約了下午兩點結果兩點半才入座，時間控管希望可以加強，不過設計師技術還算不錯...', time: '2026-06-08 14:30', status: '主理人已閱' },
           { phone: '0917***109', rating: 1, text: '助理洗髮時水溫忽冷忽熱，而且水花有點噴到臉上，服務訓練需要改進...', time: '2026-06-08 10:15', status: '流程改善中' },
           { phone: '0903***665', rating: 3, text: '染完髮後前幾天頭皮有一點點癢，雖然顏色很美，希望未來能多做頭皮隔離防護。', time: '2026-06-07 15:45', status: '顧客已補償' }
+        ],
+        orders: [
+          { tableNum: '座席 #12 造型預約單', total: 2000, details: '• 極致洗剪體驗 x 1<br>• 深度頭皮平衡理療 x 1', status: '等待櫃檯付款', time: '2026-06-08 12:44' },
+          { tableNum: '座席 #09 造型預約單', total: 3600, details: '• 日系低溫溫塑燙髮 x 1', status: '已完成付款 / 出餐中', time: '2026-06-08 11:20' }
         ]
       }
     };
@@ -1262,7 +1278,7 @@
     let currentLineFriends = 412;
     let currentShieldDefends = 42;
 
-    function switchScene(sceneKey, updateUrl = true) {
+    function switchScene(sceneKey, updateUrl = true, highlightFirstOrder = false) {
       if (!sceneDatasets[sceneKey]) return;
       activeScene = sceneKey;
       
@@ -1343,6 +1359,48 @@
         `;
         complaintsFeed.appendChild(item);
       });
+
+      // 6. Update Live Orders Feed
+      const ordersFeed = document.getElementById('live-orders-feed');
+      if (ordersFeed) {
+        ordersFeed.innerHTML = '';
+        if (config.orders && config.orders.length > 0) {
+          config.orders.forEach((order, index) => {
+            const orderCard = document.createElement('div');
+            const isPending = order.status === '等待櫃檯付款';
+            const badgeClass = isPending ? 'badge-status clickable' : 'badge-status';
+            const badgeStyle = isPending 
+              ? 'background: rgba(255, 122, 0, 0.08); color: var(--accent-blue); border-color: rgba(255, 122, 0, 0.15);' 
+              : 'background: rgba(46, 229, 157, 0.08); color: #2EE59D; border-color: rgba(46, 229, 157, 0.15);';
+            const titleAttr = isPending ? 'title="點擊確認收款並出餐"' : '';
+            
+            orderCard.className = (highlightFirstOrder && index === 0) 
+              ? 'order-item-card highlight-flash' 
+              : 'order-item-card';
+            
+            orderCard.innerHTML = `
+              <div class="order-item-card-header">
+                <span class="order-item-table-num">${order.tableNum}</span>
+                <span class="order-item-price-sum">NT$ ${order.total}</span>
+              </div>
+              <div class="order-item-details-list">
+                ${order.details}
+              </div>
+              <div class="complaint-badge-row">
+                <span class="complaint-time">${order.time}</span>
+                <span class="${badgeClass}" style="${badgeStyle}" ${titleAttr}>${order.status}</span>
+              </div>
+            `;
+            ordersFeed.appendChild(orderCard);
+            
+            if (highlightFirstOrder && index === 0) {
+              setTimeout(() => {
+                orderCard.classList.remove('highlight-flash');
+              }, 3000);
+            }
+          });
+        }
+      }
     }
 
     function downloadCRMLeads() {
