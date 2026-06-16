@@ -873,6 +873,9 @@
       <button type="button" class="demo-tab" data-scene="expo" onclick="switchScene('expo')">
         <span class="tab-icon">🍞</span> 阿寶早餐店
       </button>
+      <button type="button" class="demo-tab" data-scene="salon" onclick="switchScene('salon')">
+        <span class="tab-icon">💇</span> 鏡花水月 Salon
+      </button>
     </div>
   </div>
   
@@ -1208,6 +1211,26 @@
           { phone: '0981***222', rating: 1, text: '點了招牌爆漿蛋餅結果裡面竟然忘記放起司，拿到普通蛋餅，令人失望...', time: '2026-06-08 10:45', status: '流程改善中' },
           { phone: '0909***333', rating: 3, text: '大杯中冰奶的冰塊太多了，喝到後面味道變得很淡，希望能提供去冰選項。', time: '2026-06-07 15:30', status: '顧客已補償' }
         ]
+      },
+      salon: {
+        title: '【鏡花水月 Salon・奢華美髮 專屬數據中樞】',
+        chartPath: 'M 20 160 C 110 140, 200 90, 290 80 C 350 70, 420 45, 480 35',
+        chartPathGlow: 'M 20 160 C 110 140, 200 90, 290 80 C 350 70, 420 45, 480 35',
+        chartPulseDotY: '35',
+        lineFriendCounter: 328,
+        shieldDefendCounter: 14,
+        crmLeads: [
+          { phone: '0935***888', email: 'vivi.style***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 極致洗剪非常細心，精油紓壓按摩很放鬆，碰一下鏡子就開菜單很有科技感！', line: '+1 Pt', joined: '2026-06-08T15:20:10.000Z' },
+          { phone: '0919***776', email: 'jason.hair***@yahoo.com.tw', rating: 5, feedback: '[已發布 Google 商家評論] 日系溫塑燙效果超自然，蓬鬆度很滿意，推薦設計師 Alan', line: '+1 Pt', joined: '2026-06-08T11:45:30.000Z' },
+          { phone: '0988***901', email: 'cindy.wu***@gmail.com', rating: 4, feedback: '結構式護髮效果很驚艷，髮絲變得很滑順。就是週末人比較多，稍微等了一下', line: '+1 Pt', joined: '2026-06-07T18:30:15.000Z' },
+          { phone: '0907***554', email: 'hair_fan***@icloud.com', rating: 5, feedback: '[已發布 大會問卷] 鏡前感應點單非常酷！不用口頭跟助理重複確認，點完順便領了精油升級券。', line: '0 Pt', joined: '2026-06-07T13:12:00.000Z' },
+          { phone: '0955***332', email: 'kelly***@gmail.com', rating: 5, feedback: '[已發布 Google 商家評論] 染髮完全沒有刺鼻味，設計師調的冷茶色顯白有質感，大推！', line: '+1 Pt', joined: '2026-06-06T19:22:40.000Z' }
+        ],
+        complaints: [
+          { phone: '0928***322', rating: 2, text: '預約了下午兩點結果兩點半才入座，時間控管希望可以加強，不過設計師技術還算不錯...', time: '2026-06-08 14:30', status: '主理人已閱' },
+          { phone: '0917***109', rating: 1, text: '助理洗髮時水溫忽冷忽熱，而且水花有點噴到臉上，服務訓練需要改進...', time: '2026-06-08 10:15', status: '流程改善中' },
+          { phone: '0903***665', rating: 3, text: '染完髮後前幾天頭皮有一點點癢，雖然顏色很美，希望未來能多做頭皮隔離防護。', time: '2026-06-07 15:45', status: '顧客已補償' }
+        ]
       }
     };
 
@@ -1467,6 +1490,9 @@
       } else if (sceneKey === 'hotel') {
         raisedPath = 'M 20 170 C 120 160, 180 120, 240 100 C 320 80, 410 55, 480 25';
         raisedY = '25';
+      } else if (sceneKey === 'salon') {
+        raisedPath = 'M 20 160 C 110 140, 200 90, 290 80 C 350 70, 420 45, 480 15';
+        raisedY = '15';
       } else {
         raisedPath = 'M 20 180 C 80 140, 160 110, 260 70 C 340 50, 420 25, 480 5';
         raisedY = '5';

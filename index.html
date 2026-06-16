@@ -203,8 +203,8 @@
     /* Asymmetric & Spacious Bento Cards Layout */
     .scenario-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 35px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
       margin-bottom: 80px;
       width: 100%;
     }
@@ -215,7 +215,7 @@
       border-radius: 32px;
       backdrop-filter: blur(30px);
       -webkit-backdrop-filter: blur(30px);
-      padding: 50px 40px;
+      padding: 50px 30px;
       display: flex;
       flex-direction: column;
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
@@ -244,6 +244,7 @@
     .bistro-card:hover::before { background: var(--accent-orange); }
     .hotel-card:hover::before { background: var(--accent-peach); }
     .expo-card:hover::before { background: var(--accent-yellow); }
+    .salon-card:hover::before { background: linear-gradient(90deg, var(--accent-orange), var(--accent-peach)); }
     
     .card-icon-wrapper {
       font-size: 3.5rem;
@@ -504,6 +505,27 @@
         </div>
       </div>     
       
+      <!-- Scenario D: Salon -> 鏡花水月 Salon -->
+      <div class="scenario-card salon-card">
+        <span class="card-icon-wrapper">💇</span>
+        <div class="card-scene-subtitle">HAIR SALON //</div>
+        <h2 class="card-scene-title">美髮沙龍 ── 鏡花水月 Salon</h2>
+        <p class="card-desc">
+          體驗頂級沙龍如何利用鏡面 NFC 感應貼紙，讓客人在美髮椅上直接手機碰一下載入髮型目錄與奢華服務價目表，一鍵預約設計師，並以「精油護髮升級券」輕鬆綁定 LINE 會員與留存 CRM 數據！
+        </p>
+        <div class="cta-group">
+          <button type="button" class="btn-primary-launch" onclick="launchDemo('salon')">
+            開啟雙視窗聯動體驗 ⚡
+          </button>
+          <a href="menu-hub.html?scene=salon&table=12" class="btn-secondary-link" target="_blank">
+            單獨體驗：顧客鏡前感應與服務單 (前台) 📱
+          </a>
+          <a href="b2b-admin-staging.html?scene=salon&table=12" class="btn-secondary-link" target="_blank">
+            單獨體驗：主理人數據監控面板 (後台) 📊
+          </a>
+        </div>
+      </div>
+
     </div>
     
     <!-- Enterprise Landing Portal link -->
@@ -523,7 +545,7 @@
 
   <script>
     function launchDemo(scene) {
-      const tableMap = { bistro: '5', hotel: '8', expo: '2' };
+      const tableMap = { bistro: '5', hotel: '8', expo: '2', salon: '12' };
       const table = tableMap[scene] || '3';
       window.open(`b2b-admin-staging.html?scene=${scene}&table=${table}`, '_blank');
       setTimeout(() => {
