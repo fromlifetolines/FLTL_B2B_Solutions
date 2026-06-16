@@ -15,22 +15,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
   
   <style>
-    /* Design System - P2P Luxury Blue-Purple visual system */
+    /* Design System - Warm Luxury Amber-Peach dining visual system */
     :root {
-      --accent-blue: #3F8CFF;
-      --accent-purple: #7F56D9;
-      --accent-gradient: linear-gradient(135deg, #3F8CFF 0%, #7F56D9 100%);
-      --accent-glow: 0 0 20px rgba(63, 140, 255, 0.4);
-      --accent-glow-strong: 0 0 30px rgba(127, 86, 217, 0.6);
+      --accent-orange: #FF7A00;
+      --accent-peach: #FF4B5C;
+      --accent-gradient: linear-gradient(135deg, #FF7A00 0%, #FF4B5C 100%);
+      --accent-glow: 0 0 20px rgba(255, 122, 0, 0.3);
+      --accent-glow-strong: 0 0 30px rgba(255, 75, 92, 0.5);
       
-      --bg-dark: #07090E;
-      --text-primary: #FFFFFF;
-      --text-secondary: #8E9196;
-      --text-disabled: #4A4D54;
-      --card-bg: rgba(13, 17, 28, 0.7);
-      --card-border: rgba(255, 255, 255, 0.06);
+      --bg-dark: #0C0A09; /* Warm stone charcoal background */
+      --text-primary: #FAFAF9;
+      --text-secondary: #A8A29E;
+      --text-disabled: #57534E;
+      --card-bg: rgba(28, 25, 23, 0.75);
+      --card-border: rgba(255, 255, 255, 0.04);
       --input-bg: rgba(255, 255, 255, 0.015);
-      --input-border: rgba(255, 255, 255, 0.08);
+      --input-border: rgba(255, 255, 255, 0.06);
       --error-color: #FF4D4D;
       --success-color: #2EE59D;
       
@@ -50,9 +50,9 @@
     body {
       background-color: var(--bg-dark);
       background-image: 
-        linear-gradient(rgba(63, 140, 255, 0.006) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(63, 140, 255, 0.006) 1px, transparent 1px);
-      background-size: 40px 40px;
+        linear-gradient(rgba(255, 122, 0, 0.005) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 122, 0, 0.005) 1px, transparent 1px);
+      background-size: 50px 50px;
       background-position: center;
       font-family: var(--font-tc);
       color: var(--text-primary);
@@ -413,7 +413,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 30px 0;
+      padding: 20px 0;
       text-align: center;
       animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
@@ -429,16 +429,78 @@
       justify-content: center;
       font-size: 1.8rem;
       font-weight: 700;
-      margin-bottom: 25px;
-      box-shadow: 0 0 25px rgba(127, 86, 217, 0.4);
+      margin-bottom: 20px;
+      box-shadow: 0 0 25px rgba(255, 122, 0, 0.4);
     }
     
     .success-text {
       font-size: 0.85rem;
       color: var(--text-secondary);
       line-height: 1.6;
-      margin-top: 15px;
+      margin-top: 10px;
       font-weight: 300;
+    }
+
+    /* Order Receipt Custom Styles */
+    .order-receipt-card {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px dashed rgba(255, 122, 0, 0.2);
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .order-receipt-card h3 {
+      font-family: var(--font-title);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .order-items-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .order-item-detail {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .order-total-row {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      padding-top: 10px;
+      font-family: var(--font-tech);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent-orange);
+    }
+
+    .checkout-instruction-alert {
+      background: rgba(255, 122, 0, 0.06);
+      border: 1px solid rgba(255, 122, 0, 0.15);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--accent-yellow);
+      margin-top: 16px;
+      font-weight: 500;
+      text-align: center;
     }
     
     /* n8n Integration Hub */
@@ -856,6 +918,23 @@
             <p class="success-text" id="success-text">
               隱藏禮遇憑證已同步發送至您的信箱與簡訊，請於結帳時出示！
             </p>
+            
+            <!-- Order summary receipt layout -->
+            <div id="order-summary-receipt" style="display: none; width: 100%;">
+              <div class="order-receipt-card">
+                <h3>桌邊預點單明細</h3>
+                <ul class="order-items-list" id="receipt-items-list">
+                  <!-- Dynamic items -->
+                </ul>
+                <div class="order-total-row">
+                  <span>應付總額 / Total</span>
+                  <span id="receipt-total-price">NT$ 0</span>
+                </div>
+              </div>
+              <div class="checkout-instruction-alert">
+                ⚠️ <b>提示：</b> 系統已將預點單傳送至廚房！請移步至結帳櫃檯向服務人員報桌號並出示本畫面完成付款，我們將在付款完成後立即為您出餐。
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1256,6 +1335,34 @@ Waiting for user submission.</div>
       
       const linePointLoaded = localStorage.getItem('fltl_line_joined') === 'true' ? 1 : 0;
       leadData.line_points_loaded = linePointLoaded;
+
+      // Extract and render pre-order cart details if present
+      const rawCart = localStorage.getItem('fltl_active_cart');
+      if (rawCart) {
+        try {
+          const cartObj = JSON.parse(rawCart);
+          leadData.order = cartObj; // Attach order object to telemetry payload
+          
+          // Populate receipt items list in DOM
+          const listEl = document.getElementById('receipt-items-list');
+          listEl.innerHTML = '';
+          cartObj.items.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'order-item-detail';
+            li.innerHTML = `<span>${item.name} x ${item.qty}</span><span>NT$ ${item.price * item.qty}</span>`;
+            listEl.appendChild(li);
+          });
+          
+          // Update total price display
+          document.getElementById('receipt-total-price').textContent = `NT$ ${cartObj.total}`;
+          document.getElementById('order-summary-receipt').style.display = 'block';
+          
+          // Clear active cart to prevent duplicate triggers
+          localStorage.removeItem('fltl_active_cart');
+        } catch (err) {
+          console.error("Error parsing cart data:", err);
+        }
+      }
       
       const packedJSON = JSON.stringify(leadData, null, 2);
       
@@ -1272,6 +1379,7 @@ Waiting for user submission.</div>
         },
         execution_time: leadData.trigger_retention_day7,
         line_points_loaded: leadData.line_points_loaded,
+        order: leadData.order || null,
         actions: [
           {
             channel: "LINE_Message_API",
@@ -1288,8 +1396,8 @@ Waiting for user submission.</div>
       
       const n8nFlowJSON = JSON.stringify(n8nAutomationFlow, null, 2);
       
-      console.log("%c[n8n Automation Payload Prepared]", "color: #3F8CFF; font-weight: bold; background: #07090E; padding: 4px 8px; border-radius: 4px;", leadData);
-      console.log("%c[n8n 7-Day Marketing Automation Flow]", "color: #7F56D9; font-weight: bold; background: #07090E; padding: 4px 8px; border-radius: 4px;", n8nAutomationFlow);
+      console.log("%c[n8n Automation Payload Prepared]", "color: #FF7A00; font-weight: bold; background: #0C0A09; padding: 4px 8px; border-radius: 4px;", leadData);
+      console.log("%c[n8n 7-Day Marketing Automation Flow]", "color: #FF4B5C; font-weight: bold; background: #0C0A09; padding: 4px 8px; border-radius: 4px;", n8nAutomationFlow);
       
       updateDebugConsole(packedJSON, true, n8nFlowJSON);
     }

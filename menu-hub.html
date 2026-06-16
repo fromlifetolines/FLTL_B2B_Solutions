@@ -15,19 +15,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
   
   <style>
-    /* Design System - P2P Luxury Blue-Purple visual system */
+    /* Design System - Warm Luxury Amber-Peach dining visual system */
     :root {
-      --accent-blue: #3F8CFF;
-      --accent-purple: #7F56D9;
-      --accent-gradient: linear-gradient(135deg, #3F8CFF 0%, #7F56D9 100%);
+      --accent-orange: #FF7A00;
+      --accent-peach: #FF4B5C;
+      --accent-gradient: linear-gradient(135deg, #FF7A00 0%, #FF4B5C 100%);
       --accent-yellow: #FFB800; /* Warm gold */
       
-      --bg-dark: #07090E;
-      --text-primary: #FFFFFF;
-      --text-secondary: #8E9196;
-      --text-disabled: #4A4D54;
-      --card-bg: rgba(13, 17, 28, 0.7);
-      --card-border: rgba(255, 255, 255, 0.06);
+      --bg-dark: #0C0A09; /* Warm stone charcoal */
+      --text-primary: #FAFAF9;
+      --text-secondary: #A8A29E;
+      --text-disabled: #57534E;
+      --card-bg: rgba(28, 25, 23, 0.75);
+      --card-border: rgba(255, 255, 255, 0.04);
       
       --font-tech: 'Space Grotesk', sans-serif;
       --font-title: 'Outfit', sans-serif;
@@ -43,9 +43,9 @@
     body {
       background-color: var(--bg-dark);
       background-image: 
-        linear-gradient(rgba(63, 140, 255, 0.006) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(63, 140, 255, 0.006) 1px, transparent 1px);
-      background-size: 40px 40px;
+        linear-gradient(rgba(255, 122, 0, 0.005) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 122, 0, 0.005) 1px, transparent 1px);
+      background-size: 50px 50px;
       background-position: center;
       font-family: var(--font-tc);
       color: var(--text-primary);
@@ -53,7 +53,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 60px 20px;
+      padding: 60px 24px 140px; /* Added extra bottom padding for floating cart bar */
       overflow-x: hidden;
       position: relative;
     }
@@ -63,7 +63,7 @@
       position: absolute;
       width: 700px;
       height: 700px;
-      background: radial-gradient(circle, rgba(127, 86, 217, 0.04) 0%, rgba(63, 140, 255, 0) 70%);
+      background: radial-gradient(circle, rgba(255, 122, 0, 0.05) 0%, rgba(255, 75, 92, 0) 70%);
       top: 30%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -86,13 +86,13 @@
     
     .menu-tech {
       font-family: var(--font-tech);
-      font-size: 0.8rem;
-      letter-spacing: 0.3em;
-      color: var(--accent-blue);
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      color: var(--accent-orange);
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 15px;
       text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(63, 140, 255, 0.3);
+      text-shadow: 0 0 10px rgba(255, 122, 0, 0.3);
     }
     
     .menu-title {
@@ -124,19 +124,40 @@
     .bento-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 24px;
+      border-radius: 28px;
       backdrop-filter: blur(25px);
       -webkit-backdrop-filter: blur(25px);
-      padding: 30px;
+      padding: 35px;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
       transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
     
     .bento-card:hover {
-      border-color: rgba(63, 140, 255, 0.2);
-      transform: translateY(-4px);
+      border-color: rgba(255, 122, 0, 0.18);
+      transform: translateY(-5px);
+    }
+    
+    .card-image-wrapper {
+      width: 100%;
+      height: 200px;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 22px;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    
+    .card-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    .bento-card:hover .card-image-wrapper img {
+      transform: scale(1.08);
     }
     
     /* Non-symmetric Layout rules */
@@ -153,16 +174,16 @@
     .card-full {
       grid-column: span 12;
       grid-row: span 1;
-      text-align: center;
-      align-items: center;
-      background: linear-gradient(180deg, rgba(13, 17, 28, 0.7) 0%, rgba(7, 9, 14, 0.9) 100%);
+      text-align: left;
+      align-items: flex-start;
+      background: linear-gradient(180deg, rgba(28, 25, 23, 0.75) 0%, rgba(12, 10, 9, 0.9) 100%);
     }
     
     .card-tag {
       font-family: var(--font-tech);
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       letter-spacing: 0.15em;
-      color: var(--accent-purple);
+      color: var(--accent-peach);
       font-weight: 700;
       margin-bottom: 15px;
       text-transform: uppercase;
@@ -170,70 +191,183 @@
     
     .item-title {
       font-family: var(--font-title), var(--font-tc);
-      font-size: 1.35rem;
-      font-weight: 600;
+      font-size: 1.4rem;
+      font-weight: 700;
       margin-bottom: 12px;
       letter-spacing: 0.5px;
     }
     
     .item-desc {
-      font-size: 0.85rem;
-      line-height: 1.6;
+      font-size: 0.88rem;
+      line-height: 1.7;
       color: var(--text-secondary);
       font-weight: 300;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+    }
+    
+    /* Price and Quantity row alignment */
+    .item-price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-top: auto;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
     }
     
     .item-price {
       font-family: var(--font-tech);
-      font-size: 1.1rem;
-      color: var(--accent-blue);
+      font-size: 1.15rem;
+      color: var(--accent-orange);
       font-weight: 700;
-      margin-top: auto;
     }
     
-    /* LINE Point Hijacker CTA */
+    /* Quantity Selector UI */
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 50px;
+      padding: 4px;
+      gap: 12px;
+    }
+    
+    .qty-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      font-family: var(--font-tech);
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    
+    .qty-btn:hover {
+      background: var(--accent-gradient);
+      box-shadow: 0 0 10px rgba(255, 122, 0, 0.4);
+    }
+    
+    .qty-display {
+      font-family: var(--font-tech);
+      font-size: 0.95rem;
+      font-weight: 700;
+      min-width: 20px;
+      text-align: center;
+    }
+    
+    /* Floating Cart Bar Style (Behance Style) */
+    .floating-cart-bar {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translate(-50%, 150px);
+      width: 90%;
+      max-width: 580px;
+      background: rgba(28, 25, 23, 0.92);
+      border: 1px solid var(--accent-orange);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 122, 0, 0.2);
+      border-radius: 50px;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 999;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .floating-cart-bar.active {
+      transform: translate(-50%, 0);
+    }
+    
+    .cart-info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    
+    .cart-qty-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+    
+    .cart-total-price {
+      font-family: var(--font-tech);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    
+    .cart-submit-btn {
+      background: var(--accent-gradient);
+      color: var(--text-primary);
+      border: none;
+      border-radius: 50px;
+      padding: 12px 28px;
+      font-family: var(--font-tc);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 122, 0, 0.3);
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .cart-submit-btn:hover {
+      box-shadow: 0 6px 20px rgba(255, 75, 92, 0.5);
+      transform: translateY(-1px);
+    }
+    
+    /* LINE Point Hijacker CTA (Hidden or secondary since we have Cart Bar) */
     .hijack-section {
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 20px;
+      margin-top: 30px;
     }
     
     .hijack-btn {
       width: 100%;
       max-width: 580px;
-      background: var(--accent-gradient);
-      color: var(--text-primary);
-      border: none;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      color: var(--text-secondary);
       border-radius: 50px;
-      padding: 22px;
+      padding: 18px;
       font-family: var(--font-tech), var(--font-tc);
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
+      font-size: 0.85rem;
+      font-weight: 500;
       cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      box-shadow: 0 10px 30px rgba(63, 140, 255, 0.3);
-      position: relative;
-      overflow: hidden;
+      transition: all 0.3s;
     }
     
     .hijack-btn:hover {
-      box-shadow: 0 15px 40px rgba(127, 86, 217, 0.5);
-      transform: translateY(-2px);
-    }
-    
-    .hijack-btn:active {
-      transform: translateY(0);
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+      color: var(--text-primary);
     }
     
     /* Overlay loader state */
     .loader-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(7, 9, 14, 0.96);
+      background: rgba(12, 10, 9, 0.97);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -247,13 +381,13 @@
     .glow-loader {
       width: 50px;
       height: 50px;
-      border: 3px solid rgba(63, 140, 255, 0.1);
+      border: 3px solid rgba(255, 122, 0, 0.1);
       border-radius: 50%;
-      border-top-color: var(--accent-blue);
-      border-bottom-color: var(--accent-purple);
+      border-top-color: var(--accent-orange);
+      border-bottom-color: var(--accent-peach);
       animation: spin 1.2s linear infinite;
       margin-bottom: 25px;
-      box-shadow: 0 0 20px rgba(63, 140, 255, 0.2);
+      box-shadow: 0 0 20px rgba(255, 122, 0, 0.2);
     }
     
     .loader-text {
@@ -341,12 +475,7 @@
     }
     @media (max-width: 768px) {
       .demo-guide-card {
-        position: static;
-        margin: 25px auto 0;
-        max-width: 580px;
-      }
-    }
-  </style>
+        pos</style>
 </head>
 <body>
   <div class="bg-glow"></div>
@@ -362,46 +491,29 @@
       </p>
     </header>
     
-    <!-- Bento Grid Menu Items -->
-    <div class="menu-bento">
-      <!-- Item 1 -->
-      <div class="bento-card card-large">
-        <div class="card-tag" id="item1-tag">SIGNATURE DRINK // 主廚特調</div>
-        <h2 class="item-title" id="item1-title">煙燻桂花烏龍特調</h2>
-        <p class="item-desc" id="item1-desc">
-          選用阿里山高山烏龍作為基底，注入在地桂花蜜與蘋果木煙燻氣泡。
-        </p>
-        <div class="item-price" id="item1-price">NT$ 220</div>
-      </div>
-      
-      <!-- Item 2 -->
-      <div class="bento-card card-small">
-        <div class="card-tag" id="item2-tag">DESSERT // 隱藏甜點</div>
-        <h2 class="item-title" id="item2-title">極黑松露舒芙蕾</h2>
-        <p class="item-desc" id="item2-desc">
-          當日現做舒芙蕾蓬鬆柔軟，淋上特製濃郁松露奶霜，微苦可可粉與松露香氣完美交織。
-        </p>
-        <div class="item-price" id="item2-price">NT$ 280</div>
-      </div>
-      
-      <!-- Item 3 -->
-      <div class="bento-card card-full">
-        <div class="card-tag" id="item3-tag">CHEF'S SIGNATURE // 主廚主打</div>
-        <h2 class="item-title" id="item3-title">低溫熟成 M9 和牛堡</h2>
-        <p class="item-desc" id="item3-desc" style="max-width: 600px;">
-          手打多汁 M9 和牛配香煎培根與松露美乃滋，肉汁豐腴。
-        </p>
-        <div class="item-price" id="item3-price">NT$ 480</div>
-      </div>
+    <!-- Dynamic Bento Grid Menu Items -->
+    <div class="menu-bento" id="menu-bento">
+      <!-- Generated dynamically by script -->
     </div>
     
-    <!-- LINE Hijack Button -->
+    <!-- Fallback/Points Only Button -->
     <div class="hijack-section">
       <button type="button" class="hijack-btn" id="hijack-btn">
-        TOUCH TO CAPTURE POINTS // 輕觸領取 LINE 集點
+        不點餐，直接感應綁定 LINE 會員集點
       </button>
     </div>
     
+  </div>
+  
+  <!-- Floating Cart Bar -->
+  <div class="floating-cart-bar" id="floating-cart-bar">
+    <div class="cart-info">
+      <span class="cart-qty-label" id="cart-count-label">已選擇 0 份餐點</span>
+      <span class="cart-total-price" id="cart-total-price">NT$ 0</span>
+    </div>
+    <button class="cart-submit-btn" type="button" id="cart-submit-btn">
+      送出預點單並領取好評優惠 ➔
+    </button>
   </div>
   
   <!-- Simulated LINE join overlay -->
@@ -414,7 +526,7 @@
   <!-- Floating B2B Demo Guide Card -->
   <div class="demo-guide-card" id="demo-guide">
     <button type="button" class="demo-guide-close" onclick="document.getElementById('demo-guide').style.display='none'">×</button>
-    <div class="demo-guide-title">💡 實體空間商業邏輯導覽 (主理人專屬)</div>
+    <div class="demo-guide-title">💡 傳統店家商業邏輯導覽 (主理人專屬)</div>
     <div class="demo-guide-text" id="demo-guide-text"></div>
   </div>
 
@@ -423,40 +535,52 @@
     const urlParams = new URLSearchParams(window.location.search);
     const scene = urlParams.get('scene') || 'bistro';
     
-    // Scene content mappings
+    // Scene content mappings (5 items with food photos for each scene)
     const sceneConfigurations = {
       bistro: {
-        tag: 'BEEF NOODLE RESTAURANT SCENARIO //',
-        title: '老張牛肉麵・暖心小館 數位桌牌',
-        subtitle: '輕觸桌面 NFC 感應桌牌載入型錄。品嚐經典牛三寶麵、慢火精滷滷味，為您獻上台式暖心滋味。',
-        btnText: '【輕觸桌牌領取集點卡 ➡️ 解鎖免費招待滷蛋/小菜】',
-        item1: { tag: 'SIGNATURE NOODLES // 招牌雙寶', title: '招牌三寶牛肉麵', desc: '嚴選熟成牛腱、特選牛筋與牛肚，加入老張秘製川味紅燒湯底慢火熬燉，麵Q肉厚。', price: 'NT$ 220' },
-        item2: { tag: 'SIDE DISH // 精緻滷味', title: '現切精緻滷味拼盤', desc: '經典老滷汁慢火滷製，包含豆乾、海帶、特製滷蛋與五花牛肉，香氣撲鼻。', price: 'NT$ 120' },
-        item3: { tag: 'TRADITIONAL DRINK // 懷舊古早味', title: '手作特調古法酸梅湯', desc: '遵循古法以烏梅、山楂、甘草與桂花慢火熬製，生津止渴，去油解膩。', price: 'NT$ 60' },
+        tag: 'BEEF NOODLE RESTAURANT //',
+        title: '老張牛肉麵・暖心小館',
+        subtitle: '輕觸桌面 NFC 感應桌牌即可快速預點餐。品嚐經典紅燒牛三寶麵、慢火精滷滷味，為您獻上台式暖心滋味。',
+        btnText: '不點餐，直接感應綁定 LINE 會員集點',
         successSub: '已成功連線您的 LINE 集點帳戶！正在導引至好評解鎖系統，填寫即可領取「免費招待小菜券」...',
-        guideText: '實體桌牌感應：顧客只需手機觸碰桌面感應貼紙/桌牌，免排隊、免掃碼即可瞬間載入精美型錄，並在後台為您自動注入 LINE 好友集點追蹤，第一時間搶佔顧客流量！'
+        guideText: '實體桌牌感應：顧客只需手機觸碰桌面感應貼紙/桌牌，即可瞬間載入精美型錄並在桌面預選餐點與加減數量。提交預點單後導引至好評分流名單捕獲，最後至櫃檯結帳出單，大幅節省桌邊點餐流程。',
+        items: [
+          { id: 'item1', tag: 'SIGNATURE NOODLES // 招牌三寶', title: '招牌三寶牛肉麵', desc: '嚴選熟成牛腱、特選牛筋與牛肚，加入老張秘製川味紅燒湯底慢火熬燉，麵Q肉厚。', price: 220, img: 'assets/beef_noodles.png', sizeClass: 'card-large' },
+          { id: 'item2', tag: 'SIDE DISH // 精緻滷味', title: '現切精緻滷味拼盤', desc: '經典老滷汁慢火滷製，包含豆乾、海帶、特製滷蛋與五花牛肉，香氣撲鼻。', price: 120, img: 'assets/braised_platter.png', sizeClass: 'card-small' },
+          { id: 'item3', tag: 'SPICY WONTONS // 川味抄手', title: '川味紅油抄手', desc: '手包飽滿鮮肉抄手，淋上特製川味紅油、烏醋與蒜泥，撒上新鮮蔥花，酸辣帶勁。', price: 90, img: 'assets/wonton_spicy.png', sizeClass: 'card-small' },
+          { id: 'item4', tag: 'COLD APPETIZER // 爽口小菜', title: '涼拌爽脆小黃瓜', desc: '現拍新鮮小黃瓜，以新鮮蒜碎、辣椒與香油涼拌，冰鎮入味，酸甜開胃。', price: 50, img: 'assets/garlic_cucumber.png', sizeClass: 'card-large' },
+          { id: 'item5', tag: 'TRADITIONAL DRINK // 懷舊古早味', title: '手作特調古法酸梅湯', desc: '遵循古法以烏梅、山楂、甘草與桂花慢火熬製，冰涼酸甜，去油解膩。', price: 60, img: 'assets/sour_plum.png', sizeClass: 'card-full' }
+        ]
       },
       hotel: {
-        tag: 'BUBBLE TEA CHAIN SCENARIO //',
-        title: '鮮果茶飲・加盟連鎖 數位型錄',
-        subtitle: '櫃檯感應 NFC 碰一下，立即載入當季限定鮮果茶目錄。新鮮水果產地直送，點數直接加。',
-        btnText: '【櫃檯感應碰一下 ➡️ LINE 點數秒加 1 點兼現折 5 元】',
-        item1: { tag: 'FRESH TEA // 當季主打', title: '滿杯水果茶 (L)', desc: '精選南投四季春茶底，加入新鮮百香果、金桔、柳橙與蘋果切片，清甜爽口。', price: 'NT$ 75' },
-        item2: { tag: 'SIGNATURE MILK TEA // 經典招牌', title: '黑糖珍珠鮮奶 (M)', desc: '慢火熬煮手作波霸珍珠，融入濃意手工炒黑糖與小農鮮乳，香濃滑順。', price: 'NT$ 65' },
-        item3: { tag: 'SUMMER SPECIAL // 季節限定', title: '翡翠金桔檸檬 (L)', desc: '屏東產地直送鮮榨檸檬與金桔，黃金比例調和翡翠綠茶，酸甜消暑。', price: 'NT$ 60' },
-        successSub: '連線成功！已折抵 5 元並存入 1 點 LINE 點數。正在導引您至好評系統解鎖次回折價券...',
-        guideText: '櫃檯碰一下感應：在櫃檯放置實體 NFC 感應板，排隊點餐的客人碰一下手機瞬間寫入 LINE 集點並現折 5 元！無感獲取顧客手機號碼，為加盟總部拉高熟客終身價值（LTV）。'
+        tag: 'BUBBLE TEA CHAIN //',
+        title: '鮮果茶飲・加盟連鎖',
+        subtitle: '櫃檯感應 NFC 碰一下，立即載入當季限定鮮果茶目錄。新鮮水果產地直送，點餐即時集點。',
+        btnText: '不點餐，直接感應綁定 LINE 會員集點',
+        successSub: '連線成功！已存入 1 點 LINE 點數。正在導引您至好評系統解鎖次回折價券...',
+        guideText: '櫃檯碰一下感應：在櫃檯放置實體 NFC 感應板，排隊點餐的客人碰一下手機即可點餐並享有次回折價優惠。店家免加裝重型 POS 金流，即能用無感集點方式將散客轉為 LINE 熟客名單。',
+        items: [
+          { id: 'item1', tag: 'FRESH TEA // 當季主打', title: '滿杯水果茶 (L)', desc: '精選南投四季春茶底，加入新鮮百香果、金桔、柳橙與蘋果切片，清甜爽口。', price: 75, img: 'assets/fruit_tea.png', sizeClass: 'card-large' },
+          { id: 'item2', tag: 'SIGNATURE MILK TEA // 經典招牌', title: '黑糖珍珠鮮奶 (M)', desc: '慢火熬煮手作波霸珍珠，融入濃意手工炒黑糖與小農鮮乳，香濃滑順。', price: 65, img: 'assets/brown_sugar_milk.png', sizeClass: 'card-small' },
+          { id: 'item3', tag: 'FRESH TEA // 季節限定', title: '翡翠金桔檸檬 (L)', desc: '屏東產地直送鮮榨檸檬與金桔，黃金比例調和翡翠綠茶，酸甜消暑。', price: 60, img: 'assets/kumquat_lemon.png', sizeClass: 'card-small' },
+          { id: 'item4', tag: 'CHEESE FOAM // 芝芝系列', title: '芝芝草莓鮮奶 (L)', desc: '選用大顆新鮮草莓現打冰沙，淋上特製濃厚起司鹹奶蓋，口感豐富多層次。', price: 95, img: 'assets/strawberry_cheese.png', sizeClass: 'card-large' },
+          { id: 'item5', tag: 'CHEESE FOAM // 經典奶蓋', title: '經典奶蓋紅茶 (L)', desc: '精選阿薩姆紅茶為茶底，搭配厚實香醇的起司奶蓋，香濃順口。', price: 65, img: 'assets/cheese_black_tea.png', sizeClass: 'card-full' }
+        ]
       },
       expo: {
-        tag: 'BREAKFAST SHOP SCENARIO //',
-        title: '阿寶活力早餐店 數位點餐',
-        subtitle: '碰一下 NFC 感應晶片卡，招牌早餐免排隊秒看型錄。卡啦雞、爆漿蛋餅、中冰奶直達餐桌。',
-        btnText: '【阿寶阿姨請你吃大餅 ➡️ 碰一下拿中冰奶免費升級大冰奶券】',
-        item1: { tag: 'SIGNATURE GRILLED // 經典必點', title: '招牌爆漿起司蛋餅', desc: '手工特製Ｑ彈蛋餅皮，加入特選紅土起司與雙倍起司片，煎至酥脆，起司濃郁牽絲。', price: 'NT$ 55' },
-        item2: { tag: 'HOT SELLER // 活力推薦', title: '卡啦雞腿堡 (辣味)', desc: '酥炸金黃香辣卡啦雞腿排，搭配爽脆生菜與秘製沙拉醬，大口咬下超滿足。', price: 'NT$ 70' },
-        item3: { tag: 'LEGENDARY DRINK // 早餐靈魂', title: '阿寶大杯中冰奶', desc: '網民熱議傳奇奶茶，茶香濃郁，口感滑順，早餐不可或缺的黃金拍檔。', price: 'NT$ 30' },
+        tag: 'BREAKFAST SHOP //',
+        title: '阿寶活力早餐店',
+        subtitle: '碰一下 NFC 感應晶片卡，招牌早餐免排隊秒看型錄。卡啦雞、爆漿蛋餅、大冰奶直達餐桌。',
+        btnText: '不點餐，直接感應綁定 LINE 會員集點',
         successSub: '阿寶阿姨已為您處理！正在引導至滿意度調查，完成即可領取「中冰奶免費升級大杯券」！',
-        guideText: '早餐店高頻感應：在地早餐店用極簡桌邊 NFC 感應卡，客人感應即拿大冰奶升級券。早餐店高頻回購特性搭配簡訊/LINE自動化行銷，讓客人每天早上自動回頭，後台實時追蹤增粉曲線！'
+        guideText: '桌邊感應預點單：傳統早餐店無痛升級，客人免去前台擠著排隊，在座位上感應點餐。金額自動結算，客人前往櫃檯報桌號付款，阿姨即時收到單據開始做餐！',
+        items: [
+          { id: 'item1', tag: 'SIGNATURE GRILLED // 經典必點', title: '招牌爆漿起司蛋餅', desc: '手工特製起司蛋餅皮，煎至酥脆，起司濃意牽絲。', price: 55, img: 'assets/cheese_omelet.png', sizeClass: 'card-large' },
+          { id: 'item2', tag: 'HOT SELLER // 活力推薦', title: '卡啦雞腿堡 (辣味)', desc: '酥炸金黃香辣卡啦雞腿排，搭配爽脆生菜與秘製沙拉醬。', price: 70, img: 'assets/chicken_burger.png', sizeClass: 'card-small' },
+          { id: 'item3', tag: 'LEGENDARY NOODLES // 飽足首選', title: '經典黑胡椒鐵板麵', desc: '鐵板大火熱炒麵條，淋上獨門調製黑胡椒醬，附上金黃太陽蛋。', price: 65, img: 'assets/iron_noodles.png', sizeClass: 'card-small' },
+          { id: 'item4', tag: 'SNACKS // 金黃小點', title: '酥炸金黃雞塊', desc: '外皮金黃酥脆，雞肉鮮嫩多汁，搭配經典番茄醬，大人小孩都愛。', price: 45, img: 'assets/chicken_nuggets.png', sizeClass: 'card-large' },
+          { id: 'item5', tag: 'LEGENDARY DRINK // 早餐靈魂', title: '阿寶大杯中冰奶', desc: '網民熱議傳奇奶茶，茶香濃郁，口感滑順，早餐不可或缺的黃金拍檔。', price: 30, img: 'assets/iced_milk_tea.png', sizeClass: 'card-full' }
+        ]
       }
     };
     
@@ -469,44 +593,126 @@
     document.getElementById('hijack-btn').textContent = config.btnText;
     document.getElementById('demo-guide-text').textContent = config.guideText;
     
-    document.getElementById('item1-tag').textContent = config.item1.tag;
-    document.getElementById('item1-title').textContent = config.item1.title;
-    document.getElementById('item1-desc').textContent = config.item1.desc;
-    document.getElementById('item1-price').textContent = config.item1.price;
+    // Dynamic Bento Card Rendering
+    const bentoContainer = document.getElementById('menu-bento');
+    bentoContainer.innerHTML = '';
     
-    document.getElementById('item2-tag').textContent = config.item2.tag;
-    document.getElementById('item2-title').textContent = config.item2.title;
-    document.getElementById('item2-desc').textContent = config.item2.desc;
-    document.getElementById('item2-price').textContent = config.item2.price;
+    config.items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = `bento-card ${item.sizeClass}`;
+      
+      card.innerHTML = `
+        <div class="card-tag">${item.tag}</div>
+        <div class="card-image-wrapper">
+          <img src="${item.img}" alt="${item.title}" loading="lazy">
+        </div>
+        <h3 class="item-title">${item.title}</h3>
+        <p class="item-desc">${item.desc}</p>
+        <div class="item-price-row">
+          <span class="item-price">NT$ ${item.price}</span>
+          <div class="quantity-selector">
+            <button class="qty-btn" type="button" onclick="changeQty('${item.id}', -1)">-</button>
+            <span class="qty-display" id="${item.id}-qty">0</span>
+            <button class="qty-btn" type="button" onclick="changeQty('${item.id}', 1)">+</button>
+          </div>
+        </div>
+      `;
+      bentoContainer.appendChild(card);
+    });
     
-    document.getElementById('item3-tag').textContent = config.item3.tag;
-    document.getElementById('item3-title').textContent = config.item3.title;
-    document.getElementById('item3-desc').textContent = config.item3.desc;
-    document.getElementById('item3-price').textContent = config.item3.price;
+    // Interactive Shopping Cart Store
+    const cart = {};
+    config.items.forEach(item => {
+      cart[item.id] = 0;
+    });
     
-    // LINE hijack action
+    function changeQty(itemId, delta) {
+      cart[itemId] = Math.max(0, cart[itemId] + delta);
+      document.getElementById(itemId + '-qty').textContent = cart[itemId];
+      updateCartDisplay();
+    }
+    
+    function updateCartDisplay() {
+      const prices = {};
+      const names = {};
+      config.items.forEach(item => {
+        prices[item.id] = item.price;
+        names[item.id] = item.title;
+      });
+      
+      let totalQty = 0;
+      let totalPrice = 0;
+      const selectedItems = [];
+      
+      for (const id in cart) {
+        if (cart[id] > 0) {
+          totalQty += cart[id];
+          totalPrice += cart[id] * prices[id];
+          selectedItems.push({
+            id: id,
+            name: names[id],
+            qty: cart[id],
+            price: prices[id]
+          });
+        }
+      }
+      
+      const cartBar = document.getElementById('floating-cart-bar');
+      const countLabel = document.getElementById('cart-count-label');
+      const totalLabel = document.getElementById('cart-total-price');
+      
+      countLabel.textContent = `已選擇 ${totalQty} 份餐點`;
+      totalLabel.textContent = `NT$ ${totalPrice}`;
+      
+      if (totalQty > 0) {
+        cartBar.classList.add('active');
+      } else {
+        cartBar.classList.remove('active');
+      }
+      
+      // Save temp cart data to local storage for submission bridge
+      const cartPayload = {
+        items: selectedItems,
+        total: totalPrice,
+        qty: totalQty
+      };
+      localStorage.setItem('fltl_active_cart', JSON.stringify(cartPayload));
+    }
+    
+    // Clear old cart on start
+    localStorage.removeItem('fltl_active_cart');
+    
+    // Action handler
     const hijackBtn = document.getElementById('hijack-btn');
+    const cartSubmitBtn = document.getElementById('cart-submit-btn');
     const loaderOverlay = document.getElementById('loader-overlay');
     const loaderText = document.getElementById('loader-text');
     const loaderSubtext = document.getElementById('loader-subtext');
     
-    hijackBtn.addEventListener('click', () => {
+    function triggerOrderSubmission(hasOrder) {
       loaderOverlay.style.display = 'flex';
-      
-      // Save point and active scene trigger
       localStorage.setItem('fltl_line_joined', 'true');
       
       setTimeout(() => {
-        loaderText.textContent = scene === 'expo' ? '大會資訊載入中...' : 'LINE 好友綁定成功！';
-        loaderText.style.color = 'var(--accent-blue)';
-        loaderSubtext.textContent = config.successSub;
+        loaderText.textContent = hasOrder ? '訂單傳送中...' : 'LINE 好友綁定成功！';
+        loaderText.style.color = 'var(--accent-orange)';
+        loaderSubtext.textContent = hasOrder ? '已成功彙整預點單！正在導引至滿意度回饋與禮遇領取畫面...' : config.successSub;
         
         setTimeout(() => {
-          // Redirect to review-gate.html passing the scene param!
           window.location.href = `review-gate.html?scene=${scene}`;
         }, 2500);
-        
-      }, 1500);
+      }, 1200);
+    }
+    
+    hijackBtn.addEventListener('click', () => {
+      // Direct join without ordering
+      localStorage.removeItem('fltl_active_cart');
+      triggerOrderSubmission(false);
+    });
+    
+    cartSubmitBtn.addEventListener('click', () => {
+      // Order submission
+      triggerOrderSubmission(true);
     });
   </script>
 </body>

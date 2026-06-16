@@ -15,19 +15,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
   
   <style>
-    /* Design System - P2P Luxury Blue-Purple visual system */
+    /* Design System - Warm Luxury Amber-Peach dining visual system */
     :root {
-      --accent-blue: #3F8CFF;
-      --accent-purple: #7F56D9;
-      --accent-gradient: linear-gradient(135deg, #3F8CFF 0%, #7F56D9 100%);
+      --accent-blue: #FF7A00; /* Reassigned to brand orange */
+      --accent-purple: #FF4B5C; /* Reassigned to brand peach */
+      --accent-gradient: linear-gradient(135deg, #FF7A00 0%, #FF4B5C 100%);
       --accent-secondary: #FFB800; /* Amber Gold */
       
-      --bg-dark: #07090E;
-      --text-primary: #FFFFFF;
-      --text-secondary: #8E9196;
-      --text-disabled: #4A4D54;
-      --card-bg: rgba(13, 17, 28, 0.7);
-      --card-border: rgba(255, 255, 255, 0.06);
+      --bg-dark: #0C0A09; /* Warm stone charcoal background */
+      --text-primary: #FAFAF9;
+      --text-secondary: #A8A29E;
+      --text-disabled: #57534E;
+      --card-bg: rgba(28, 25, 23, 0.75);
+      --card-border: rgba(255, 255, 255, 0.04);
       
       --font-tech: 'Space Grotesk', sans-serif;
       --font-title: 'Outfit', sans-serif;
@@ -60,7 +60,7 @@
       position: absolute;
       width: 800px;
       height: 800px;
-      background: radial-gradient(circle, rgba(127, 86, 217, 0.03) 0%, rgba(63, 140, 255, 0) 70%);
+      background: radial-gradient(circle, rgba(255, 122, 0, 0.04) 0%, rgba(255, 75, 92, 0) 70%);
       top: -200px;
       left: -200px;
       z-index: 0;
@@ -70,11 +70,65 @@
       position: absolute;
       width: 800px;
       height: 800px;
-      background: radial-gradient(circle, rgba(63, 140, 255, 0.02) 0%, rgba(63, 140, 255, 0) 70%);
+      background: radial-gradient(circle, rgba(255, 75, 92, 0.03) 0%, rgba(255, 122, 0, 0) 70%);
       bottom: -200px;
       right: -200px;
       z-index: 0;
       pointer-events: none;
+    }
+    
+    /* Live Order Monitor Styling */
+    .order-card-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 230px;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    .order-item-card {
+      background: rgba(255, 122, 0, 0.015);
+      border: 1px dashed rgba(255, 122, 0, 0.15);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 0.4s ease-out;
+      transition: all 0.3s;
+    }
+
+    .order-item-card.highlight-flash {
+      background: rgba(255, 122, 0, 0.06);
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 15px rgba(255, 122, 0, 0.25);
+    }
+
+    .order-item-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+    }
+
+    .order-item-table-num {
+      font-family: var(--font-title);
+      font-weight: 700;
+      color: var(--accent-blue);
+    }
+
+    .order-item-price-sum {
+      font-family: var(--font-tech);
+      font-weight: 700;
+      color: var(--accent-secondary);
+    }
+
+    .order-item-details-list {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      line-height: 1.5;
     }
     
     /* Toast Alert Message */
@@ -1012,18 +1066,52 @@
       </div>
     </div>
     
-    <!-- Widget 4: Locked Premium Bento Box (AI analysis) -->
-    <div class="bento-card card-locked">
-          <div class="locked-overlay">
-        <span class="lock-icon">🔒</span>
-        <h3 class="lock-title">AI 客戶語意情緒報告 (AI Sentiment Analysis)</h3>
-        <p class="lock-desc">升級企業旗艦版即可解鎖 OpenAI 大模型即時分析顧客負評語意，提煉關鍵字並自動擬寫主廚補償回覆信。</p>
-        <button type="button" class="lock-btn">升級企業旗艦版解鎖 (UPGRADE TO UNLOCK)</button>
+    <!-- Widget 4: Real-time Table Orders Board -->
+    <div class="bento-card card-locked" style="min-height: 320px;">
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="card-tag blue">LIVE TABLE ORDERS // 即時桌邊點餐監控</div>
+          <h2 class="card-title" style="font-size: 1.15rem;">即時桌邊預點單明細（顧客送單後會亮燈並發出提示音）</h2>
+        </div>
+        <div style="text-align: right;">
+          <span class="table-live-indicator" id="order-indicator" style="background: rgba(255, 122, 0, 0.1); color: var(--accent-blue); border-color: rgba(255, 122, 0, 0.2);">
+            ● MONITORING ACTIVE
+          </span>
+        </div>
       </div>
-      <!-- Blurred content preview -->
-      <div style="filter: blur(8px); opacity: 0.15; user-select: none;">
-        <div style="font-size: 1.8rem; font-weight: bold; color: var(--accent-purple); margin-bottom: 15px;">POSITIVE SENTIMENT: 82%</div>
-        <p>Key concerns: Wait times (12%), Sugar content in soufflé (8%)</p>
+      
+      <!-- Order card list -->
+      <div class="order-card-feed" id="live-orders-feed">
+        <!-- Mock orders showing up on startup -->
+        <div class="order-item-card" id="mock-order-1">
+          <div class="order-item-card-header">
+            <span class="order-item-table-num">桌號 #03 桌邊預點單</span>
+            <span class="order-item-price-sum">NT$ 560</span>
+          </div>
+          <div class="order-item-details-list">
+            • 招牌三寶牛肉麵 x 2<br>
+            • 手作特調古法酸梅湯 x 2
+          </div>
+          <div class="complaint-badge-row">
+            <span class="complaint-time">2026-06-08 12:44</span>
+            <span class="badge-status" style="background: rgba(255, 122, 0, 0.08); color: var(--accent-blue); border-color: rgba(255, 122, 0, 0.15);">等待櫃檯付款</span>
+          </div>
+        </div>
+        
+        <div class="order-item-card" id="mock-order-2">
+          <div class="order-item-card-header">
+            <span class="order-item-table-num">櫃檯感應 #05 點單</span>
+            <span class="order-item-price-sum">NT$ 140</span>
+          </div>
+          <div class="order-item-details-list">
+            • 滿杯水果茶 (L) x 1<br>
+            • 黑糖珍珠鮮奶 (M) x 1
+          </div>
+          <div class="complaint-badge-row">
+            <span class="complaint-time">2026-06-08 11:20</span>
+            <span class="badge-status" style="background: rgba(46, 229, 157, 0.08); color: #2EE59D; border-color: rgba(46, 229, 157, 0.15);">已完成付款 / 出餐中</span>
+          </div>
+        </div>
       </div>
     </div>
     
@@ -1284,10 +1372,45 @@
         });
       }
       
-      // 3. Auto-switch to the scene of the incoming telemetry!
+      // 3. Render Live Order if present in telemetry data
+      if (data.order && data.order.items && data.order.items.length > 0) {
+        const ordersFeed = document.getElementById('live-orders-feed');
+        if (ordersFeed) {
+          const orderCard = document.createElement('div');
+          orderCard.className = 'order-item-card highlight-flash';
+          
+          const randTableNum = Math.floor(Math.random() * 8) + 1;
+          const displayTime = new Date(data.timestamp).toLocaleTimeString('zh-TW', { hour12: false }).substring(0, 5);
+          
+          const itemsMarkup = data.order.items.map(item => `• ${item.name} x ${item.qty}`).join('<br>');
+          
+          orderCard.innerHTML = `
+            <div class="order-item-card-header">
+              <span class="order-item-table-num">桌號 #0${randTableNum} 桌邊預點單</span>
+              <span class="order-item-price-sum">NT$ ${data.order.total}</span>
+            </div>
+            <div class="order-item-details-list">
+              ${itemsMarkup}
+            </div>
+            <div class="complaint-badge-row">
+              <span class="complaint-time">今日 ${displayTime}</span>
+              <span class="badge-status" style="background: rgba(255, 122, 0, 0.08); color: var(--accent-blue); border-color: rgba(255, 122, 0, 0.15);">等待櫃檯付款</span>
+            </div>
+          `;
+          
+          ordersFeed.insertBefore(orderCard, ordersFeed.firstChild);
+          
+          // Remove highlight class after flash duration
+          setTimeout(() => {
+            orderCard.classList.remove('highlight-flash');
+          }, 3000);
+        }
+      }
+      
+      // 4. Auto-switch to the scene of the incoming telemetry!
       switchScene(sceneKey, true);
       
-      // 4. Flash and animate the UI for visual confirmation
+      // 5. Flash and animate the UI for visual confirmation
       liveIndicator.classList.add('flash');
       liveIndicator.innerHTML = '● NEW TELEMETRY DETECTED // 寫入中';
       setTimeout(() => {
@@ -1297,7 +1420,7 @@
       
       // Visual scale animations on counters
       lineCounterEl.style.transform = 'scale(1.1)';
-      lineCounterEl.style.color = '#7F56D9';
+      lineCounterEl.style.color = '#FF4B5C';
       setTimeout(() => {
         lineCounterEl.style.transform = 'scale(1)';
         lineCounterEl.style.color = 'var(--accent-blue)';

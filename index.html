@@ -15,19 +15,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
   
   <style>
-    /* Design System - P2P Luxury Blue-Purple visual system */
+    /* Design System - Warm Luxury Amber-Peach dining visual system */
     :root {
-      --accent-blue: #3F8CFF;
-      --accent-purple: #7F56D9;
+      --accent-orange: #FF7A00;
+      --accent-peach: #FF4B5C;
       --accent-yellow: #FFB800; /* Warm Amber Gold */
-      --accent-gradient: linear-gradient(135deg, #3F8CFF 0%, #7F56D9 100%);
+      --accent-gradient: linear-gradient(135deg, #FF7A00 0%, #FF4B5C 100%);
       
-      --bg-dark: #07090E;
-      --text-primary: #FFFFFF;
-      --text-secondary: #8E9196;
-      --text-disabled: #4A4D54;
-      --card-bg: rgba(13, 17, 28, 0.7);
-      --card-border: rgba(255, 255, 255, 0.06);
+      --bg-dark: #0C0A09; /* Warm stone charcoal background */
+      --text-primary: #FAFAF9;
+      --text-secondary: #A8A29E;
+      --text-disabled: #57534E;
+      --card-bg: rgba(28, 25, 23, 0.75);
+      --card-border: rgba(255, 255, 255, 0.05);
       
       --font-tech: 'Space Grotesk', sans-serif;
       --font-title: 'Outfit', sans-serif;
@@ -43,9 +43,9 @@
     body {
       background-color: var(--bg-dark);
       background-image: 
-        linear-gradient(rgba(63, 140, 255, 0.006) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(63, 140, 255, 0.006) 1px, transparent 1px);
-      background-size: 40px 40px;
+        linear-gradient(rgba(255, 122, 0, 0.005) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 122, 0, 0.005) 1px, transparent 1px);
+      background-size: 50px 50px;
       background-position: center;
       font-family: var(--font-tc);
       color: var(--text-primary);
@@ -53,7 +53,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 60px 20px;
+      padding: 80px 24px;
       overflow-x: hidden;
       position: relative;
     }
@@ -63,7 +63,7 @@
       position: absolute;
       width: 800px;
       height: 800px;
-      background: radial-gradient(circle, rgba(127, 86, 217, 0.035) 0%, rgba(63, 140, 255, 0) 70%);
+      background: radial-gradient(circle, rgba(255, 122, 0, 0.05) 0%, rgba(255, 75, 92, 0) 70%);
       top: -200px;
       left: 50%;
       transform: translateX(-50%);
@@ -74,7 +74,7 @@
       position: absolute;
       width: 700px;
       height: 700px;
-      background: radial-gradient(circle, rgba(63, 140, 255, 0.02) 0%, rgba(63, 140, 255, 0) 70%);
+      background: radial-gradient(circle, rgba(255, 75, 92, 0.03) 0%, rgba(255, 122, 0, 0) 70%);
       bottom: -100px;
       left: 10%;
       z-index: 0;
@@ -91,35 +91,35 @@
     /* Header section */
     .portal-header {
       text-align: center;
-      margin-bottom: 60px;
+      margin-bottom: 70px;
     }
     
     .portal-tag {
       font-family: var(--font-tech);
-      font-size: 0.8rem;
-      letter-spacing: 0.3em;
-      color: var(--accent-blue);
+      font-size: 0.85rem;
+      letter-spacing: 0.25em;
+      color: var(--accent-orange);
       font-weight: 700;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(63, 140, 255, 0.3);
+      text-shadow: 0 0 10px rgba(255, 122, 0, 0.3);
     }
     
     .portal-title {
       font-family: var(--font-title), var(--font-tc);
-      font-size: 2.6rem;
+      font-size: 2.8rem;
       font-weight: 800;
       letter-spacing: 1px;
       line-height: 1.3;
-      margin-bottom: 18px;
+      margin-bottom: 24px;
     }
     
     .portal-subtitle {
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       color: var(--text-secondary);
-      max-width: 720px;
+      max-width: 800px;
       margin: 0 auto;
-      line-height: 1.7;
+      line-height: 1.8;
       font-weight: 300;
     }
     
@@ -127,8 +127,8 @@
     .scenario-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      margin-bottom: 50px;
+      gap: 35px;
+      margin-bottom: 60px;
     }
     
     .scenario-card {
@@ -137,7 +137,7 @@
       border-radius: 28px;
       backdrop-filter: blur(25px);
       -webkit-backdrop-filter: blur(25px);
-      padding: 40px 30px;
+      padding: 45px 35px;
       display: flex;
       flex-direction: column;
       box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
@@ -158,29 +158,29 @@
     }
     
     .scenario-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 25px 55px rgba(0, 0, 0, 0.7);
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.65), 0 0 20px rgba(255, 122, 0, 0.05);
     }
     
     /* Color tags for cards */
-    .bistro-card:hover { border-color: rgba(255, 184, 0, 0.2); }
-    .bistro-card:hover::before { background: var(--accent-yellow); }
-    .hotel-card:hover { border-color: rgba(127, 86, 217, 0.25); }
-    .hotel-card:hover::before { background: var(--accent-purple); }
-    .expo-card:hover { border-color: rgba(63, 140, 255, 0.25); }
-    .expo-card:hover::before { background: var(--accent-blue); }
+    .bistro-card:hover { border-color: rgba(255, 122, 0, 0.25); }
+    .bistro-card:hover::before { background: var(--accent-orange); }
+    .hotel-card:hover { border-color: rgba(255, 75, 92, 0.25); }
+    .hotel-card:hover::before { background: var(--accent-peach); }
+    .expo-card:hover { border-color: rgba(255, 184, 0, 0.25); }
+    .expo-card:hover::before { background: var(--accent-yellow); }
     
     .card-icon-wrapper {
-      font-size: 3rem;
-      margin-bottom: 25px;
+      font-size: 3.2rem;
+      margin-bottom: 30px;
       display: inline-block;
     }
     
     .card-scene-title {
       font-family: var(--font-title), var(--font-tc);
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -191,16 +191,16 @@
       font-size: 0.75rem;
       letter-spacing: 0.1em;
       color: var(--text-disabled);
-      margin-bottom: 15px;
+      margin-bottom: 18px;
       text-transform: uppercase;
     }
     
     .card-desc {
-      font-size: 0.88rem;
-      line-height: 1.7;
+      font-size: 0.92rem;
+      line-height: 1.8;
       color: var(--text-secondary);
       font-weight: 300;
-      margin-bottom: 35px;
+      margin-bottom: 40px;
       flex-grow: 1;
     }
     
@@ -208,7 +208,7 @@
     .cta-group {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
       margin-top: auto;
     }
     
@@ -218,13 +218,13 @@
       color: var(--text-primary);
       border: none;
       border-radius: 50px;
-      padding: 16px;
+      padding: 18px;
       font-family: var(--font-tech), var(--font-tc);
       font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      box-shadow: 0 6px 20px rgba(127, 86, 217, 0.3);
+      box-shadow: 0 6px 20px rgba(255, 122, 0, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -232,8 +232,8 @@
     }
     
     .btn-primary-launch:hover {
-      box-shadow: 0 10px 30px rgba(63, 140, 255, 0.45);
-      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(255, 75, 92, 0.4);
+      transform: translateY(-2px);
     }
     
     .btn-secondary-link {
@@ -242,21 +242,13 @@
       border: 1px solid var(--card-border);
       color: var(--text-primary);
       border-radius: 50px;
-      padding: 12px;
+      padding: 14px;
       font-family: var(--font-tc);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.3s;
-      text-decoration: none;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    
-    .btn-secondary-link:hover {
+      text-decoration: none    .btn-secondary-link:hover {
       background: rgba(255, 255, 255, 0.05);
       border-color: rgba(255, 255, 255, 0.15);
     }
@@ -266,7 +258,7 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      margin-top: 20px;
+      margin-top: 30px;
     }
     
     .enterprise-btn {
@@ -285,14 +277,14 @@
     }
     
     .enterprise-btn:hover {
-      border-color: var(--accent-purple);
+      border-color: var(--accent-orange);
       color: var(--text-primary);
-      box-shadow: 0 0 20px rgba(127, 86, 217, 0.15);
+      box-shadow: 0 0 20px rgba(255, 122, 0, 0.15);
       transform: translateY(-2px);
     }
     
     .enterprise-btn .arrow {
-      color: var(--accent-purple);
+      color: var(--accent-orange);
       transition: transform 0.3s;
     }
     
@@ -303,9 +295,9 @@
     /* Footer */
     .footer {
       text-align: center;
-      margin-top: 60px;
+      margin-top: 70px;
       font-family: var(--font-tech);
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       color: var(--text-disabled);
       letter-spacing: 0.1em;
     }
@@ -322,18 +314,29 @@
   </style>
 </head>
 <body>
-  <!-- F    <!-- Portal Header -->
+  <!-- Floating background glow auras -->
+  <div class="bg-glow-top"></div>
+  <div class="bg-glow-bottom"></div>
+  
+  <div class="container">
+    <!-- Portal Header -->
     <header class="portal-header">
-      <div class="portal-tag">FLTL B2B SUITE // 店家實境點火測試中樞</div>
-      <h1 class="portal-title">【生活線條 B2B 店家實境點火測試中樞】</h1>
-      <p class="portal-subtitle" style="font-size: 1.25rem; font-weight: 800; color: var(--accent-blue); margin-bottom: 15px; text-shadow: 0 0 10px rgba(63, 140, 255, 0.25);">
+      <div class="portal-tag">FLTL B2B SOLUTIONS // 實體空間體驗與數據中樞</div>
+      <h1 class="portal-title">生活線條 B2B 商業空間體驗中心</h1>
+      
+      <p class="portal-subtitle" style="font-size: 1.35rem; font-weight: 800; color: var(--accent-orange); margin-bottom: 20px; text-shadow: 0 0 15px rgba(255, 122, 0, 0.2);">
         📢 「讓你的 LINE 官方帳號會員綁定率暴增 3 倍的實體感應神器」
       </p>
-      <p class="portal-subtitle" style="font-size: 1.1rem; max-width: 850px; color: var(--accent-yellow); font-weight: bold; margin-bottom: 25px; text-shadow: 0 0 10px rgba(255, 184, 0, 0.25);">
-        我們用實體 NFC 感應板幫店家做三件事：1. 讓客人碰一下桌子就秒加你的 LINE、2. 用送小菜跟客人換電話建立數據金庫、3. 偷偷攔截奧客的抱怨，絕不讓負評出現在 Google 上！
+      
+      <p class="portal-subtitle" style="font-size: 1.05rem; max-width: 850px; color: var(--text-primary); font-weight: 400; margin-bottom: 25px; line-height: 1.8;">
+        我們以極致工藝的實體 NFC 感應板為核心，協助線下品牌實現：<br>
+        <span style="color: var(--accent-yellow); font-weight: 600;">1. 桌面預點餐與櫃檯付款導引</span> ── 顧客碰一下秒看奢華電子菜單。<br>
+        <span style="color: var(--accent-yellow); font-weight: 600;">2. 流量與集點秒速綁定</span> ── 無感加好友，獲取精準 CRM 名單。<br>
+        <span style="color: var(--accent-yellow); font-weight: 600;">3. 智慧口碑防禦</span> ── 5星好評引流 Google，1-3星客訴內部截流！
       </p>
-      <p class="portal-subtitle">
-        保留高階 SVG 折線圖、波動分析等專業技術名詞以展現技術底牌。點擊下方真實餐飲店家場景，即可一鍵開啟「雙視窗端到端聯動測試」，親自體驗實體空間 NFC 觸發與後台數據暴增成效。
+      
+      <p class="portal-subtitle" style="font-size: 0.9rem; color: var(--text-disabled);">
+        請選擇下方線下門店場景，即可一鍵開啟「前台顧客點餐 ＆ 後台數據監控」雙視窗聯動體驗，親身感受無阻力數位化成效。
       </p>
     </header>
     
@@ -343,20 +346,20 @@
       <!-- Scenario A: Bistro -> 老張牛肉麵 -->
       <div class="scenario-card bistro-card">
         <span class="card-icon-wrapper">🍜</span>
-        <div class="card-scene-subtitle">BEEF NOODLE RESTAURANT SCENARIO //</div>
+        <div class="card-scene-subtitle">BEEF NOODLE RESTAURANT //</div>
         <h2 class="card-scene-title">傳統小吃 ── 老張牛肉麵</h2>
         <p class="card-desc">
-          點此體驗牛肉麵小吃店如何透過桌邊 NFC 貼紙秒吸 LINE 好友、綁定集點，並在完成餐點滿意度調研時，以「小菜招待券」做為誘餌，導引滿分五星前往 Google 商家，同時偷偷在內部攔截 1-3 星負評，死守店面品牌形象！
+          體驗牛肉麵店如何透過桌邊 NFC 貼紙，讓客人碰一下桌面秒速載入奢華電子菜單預點餐，同時綁定 LINE 集點。提交點單時以「免費招待小菜」誘引顧客留下資料，並分流好評、攔截客訴！
         </p>
         <div class="cta-group">
           <button type="button" class="btn-primary-launch" onclick="launchDemo('bistro')">
-            【進入點火測試：老張牛肉麵（小吃店劇本）】 ⚡
+            【開啟顧客預點餐與老張數據後台】 ⚡
           </button>
           <a href="menu-hub.html?scene=bistro" class="btn-secondary-link" target="_blank">
-            單獨進入：顧客感應桌牌 (前台) 📱
+            單獨體驗：顧客桌邊感應與預點單 (前台) 📱
           </a>
           <a href="b2b-admin-staging.html?scene=bistro" class="btn-secondary-link" target="_blank">
-            單獨進入：老張數據後台 (後台) 📊
+            單獨體驗：老張數據監控面板 (後台) 📊
           </a>
         </div>
       </div>
@@ -364,20 +367,20 @@
       <!-- Scenario B: Hotel -> 鮮果茶飲 -->
       <div class="scenario-card hotel-card">
         <span class="card-icon-wrapper">🥤</span>
-        <div class="card-scene-subtitle">BUBBLE TEA CHAIN SCENARIO //</div>
+        <div class="card-scene-subtitle">BUBBLE TEA CHAIN //</div>
         <h2 class="card-scene-title">連鎖茶飲 ── 鮮果茶飲</h2>
         <p class="card-desc">
-          體驗快節奏飲料店如何在櫃檯放置 NFC 感應板，讓排隊點餐的客人碰一下瞬間寫入 LINE 集點帳戶並折價 5 元！無感獲取顧客手機號碼，並利用「次回折價券」吸引回購，為加盟總部拉高熟客終身價值（LTV）。
+          體驗飲料店如何在結帳櫃檯設置 NFC 感應板。排隊點餐的客人輕碰手機即可自動增粉集點、折價 5 元並載入菜單。快速蒐集熟客名單與電子信箱，大幅提高加盟店的熟客回購率！
         </p>
         <div class="cta-group">
           <button type="button" class="btn-primary-launch" onclick="launchDemo('hotel')">
-            【進入點火測試：鮮果茶飲店（飲料店劇本）】 ⚡
+            【開啟櫃檯感應與茶飲數據後台】 ⚡
           </button>
           <a href="menu-hub.html?scene=hotel" class="btn-secondary-link" target="_blank">
-            單獨進入：顧客櫃檯感應 (前台) 📱
+            單獨體驗：顧客櫃檯感應與預點單 (前台) 📱
           </a>
           <a href="b2b-admin-staging.html?scene=hotel" class="btn-secondary-link" target="_blank">
-            單獨進入：鮮果茶飲後台 (後台) 📊
+            單獨體驗：鮮果茶飲數據監控面板 (後台) 📊
           </a>
         </div>
       </div>
@@ -385,10 +388,54 @@
       <!-- Scenario C: Expo -> 阿寶活力早餐 -->
       <div class="scenario-card expo-card">
         <span class="card-icon-wrapper">🍞</span>
-        <div class="card-scene-subtitle">BREAKFAST SHOP SCENARIO //</div>
+        <div class="card-scene-subtitle">BREAKFAST SHOP //</div>
         <h2 class="card-scene-title">傳統早餐 ── 阿寶活力早餐</h2>
         <p class="card-desc">
-          體驗在地傳統早餐店如何用極簡成本，讓客人感應菜單即獲得「中冰奶免費升級大冰奶券」。早餐店高頻回購特性搭配簡訊/LINE自動化行銷，讓客人每天早上自動回頭找阿寶阿姨，後台實時追蹤增粉曲線！
+          體驗傳統早餐店如何用極簡成本，讓客人在座位上感應 NFC 菜單預點餐，並以「大冰奶升級券」作為誘餌，自動收錄熟客聯絡名冊，利用自動化回客行銷，讓客人每天早上自動回頭！
+        </p>
+        <div class="cta-group">
+          <button type="button" class="btn-primary-launch" onclick="launchDemo('expo')">
+            【開啟桌邊感應與早餐數據後台】 ⚡
+          </button>
+          <a href="menu-hub.html?scene=expo" class="btn-secondary-link" target="_blank">
+            單獨體驗：顧客桌邊感應與預點單 (前台) 📱
+          </a>
+          <a href="b2b-admin-staging.html?scene=expo" class="btn-secondary-link" target="_blank">
+            單獨體驗：阿寶早餐數據監控面板 (後台) 📊
+          </a>
+        </div>
+      </div>     
+      
+    </div>
+    
+    <!-- Enterprise Landing Portal link -->
+    <div class="enterprise-portal-section">
+      <a href="enterprise-landing.html" class="enterprise-btn">
+        <span>探索 FLTL NFC 實體空間感應器商業閉環介紹 (Enterprise Landing)</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+      FROM LIFE TO LINES © 2026 // ALL RIGHTS RESERVED
+    </footer>
+    
+  </div>
+
+  <script>
+    function launchDemo(scene) {
+      // Open the Admin Dashboard in a new window
+      window.open(`b2b-admin-staging.html?scene=${scene}`, '_blank');
+      
+      // Delay opening client portal slightly to give user time to position or allow popups
+      setTimeout(() => {
+        window.open(`menu-hub.html?scene=${scene}`, '_blank');
+      }, 300);
+    }
+  </script>
+</body>
+</html>��粉曲線！
         </p>
         <div class="cta-group">
           <button type="button" class="btn-primary-launch" onclick="launchDemo('expo')">
