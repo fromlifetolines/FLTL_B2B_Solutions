@@ -1113,6 +1113,26 @@ Waiting for user submission.</div>
     const consoleLog = document.getElementById('console-log');
     const chevronIcon = document.getElementById('chevron-icon');
     
+    // Auto-login/bypass for returning customers who have previously registered
+    const cachedProfileObj = localStorage.getItem('fltl_customer_profile');
+    if (cachedProfileObj) {
+      try {
+        const profile = JSON.parse(cachedProfileObj);
+        if (profile.phone && profile.email) {
+          phoneInput.value = profile.phone;
+          emailInput.value = profile.email;
+          leadData.phone = profile.phone;
+          leadData.email = profile.email;
+          
+          cardContainer.classList.add('flipped');
+          document.getElementById('back-subtitle').innerHTML = `歡迎回來，老顧客（${profile.phone}）！您本次的消費體驗如何？您的回饋將協助我們提供更好的服務。`;
+          document.getElementById('demo-guide-text').innerHTML = config.guideText2;
+        }
+      } catch (err) {
+        console.error("Error parsing cached customer profile:", err);
+      }
+    }
+    
     // Debug Hub Logger
     function updateDebugConsole(message, isPayload = false, n8nFlowJson = '') {
       const timestamp = new Date().toLocaleTimeString();
@@ -1182,6 +1202,12 @@ Waiting for user submission.</div>
       
       leadData.phone = phoneInput.value.trim();
       leadData.email = emailInput.value.trim();
+      
+      // Save customer profile to avoid forcing input on subsequent visits
+      localStorage.setItem('fltl_customer_profile', JSON.stringify({
+        phone: leadData.phone,
+        email: leadData.email
+      }));
       
       updateDebugConsole(`Step 1 Complete: Captured Phone = ${leadData.phone}, Email = ${leadData.email}. Initiating 3D flip...`);
       cardContainer.classList.add('flipped');
